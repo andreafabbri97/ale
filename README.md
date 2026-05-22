@@ -145,11 +145,27 @@ direttamente a quel collaboratore.
 - `.env.local` è gitignored. **Non committare mai** la `service_role` key
 - La `service_role` key bypassa RLS — usata solo nei Server Actions (lato server, non esposta al browser)
 
-### Promozione primo admin
-Dopo la prima signup di un utente, esegui questa query in Supabase SQL Editor:
-```sql
-update public.collaborators set is_admin = true where email = 'tuoemail@example.com';
-```
+### Creare il primo admin
+
+Per usare il pannello `/admin` serve almeno un utente registrato e marcato come admin.
+La signup pubblica non è (volutamente) esposta, quindi il primo utente lo crei via dashboard Supabase:
+
+1. Vai su <https://supabase.com/dashboard/project/fylljpfijhwiwapibpwd/auth/users>
+2. Click **"Add user"** → **"Create new user"**
+3. Inserisci email + password (anche temporanea — la cambierete poi)
+4. ✅ Spunta **"Auto Confirm User"** (così non serve conferma email)
+5. **Create user**
+6. Vai su **SQL Editor** ed esegui:
+   ```sql
+   update public.collaborators
+   set is_admin = true
+   where email = 'tuaemail@example.com';
+   ```
+   (Il trigger `handle_new_user` ha già creato in automatico la riga in `collaborators` con `is_admin=false`.)
+7. Vai su `https://<sito>/admin/login` → login con email + password
+8. ✅ Sei dentro la dashboard
+
+Per aggiungere altri utenti (collaboratori senza permessi admin), basta ripetere il punto 2-5 — saranno `is_admin=false` di default e vedranno solo i lead a loro assegnati (Phase 4 attiverà il link affiliate per assegnazione automatica).
 
 ---
 

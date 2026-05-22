@@ -1,0 +1,241 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { LeadStatusBadge, LeadSourceBadge } from "@/components/admin/badges";
+import type { Lead } from "@/lib/supabase/types";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  robots: { index: false, follow: false },
+};
+
+interface StatBucket {
+  total: number;
+  last30d: number;
+  last7d: number;
+}
+
+function emptyBucket(): StatBucket {
+  return { total: 0, last30d: 0, last7d: 0 };
+}
+
+interface DashboardData {
+  total: StatBucket;
+  cliente: StatBucket;
+  networker: StatBucket;
+  byStatus: Record<string, number>;
+  latest: Lead[];
+}
+
+async function fetchDashboardData(): Promise<DashboardData> {
+  const supabase = await createClient();
+  const { data: leads, error } = await supabase
+    .from("leads")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error || !leads) {
+    return {
+      total: emptyBucket(),
+      cliente: emptyBucket(),
+      networker: emptyBucket(),
+      byStatus: {},
+      latest: [],
+    };
+  }
+
+  const now = Date.now();
+  const D30 = 30 * 24 * 60 * 60 * 1000;
+  const D7 = 7 * 24 * 60 * 60 * 1000;
+
+  const data: DashboardData = {
+    total: emptyBucket(),
+    cliente: emptyBucket(),
+    networker: emptyBucket(),
+    byStatus: {},
+    latest: leads.slice(0, 10) as Lead[],
+  };
+
+  for (const lead of leads as Lead[]) {
+    const ts = new Date(lead.created_at).getTime();
+    const isLast30d = now - ts <= D30;
+    const isLast7d = now - ts <= D7;
+
+    data.total.total += 1;
+    if (isLast30d) data.total.last30d += 1;
+    if (isLast7d) data.total.last7d += 1;
+
+    const bucket = lead.source === "cliente" ? data.cliente : data.networker;
+    bucket.total += 1;
+    if (isLast30d) bucket.last30d += 1;
+    if (isLast7d) bucket.last7d += 1;
+
+    data.byStatus[lead.status] = (data.byStatus[lead.status] ?? 0) + 1;
+  }
+
+  return data;
+}
+
+function StatCard({
+  label,
+  value,
+  sub,
+  accent,
+}: {
+  label: string;
+  value: number | string;
+  sub?: string;
+  accent?: boolean;
+}) {
+  return (
+    <div className={`card ${accent ? "border-[var(--color-accent)]/40" : ""}`}>
+      <div className="text-xs uppercase tracking-widest text-[var(--color-text-faint)] mb-2">
+        {label}
+      </div>
+      <div className="text-4xl font-extrabold tracking-tight">{value}</div>
+      {sub && <div className="text-xs text-[var(--color-text-dim)] mt-1">{sub}</div>}
+    </div>
+  );
+}
+
+function formatDate(iso: string): string {
+  return new Date(iso).toLocaleString("it-IT", {
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+export default async function DashboardPage() {
+  const data = await fetchDashboardData();
+
+  const statusOrder = [
+    "new",
+    "contattato",
+    "call_prenotata",
+    "call_fatta",
+    "offerta_inviata",
+    "won",
+    "lost",
+  ] as const;
+
+  return (
+    <>
+      <header className="mb-8">
+        <p className="eyebrow mb-2">Pannello amministrazione</p>
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">Dashboard</h1>
+        <p className="text-[var(--color-text-dim)] mt-2">
+          Una panoramica sui lead generati dal sito.
+        </p>
+      </header>
+
+      {/* Stats */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <StatCard
+          label="Totale lead"
+          value={data.total.total}
+          sub={`${data.total.last7d} negli ultimi 7gg · ${data.total.last30d} ultimi 30gg`}
+          accent
+        />
+        <StatCard
+          label="Lead clienti (B2C)"
+          value={data.cliente.total}
+          sub={`${data.cliente.last7d} negli ultimi 7gg`}
+        />
+        <StatCard
+          label="Lead networker"
+          value={data.networker.total}
+          sub={`${data.networker.last7d} negli ultimi 7gg`}
+        />
+        <StatCard
+          label="Won (conversioni)"
+          value={data.byStatus["won"] ?? 0}
+          sub={
+            data.total.total
+              ? `Conversion rate: ${(((data.byStatus["won"] ?? 0) / data.total.total) * 100).toFixed(1)}%`
+              : "—"
+          }
+        />
+      </section>
+
+      {/* Status pipeline */}
+      <section className="mb-10">
+        <h2 className="text-xl font-bold mb-4">Pipeline per stato</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+          {statusOrder.map((status) => (
+            <div key={status} className="card text-center py-4">
+              <div className="text-2xl font-extrabold">{data.byStatus[status] ?? 0}</div>
+              <div className="mt-2">
+                <LeadStatusBadge status={status} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Latest leads */}
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold">Ultimi 10 lead</h2>
+          <Link
+            href="/admin/leads"
+            className="text-sm text-[var(--color-accent)] hover:underline"
+          >
+            Vedi tutti →
+          </Link>
+        </div>
+
+        {data.latest.length === 0 ? (
+          <div className="card text-center py-16">
+            <p className="text-[var(--color-text-dim)]">
+              Nessun lead ancora. Quando arriverà un submit dai form pubblici,
+              <br />
+              lo vedrai qui in tempo reale.
+            </p>
+          </div>
+        ) : (
+          <div className="card overflow-x-auto p-0">
+            <table className="w-full text-sm">
+              <thead className="bg-white/5 text-xs uppercase tracking-widest text-[var(--color-text-faint)]">
+                <tr>
+                  <th className="text-left p-3">Data</th>
+                  <th className="text-left p-3">Nome</th>
+                  <th className="text-left p-3">Email</th>
+                  <th className="text-left p-3">Source</th>
+                  <th className="text-left p-3">Stato</th>
+                  <th className="p-3" />
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[var(--color-border)]">
+                {data.latest.map((lead) => (
+                  <tr key={lead.id} className="hover:bg-white/3 transition">
+                    <td className="p-3 whitespace-nowrap text-[var(--color-text-faint)]">
+                      {formatDate(lead.created_at)}
+                    </td>
+                    <td className="p-3 font-semibold">{lead.full_name}</td>
+                    <td className="p-3 text-[var(--color-text-dim)]">{lead.email}</td>
+                    <td className="p-3">
+                      <LeadSourceBadge source={lead.source} />
+                    </td>
+                    <td className="p-3">
+                      <LeadStatusBadge status={lead.status} />
+                    </td>
+                    <td className="p-3 text-right">
+                      <Link
+                        href={`/admin/leads/${lead.id}`}
+                        className="text-[var(--color-accent)] hover:underline text-xs"
+                      >
+                        Apri →
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+    </>
+  );
+}

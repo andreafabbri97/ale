@@ -143,8 +143,7 @@ export async function submitLead(formData: FormData): Promise<SubmitResult> {
   try {
     const supabase = createAdminClient();
     const payload: LeadInsert = { ...baseInsert, ...sourceSpecific };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error } = await supabase.from("leads").insert(payload as any);
+    const { error } = await supabase.from("leads").insert(payload);
 
     if (error) {
       console.error("Lead insert failed:", error);

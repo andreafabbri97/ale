@@ -182,18 +182,21 @@ export interface Database {
         Insert: Partial<Lead> &
           Pick<Lead, "source" | "full_name" | "email" | "phone">;
         Update: Partial<Lead>;
+        Relationships: [];
       };
       collaborators: {
         Row: Collaborator;
         Insert: Partial<Collaborator> &
           Pick<Collaborator, "id" | "email" | "full_name" | "ref_code">;
         Update: Partial<Collaborator>;
+        Relationships: [];
       };
       interactions: {
         Row: Interaction;
         Insert: Partial<Interaction> &
           Pick<Interaction, "lead_id" | "collaborator_id" | "type">;
         Update: Partial<Interaction>;
+        Relationships: [];
       };
       sales: {
         Row: Sale;
@@ -207,18 +210,37 @@ export interface Database {
             | "customer_email"
           >;
         Update: Partial<Sale>;
+        Relationships: [];
       };
       ranks: {
         Row: Rank;
         Insert: Rank;
         Update: Partial<Rank>;
+        Relationships: [];
       };
     };
     Views: {
-      lead_stats: { Row: LeadStats };
+      lead_stats: {
+        Row: LeadStats;
+        Relationships: [];
+      };
     };
     Functions: {
       is_admin: { Args: Record<string, never>; Returns: boolean };
     };
+    Enums: {
+      lead_source: LeadSource;
+      lead_status: LeadStatus;
+      lost_reason: LostReason;
+      interest_b2c: InterestB2C;
+      esperienza_nm: EsperienzaNm;
+      tempo_settimanale: TempoSettimanale;
+      dimensione_rete: DimensioneRete;
+      lead_score: LeadScore;
+      package_type: PackageType;
+      rank_level: RankLevel;
+      interaction_type: InteractionType;
+    };
+    CompositeTypes: Record<string, never>;
   };
 }
