@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#05080F" />
+  <title>Grazie! · NOA × One Tribe</title>
+  <meta name="description" content="Iscrizione completata. Ti contattiamo presto." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__brand">
+        <span class="nav__brand-mark">N</span>
+        <span>NOA <span class="text-faint">×</span> One Tribe</span>
+      </a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container text-center" style="max-width: 720px; margin: 0 auto;">
+      <div class="fade-up" style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+      <h1 class="fade-up fade-up--delay-1">
+        Grazie, <span class="accent">ci sei</span>.
+      </h1>
+      <p class="lead fade-up fade-up--delay-2 mt-md">
+        La tua iscrizione è stata ricevuta correttamente.<br/>
+        Tra pochi minuti riceverai la prima email — controlla anche la cartella spam.
+      </p>
+
+      <div class="card mt-lg fade-up fade-up--delay-3" style="text-align: left; max-width: 580px; margin: 3rem auto 0;">
+        <h3>Cosa succede ora</h3>
+        <ul class="plan__features mt-md">
+          <li><strong>Subito</strong>: ti arriva una email con la guida (o il video pitch)</li>
+          <li><strong>Entro 24–48h</strong>: ti contattiamo via WhatsApp o telefono</li>
+          <li><strong>Ti proponiamo</strong>: una call gratuita di 30 minuti</li>
+          <li><strong>Niente pressioni</strong>: decidi tu se andare avanti</li>
+        </ul>
+      </div>
+
+      <div class="mt-lg fade-up fade-up--delay-3">
+        <h3 style="font-size: var(--fs-xl);">Vuoi anticipare? Prenota subito una call.</h3>
+        <p class="muted mt-sm">Sotto trovi il calendario. Scegli lo slot che preferisci.</p>
+
+        <!-- CAL.COM EMBED PLACEHOLDER -->
+        <div class="card mt-md" style="background: var(--bg-2); padding: 3rem 1rem;">
+          <p class="muted">📅 Calendario Cal.com qui</p>
+          <p class="muted mt-sm" style="font-size: var(--fs-sm);">
+            Per attivarlo: vai su <a href="https://cal.com" target="_blank" class="accent">cal.com</a>,
+            crea un evento "Call NOA 30 min", copia l'embed code e incollalo qui.
+          </p>
+        </div>
+
+        <p class="mt-lg">
+          <a href="https://wa.me/393000000000?text=Ciao,%20mi%20sono%20appena%20iscritto%20su%20NOA" class="btn btn--primary">
+            Scrivici subito su WhatsApp →
+          </a>
+        </p>
+      </div>
+
+      <p class="muted mt-lg" style="margin-top: 4rem;">
+        <a href="index.html" style="color: var(--text-dim); text-decoration: underline;">← Torna alla home</a>
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container text-center">
+      <p class="muted">© <span id="year"></span> · NOA × One Tribe — Collaboratore indipendente</p>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#05080F" />
+  <title>Scopri NOA · Educazione finanziaria che funziona</title>
+  <meta name="description" content="Ricevi la guida gratuita 'I 7 errori finanziari che fanno gli italiani' e scopri come iniziare a costruire la tua libertà finanziaria con NOA." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__brand">
+        <span class="nav__brand-mark">N</span>
+        <span>NOA <span class="text-faint">×</span> One Tribe</span>
+      </a>
+      <nav class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="#piani">Piani</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a href="#form-lead" class="btn btn--primary nav__cta">Inizia ora →</a>
+    </div>
+  </header>
+
+  <!-- HERO + FORM -->
+  <section class="hero">
+    <div class="container">
+      <div class="grid grid-2" style="align-items: center; gap: 3rem;">
+        <!-- Left: copy -->
+        <div data-reveal>
+          <p class="eyebrow">Educazione finanziaria · Trading · Investimenti</p>
+          <h1>Stop a "lavora, guadagna, paga, ricomincia".</h1>
+          <p class="lead mt-md">
+            Scarica subito la guida gratuita <strong>"I 7 errori finanziari che fanno gli italiani"</strong>
+            e scopri come iniziare a costruire la tua libertà finanziaria con NOA.
+          </p>
+          <ul class="plan__features mt-lg" style="margin-bottom: 0;">
+            <li>Cosa cambia tra "debiti buoni" e "debiti cattivi"</li>
+            <li>L'errore #1 che fa erodere i tuoi risparmi ogni anno</li>
+            <li>Come funziona l'interesse composto (con esempi reali)</li>
+            <li>I 4 quadranti del cashflow di Kiyosaki</li>
+          </ul>
+        </div>
+
+        <!-- Right: form -->
+        <div id="form-lead" data-reveal>
+          <form
+            class="form"
+            data-lead-form
+            action="https://formspree.io/f/YOUR_FORMSPREE_ID"
+            method="POST"
+          >
+            <h3 style="margin-bottom: 0.5rem;">Ricevi la guida gratuita</h3>
+            <p class="muted mb-md">Te la mando per email in 30 secondi.</p>
+
+            <input type="hidden" name="_subject" value="Nuovo lead da /scopri" />
+            <input type="hidden" name="form_type" value="LEAD_CLIENTE" />
+            <input type="hidden" name="utm_source" value="" />
+            <input type="hidden" name="utm_medium" value="" />
+            <input type="hidden" name="utm_campaign" value="" />
+            <input type="hidden" name="ref" value="" />
+
+            <div class="form__group">
+              <label class="form__label" for="nome">Nome <span class="req">*</span></label>
+              <input class="form__input" id="nome" name="nome" type="text" required autocomplete="given-name" />
+            </div>
+
+            <div class="form__group">
+              <label class="form__label" for="email">Email <span class="req">*</span></label>
+              <input class="form__input" id="email" name="email" type="email" required autocomplete="email" />
+            </div>
+
+            <div class="form__group">
+              <label class="form__label" for="tel">Telefono / WhatsApp <span class="req">*</span></label>
+              <input class="form__input" id="tel" name="telefono" type="tel" required autocomplete="tel" placeholder="+39 ..." />
+            </div>
+
+            <div class="form__group">
+              <label class="form__label">Cosa ti interessa di più?</label>
+              <div class="form__radios">
+                <label class="form__radio">
+                  <input type="radio" name="interesse" value="iniziare_zero" />
+                  <span>Iniziare da zero</span>
+                </label>
+                <label class="form__radio">
+                  <input type="radio" name="interesse" value="investire_risparmi" />
+                  <span>Investire i miei risparmi</span>
+                </label>
+                <label class="form__radio">
+                  <input type="radio" name="interesse" value="trading_attivo" />
+                  <span>Imparare a fare trading</span>
+                </label>
+                <label class="form__radio">
+                  <input type="radio" name="interesse" value="ai_pro" />
+                  <span>Strumenti AI per trader esperti</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form__group">
+              <label class="form__checkbox">
+                <input type="checkbox" name="privacy" required />
+                <span>Accetto la <a href="privacy.html" target="_blank" class="accent">privacy policy</a> *</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--block btn--lg">
+              Ricevi la guida gratis →
+            </button>
+
+            <p class="form__trust">🔒 I tuoi dati sono al sicuro. Niente spam, mai.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAT PROBLEMA -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title" data-reveal>
+        <p class="eyebrow">Lo dicono i numeri</p>
+        <h2>Il tuo potere d'acquisto sta <span class="accent">scendendo</span>.</h2>
+      </div>
+      <div class="grid grid-3" data-reveal>
+        <div class="stat card">
+          <div class="stat__num stat__num--danger">-3%</div>
+          <p class="stat__label">Salari reali in Italia dal 1990 al 2020 (vs +34% Germania)</p>
+        </div>
+        <div class="stat card">
+          <div class="stat__num stat__num--danger">+24%</div>
+          <p class="stat__label">Spesa al supermercato dal 2021</p>
+        </div>
+        <div class="stat card">
+          <div class="stat__num stat__num--danger">+34%</div>
+          <p class="stat__label">Bollette di energia e gas</p>
+        </div>
+      </div>
+      <p class="lead text-center mt-lg" data-reveal>
+        Lasciare i soldi sul conto = <span class="accent">perdere soldi</span>.
+      </p>
+    </div>
+  </section>
+
+  <!-- INTERESSE COMPOSTO -->
+  <section class="section" style="background: var(--bg-2);">
+    <div class="container">
+      <div class="section-title" data-reveal>
+        <p class="eyebrow">L'ottava meraviglia del mondo</p>
+        <h2>Cosa succede se investi <span class="accent">50€/mese</span> per 30 anni?</h2>
+      </div>
+      <div class="text-center" data-reveal>
+        <div class="stat__num" style="font-size: clamp(4rem, 12vw, 8rem);">€247.619</div>
+        <p class="lead">
+          Versato totale: <strong>€24.000</strong> · Interessi maturati: <strong class="accent">€223.619</strong>
+        </p>
+        <p class="muted mt-md" style="max-width: 600px; margin: 1rem auto 0;">
+          Esempio educativo con rendimento ipotetico del 20%. Il rendimento medio dell'S&P 500 negli ultimi 22 anni è ~9% annuo. Le performance passate non garantiscono risultati futuri.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COSA È INCLUSO -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title" data-reveal>
+        <h2>Cosa è incluso in <span class="accent">NOA</span>.</h2>
+      </div>
+      <div class="grid grid-2" data-reveal>
+        <div class="feature"><div class="feature__icon">📚</div><h4>Accademia NOA</h4><p>Corsi on-demand su tutti gli asset: azionario, forex, materie prime, crypto.</p></div>
+        <div class="feature"><div class="feature__icon">🎥</div><h4>Sessioni Live settimanali</h4><p>Con 6 educatori professionisti, ogni settimana.</p></div>
+        <div class="feature"><div class="feature__icon">💡</div><h4>Idee di trading formative</h4><p>Condivise da 10+ professionisti su 9 canali tematici.</p></div>
+        <div class="feature"><div class="feature__icon">🤖</div><h4>Software AI proprietari</h4><p>Hummingbird, Lumen, Maitryx, Solexx. Disponibili nei piani Pro/Elite.</p></div>
+        <div class="feature"><div class="feature__icon">📓</div><h4>Trading Journal</h4><p>Diario professionale per tracciare le tue operazioni.</p></div>
+        <div class="feature"><div class="feature__icon">👥</div><h4>Community attiva</h4><p>Studenti e collaboratori che si confrontano ogni giorno.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="piani" style="background: var(--bg-2);">
+    <div class="container">
+      <div class="section-title" data-reveal>
+        <p class="eyebrow">3 piani</p>
+        <h2>Scegli il piano <span class="accent">giusto</span> per te.</h2>
+      </div>
+      <div class="pricing" data-reveal>
+        <div class="plan">
+          <div class="plan__name">Starter</div>
+          <p class="plan__tagline">Per chi inizia da zero.</p>
+          <div class="plan__price">
+            <div class="plan__price-main">$159<span class="plan__price-sub"> primo mese</span></div>
+            <div class="plan__price-sub">poi $152/mese</div>
+          </div>
+          <ul class="plan__features">
+            <li>Accademia NOA</li>
+            <li>Macroeconomia</li>
+            <li>Basi del trading</li>
+            <li>Materie prime</li>
+            <li>Metalli preziosi</li>
+            <li>3 canali idee di trading</li>
+          </ul>
+          <a href="#form-lead" class="btn btn--ghost btn--block">Voglio iniziare</a>
+        </div>
+
+        <div class="plan plan--featured">
+          <div class="plan__name">Pro</div>
+          <p class="plan__tagline">Per chi fa sul serio.</p>
+          <div class="plan__price">
+            <div class="plan__price-main">$845<span class="plan__price-sub"> primo mese</span></div>
+            <div class="plan__price-sub">poi $152/mese</div>
+          </div>
+          <ul class="plan__features">
+            <li>Tutto di Starter</li>
+            <li>Forex Exchange</li>
+            <li>Teoria delle Onde di Elliot</li>
+            <li>Mercato azionario</li>
+            <li>Trading Journal</li>
+            <li>Lumen AI (analisi crypto)</li>
+            <li>Live US30 con A. Harfouch</li>
+            <li>6 canali idee di trading</li>
+          </ul>
+          <a href="#form-lead" class="btn btn--primary btn--block">Voglio il Pro</a>
+        </div>
+
+        <div class="plan">
+          <div class="plan__name">Élite</div>
+          <p class="plan__tagline">Per professionisti.</p>
+          <div class="plan__price">
+            <div class="plan__price-main">$1.699<span class="plan__price-sub"> primo mese</span></div>
+            <div class="plan__price-sub">poi $152/mese</div>
+          </div>
+          <ul class="plan__features">
+            <li>Tutto di Pro</li>
+            <li>Certificati azionari</li>
+            <li>Hummingbird AI (scanner armonico)</li>
+            <li>Solexx (idee trading da pro)</li>
+            <li>9 canali idee di trading</li>
+            <li>Accesso prioritario educatori</li>
+          </ul>
+          <a href="#form-lead" class="btn btn--ghost btn--block">Voglio l'Élite</a>
+        </div>
+      </div>
+      <p class="muted text-center mt-md">Prezzi in USD. Pagamenti gestiti direttamente da NOA. Disdetta possibile mese per mese.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-title" data-reveal>
+        <h2>Domande <span class="accent">frequenti</span>.</h2>
+      </div>
+      <div class="faq" data-faq data-reveal>
+        <div class="faq__item">
+          <button class="faq__btn">Non so nulla di trading, posso comunque iscrivermi?</button>
+          <div class="faq__panel"><p>Sì, il piano Starter parte dalle basi assolute. Imparerai con video, sessioni live e tutor.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__btn">Quanto tempo serve dedicarci?</button>
+          <div class="faq__panel"><p>Da 30 minuti al giorno per chi vuole solo investire passivamente, fino a 2-3 ore per chi vuole imparare il trading attivo.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__btn">Posso disdire quando voglio?</button>
+          <div class="faq__panel"><p>Sì, l'abbonamento è mensile e si può cancellare senza penali.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__btn">NOA promette guadagni?</button>
+          <div class="faq__panel"><p>No. NOA forma. Quanto guadagni dipende dalla tua disciplina, dalle tue scelte e dal mercato. Investire comporta sempre rischi, anche di perdita totale.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__btn">Cosa succede dopo che invio il form?</button>
+          <div class="faq__panel"><p>Ricevi subito la guida in email. Entro 24-48h ti contattiamo per proporti una call gratuita di 30 minuti dove ti mostriamo la piattaforma dal vivo.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINALE -->
+  <section class="section" style="background: linear-gradient(135deg, var(--bg-2), var(--bg-3));">
+    <div class="container text-center" data-reveal>
+      <h2>Il primo passo è <span class="accent">gratis</span>.</h2>
+      <p class="lead mt-sm">Scarica la guida, leggila, decidi tu.</p>
+      <a href="#form-lead" class="btn btn--primary btn--lg mt-lg" style="margin-top: 2rem;">Ricevi la guida gratis →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__col">
+          <a href="index.html" class="nav__brand" style="margin-bottom: 1rem;">
+            <span class="nav__brand-mark">N</span>
+            <span>NOA × One Tribe</span>
+          </a>
+          <p class="muted mt-sm">Piattaforma di educazione finanziaria.</p>
+        </div>
+        <div class="footer__col">
+          <h5>Esplora</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="collabora.html">Collabora</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Legale</h5>
+          <ul>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="privacy.html#cookie">Cookie</a></li>
+            <li><a href="privacy.html#termini">Termini</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Contatti</h5>
+          <ul>
+            <li><a href="mailto:contatti@example.com">Email</a></li>
+            <li><a href="https://wa.me/393000000000">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer__legal">
+        I contenuti di questo sito hanno scopo esclusivamente formativo e non costituiscono consulenza finanziaria. Investire comporta rischi. Le performance passate non garantiscono risultati futuri.<br/><br/>
+        © <span id="year"></span> · NOA × One Tribe — Sito gestito da collaboratore indipendente.
+      </p>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
