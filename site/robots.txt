@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /grazie.html
 
-Sitemap: /sitemap.xml
+Sitemap: https://andreafabbri97.github.io/ale/sitemap.xml
