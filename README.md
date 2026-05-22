@@ -1,222 +1,174 @@
-# NOA × One Tribe — MVP Distributori
+# NOA × One Tribe — Piattaforma distributori
 
-> Sito MVP per la lead generation e il recruiting collaboratori NOA.
-> Stack: **HTML/CSS/JS vanilla** + **GitHub Pages** + **Formspree** per i form.
-> Costo: **0€/mese**.
-
----
-
-## 🌐 Sito live
-
-Dopo il deploy (vedi sotto): `https://<tuo-username>.github.io/<nome-repo>/`
-
-Pagine:
-- **Home** — `/`
-- **Scopri NOA (B2C)** — `/scopri.html`
-- **Collabora (recruiting)** — `/collabora.html`
-- **Privacy / Termini** — `/privacy.html`
-- **Grazie** — `/grazie.html`
+> Sito pubblico + pannello admin per lead generation, gestione clienti, recruiting
+> collaboratori e (in arrivo) tracking provvigioni e rank.
+>
+> Stack: **Next.js 16 (App Router, TypeScript, Tailwind v4)** · **Supabase** (Postgres + Auth + RLS)
+> · **Vercel** (hosting). Costo operativo: ~**0€/mese** sui free tier iniziali.
 
 ---
 
-## 📁 Struttura
+## 🌐 Stato deploy
+
+- **Sito live (Vercel)**: `https://<tuo-progetto>.vercel.app` _(URL definitivo dopo il primo deploy)_
+- **Repo GitHub**: <https://github.com/andreafabbri97/ale>
+- **Supabase project**: <https://supabase.com/dashboard/project/fylljpfijhwiwapibpwd>
+
+### Pagine pubbliche
+| URL | Cosa fa |
+|---|---|
+| `/` | Home con doppio CTA (cliente / networker) |
+| `/scopri` | Landing B2C — form lead per richiedere la guida |
+| `/collabora` | Landing recruiting — form qualifica collaboratore + lead scoring |
+| `/grazie` | Thank-you page post-submit |
+| `/privacy` | Privacy, Cookie, Termini (placeholder, da sostituire con iubenda) |
+
+### Pagine admin (in costruzione)
+| URL | Cosa fa |
+|---|---|
+| `/admin/login` | Login admin/collaboratori |
+| `/admin` | Dashboard con stats lead |
+| `/admin/leads` | Lista lead con filtri |
+| `/admin/leads/[id]` | Dettaglio lead, note, cambio stato |
+
+---
+
+## 📁 Struttura del progetto
 
 ```
-noa-mvp/
-├── site/                       ← cartella pubblicata su GitHub Pages
-│   ├── index.html
-│   ├── scopri.html
-│   ├── collabora.html
-│   ├── grazie.html
-│   ├── privacy.html
-│   ├── 404.html
-│   ├── robots.txt
-│   ├── sitemap.xml
-│   └── assets/
-│       ├── css/style.css
-│       ├── js/main.js
-│       └── img/
-├── copy/                       ← copy testuale di riferimento (markdown)
-├── setup/                      ← guide setup Systeme.io, Framer, compensi
-├── automation/                 ← tag system, workflow CRM
-├── sitemap.md
-├── .github/workflows/deploy-pages.yml
-└── README.md
+ale/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx, page.tsx, globals.css
+│   │   ├── scopri/, collabora/, grazie/, privacy/
+│   │   ├── admin/                  ← in arrivo
+│   │   └── actions/submit-lead.ts  ← Server Action condiviso form pubblici
+│   ├── components/
+│   │   ├── nav.tsx, footer.tsx
+│   │   └── lead-form-client.tsx    ← form B2C + B2B con useActionState
+│   └── lib/supabase/
+│       ├── client.ts               ← browser Supabase client
+│       ├── server.ts               ← server + admin (service_role) client
+│       ├── middleware.ts           ← session refresh + auth gate /admin
+│       └── types.ts                ← TypeScript types DB
+├── supabase/
+│   └── migrations/
+│       ├── 0001_initial_schema.sql ← tabelle, enums, trigger, ranks seed
+│       └── 0002_rls_policies.sql   ← Row Level Security multi-tenant
+├── middleware.ts                   ← Next.js middleware root (chiama updateSession)
+├── public/                         ← favicon, asset statici
+├── archive/static-site/            ← vecchio sito statico (pre-Next.js)
+├── copy/, setup/, automation/      ← documentazione strategica
+├── .env.example                    ← template variabili ambiente (.env.local è gitignored)
+└── package.json, tsconfig.json, next.config.ts, postcss.config.mjs, eslint.config.mjs
 ```
 
 ---
 
-## 🚀 Come pubblicare su GitHub Pages
+## 🚀 Setup locale (per chi clona il repo)
 
-### 1. Crea il repo su GitHub
+### Prerequisiti
+- Node.js 20+ (consigliato 22 LTS o superiore)
+- Account [Supabase](https://supabase.com) (free tier)
+- Account [Vercel](https://vercel.com) (free tier) per deploy
 
-1. Vai su [github.com/new](https://github.com/new)
-2. Nome repo: `noa-mvp` (o quello che preferisci)
-3. Visibilità: **Public** (necessario per GitHub Pages free; alternative con piano Pro per private)
-4. **Non** aggiungere README/gitignore (li abbiamo già)
-5. Crea il repo
+### Step
+1. **Clone**:
+   ```bash
+   git clone https://github.com/andreafabbri97/ale.git
+   cd ale
+   npm install
+   ```
+2. **Variabili ambiente**: copia `.env.example` in `.env.local` e compila i 3 valori Supabase
+   (URL + anon key + service_role key) presi da
+   _Project Settings → API_ nella dashboard Supabase.
+3. **Migrazioni DB** (solo prima volta): apri il [SQL Editor di Supabase](https://supabase.com/dashboard/project/fylljpfijhwiwapibpwd/sql/new),
+   esegui in ordine:
+   - `supabase/migrations/0001_initial_schema.sql`
+   - `supabase/migrations/0002_rls_policies.sql`
+4. **Run dev server**:
+   ```bash
+   npm run dev    # http://localhost:3000
+   ```
+5. **Build di produzione (verifica typecheck)**:
+   ```bash
+   npm run build && npm run start
+   ```
 
-### 2. Connetti il repo locale e fai il push
+---
 
-Apri il terminale nella cartella `noa-mvp/` ed esegui:
+## 🔌 Deploy su Vercel (primo deploy)
+
+1. Vai su <https://vercel.com/new> → Import dal repo GitHub `andreafabbri97/ale`
+2. Framework preset: **Next.js** (auto-detect)
+3. **Environment Variables** (copia da `.env.local`):
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `NEXT_PUBLIC_SITE_URL` → `https://<tuo-progetto>.vercel.app` (aggiorna dopo il primo deploy)
+4. Click **Deploy**. Aspetta ~2 minuti.
+5. Ogni `git push` su `main` farà un nuovo deploy automatico.
+
+---
+
+## 🧪 Flusso lead end-to-end (come testarlo)
+
+1. Apri `https://<sito>/scopri` (B2C) o `/collabora` (recruiting)
+2. Compila il form (con email vera per test)
+3. Submit → redirect a `/grazie?source=cliente|networker`
+4. Verifica su Supabase → SQL Editor:
+   ```sql
+   select id, source, status, score, full_name, email, created_at
+   from leads order by created_at desc limit 10;
+   ```
+5. Dovresti vedere il record con `score` calcolato automaticamente (per `networker`).
+
+### Lead scoring automatico (`networker`)
+Il trigger `leads_auto_assign` (in `0001_initial_schema.sql`) calcola lo `score` (A/B/C/D)
+in base a: esperienza nel NM + tempo disponibile/sett + dimensione rete personale.
+
+### Link affiliate (`?ref=`)
+Quando un visitatore arriva da `/scopri?ref=nomecognome`, il `ref_code` viene catturato
+nel form (campo hidden, popolato lato client dal `lead-form-client.tsx`). Al submit,
+il trigger DB risolve il `ref_code` al `collaborator_id` corrispondente e assegna il lead
+direttamente a quel collaboratore.
+
+---
+
+## 🔐 Sicurezza
+
+- Tutte le route `/admin/*` sono protette dal middleware Next.js: senza session → redirect a `/admin/login`
+- Row Level Security attivo su tutte le tabelle:
+  - `leads`: insert pubblico OK (per i form), select/update solo se `assigned_to = auth.uid()` o `is_admin()`
+  - `collaborators`: vedi solo te stesso, admin vede tutti
+  - `sales`: vedi solo le tue, admin vede tutto
+- `.env.local` è gitignored. **Non committare mai** la `service_role` key
+- La `service_role` key bypassa RLS — usata solo nei Server Actions (lato server, non esposta al browser)
+
+### Promozione primo admin
+Dopo la prima signup di un utente, esegui questa query in Supabase SQL Editor:
+```sql
+update public.collaborators set is_admin = true where email = 'tuoemail@example.com';
+```
+
+---
+
+## 🛠️ Comandi utili
 
 ```bash
-git remote add origin https://github.com/<tuo-username>/noa-mvp.git
-git branch -M main
-git push -u origin main
+npm run dev         # dev server con HMR su http://localhost:3000
+npm run build       # production build + typecheck
+npm run start       # avvia build di produzione
+npm run lint        # ESLint
+npm run typecheck   # solo TypeScript (no build)
 ```
-
-⚠️ Se è la prima volta che usi git su questo PC, GitHub ti chiederà credenziali:
-- Username: il tuo username GitHub
-- Password: **non la password GitHub**, ma un **Personal Access Token**. Crealo qui: [github.com/settings/tokens](https://github.com/settings/tokens) → "Generate new token (classic)" → scope: `repo`.
-
-### 3. Attiva GitHub Pages
-
-1. Sul tuo repo GitHub: **Settings → Pages**
-2. Source: **GitHub Actions** (non "Deploy from branch")
-3. Il workflow `.github/workflows/deploy-pages.yml` è già configurato per pubblicare la cartella `site/`
-4. Aspetta 1-2 minuti che la prima build finisca
-5. URL del tuo sito: `https://<tuo-username>.github.io/noa-mvp/`
-
-### 4. Test
-
-Aprite il link da desktop e mobile. Tutto deve funzionare tranne i form (che richiedono Formspree, prossimo step).
-
----
-
-## 📧 Attivare i form (Formspree, 2 minuti)
-
-I form al momento mostrano un alert "form non configurato" — è una protezione esplicita scritta in [main.js](site/assets/js/main.js).
-
-Per attivarli:
-
-### 1. Account Formspree
-
-1. Vai su [formspree.io](https://formspree.io)
-2. Registrati con la tua email
-3. Free tier: 50 submission/mese gratis (sufficiente per partire)
-
-### 2. Crea 2 form
-
-- Form #1: "Lead Cliente NOA" — riceve i submit di `/scopri`
-- Form #2: "Candidatura Collaboratore" — riceve i submit di `/collabora`
-
-Ogni form ti darà un endpoint tipo `https://formspree.io/f/xabcdefg`.
-
-### 3. Sostituisci nel codice
-
-In [site/scopri.html](site/scopri.html) e [site/collabora.html](site/collabora.html), trova:
-
-```html
-action="https://formspree.io/f/YOUR_FORMSPREE_ID"
-```
-
-E sostituisci `YOUR_FORMSPREE_ID` con il tuo ID reale (es. `xabcdefg`).
-
-### 4. Commit + push
-
-```bash
-git add site/scopri.html site/collabora.html
-git commit -m "feat: connect Formspree endpoints"
-git push
-```
-
-GitHub Actions ridepoia automaticamente (1-2 min). Da quel momento i form inviano email a te.
-
-### 5. Redirect post-submit (opzionale)
-
-Per far atterrare l'utente su `/grazie.html` dopo l'invio:
-
-In Formspree → Form Settings → **Redirect URL** → inserisci `https://<tuo-username>.github.io/noa-mvp/grazie.html`
-
----
-
-## 🛠️ Modificare il sito localmente
-
-Non serve build step. Apri direttamente i file `.html` nel browser:
-
-**Su Windows**: doppio click su `site/index.html`.
-
-Oppure, per un server locale (consigliato per testare i link relativi):
-
-```bash
-# Con Python (preinstallato su molti sistemi)
-cd site
-python -m http.server 8080
-# Apri http://localhost:8080
-```
-
-```bash
-# Oppure con Node.js (se installato)
-npx serve site
-```
-
----
-
-## 🎨 Brand & customizzazioni rapide
-
-### Colori
-Tutti definiti in `:root` in [site/assets/css/style.css](site/assets/css/style.css):
-
-```css
---accent: #3BD4F8;   /* azzurro brillante */
---accent-2: #2C7BE5; /* blu medio */
---bg: #05080F;       /* sfondo nero */
-```
-
-### Logo
-Per ora c'è un placeholder testuale "N" nel quadrato gradiente. Per il logo NOA reale:
-1. Chiedi il file SVG/PNG ufficiale a NOA (uso collaboratori)
-2. Mettilo in `site/assets/img/logo.svg`
-3. Sostituisci `<span class="nav__brand-mark">N</span>` con `<img src="assets/img/logo.svg" alt="NOA" />` in tutti gli HTML
-
-### Numero WhatsApp
-Sostituisci `393000000000` con il tuo numero (formato internazionale senza `+`) in tutti gli HTML.
-
-### Email
-Sostituisci `contatti@example.com` con la tua email reale.
-
----
-
-## 🔌 Prossimi step (post-MVP)
-
-In ordine di priorità:
-
-1. ✅ **Formspree connesso** → form funzionanti (vedi sopra)
-2. **Cal.com configurato** → embed in `grazie.html` per booking call
-3. **Numero WhatsApp + email reali** → cercare e sostituire i placeholder
-4. **Foto reale + bio collaboratore** → in `grazie.html` o nuova `/chi-sono.html`
-5. **Privacy policy reale** → generata con iubenda (sostituisce placeholder)
-6. **Dominio custom** → opzionale, costa ~10€/anno (Cloudflare Registrar)
-   - In Settings → Pages → Custom domain → inserisci `tuodominio.it`
-   - Aggiungi record DNS sul registrar (Pages te li mostra)
-7. **Systeme.io collegato** → migrare i form da Formspree a Systeme.io quando attivate l'account (così avete CRM + email automation)
-8. **Pixel Meta + GA4** → per ads tracking (placeholder già pronto in HTML, basta aggiungere tag manager)
-
----
-
-## 🧱 Dipendenze esterne
-
-Il sito non ha **nessuna dipendenza JS/CSS via npm**. Carica solo:
-
-- **Google Fonts** (Manrope) — caricato da `fonts.googleapis.com`
-- **Nessun framework** (no React, no Vue, no Tailwind CDN — solo CSS scritto a mano)
-- **Nessun tracker** built-in — voi decidete cosa aggiungere
 
 ---
 
 ## 📜 Licenza
 
-Codice del sito: licenza MIT (vedi `LICENSE`).
-Contenuti testuali (copy, descrizioni NOA): proprietà di NOA / One Tribe Academy. Usabili da collaboratori autorizzati.
+MIT (vedi [LICENSE](LICENSE)).
 
----
-
-## ✉️ Supporto
-
-Per modifiche al codice o problemi tecnici, basta editare i file `.html` e `.css` — è tutto leggibile.
-
-Per il setup completo (Systeme.io, dominio, automazioni email avanzate), vedi le guide in:
-- [`setup/systeme-io-setup.md`](setup/systeme-io-setup.md)
-- [`setup/framer-setup.md`](setup/framer-setup.md)
-- [`setup/compensi-rank-system.md`](setup/compensi-rank-system.md)
+I contenuti testuali relativi a NOA × One Tribe Academy (descrizioni prodotto, nomi educatori,
+pricing) rimangono di proprietà di NOA Italy / One Tribe Academy e possono essere usati solo
+da collaboratori autorizzati.

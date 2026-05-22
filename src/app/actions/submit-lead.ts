@@ -1,0 +1,166 @@
+"use server";
+
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { createAdminClient } from "@/lib/supabase/server";
+import type {
+  LeadSource,
+  LeadInsert,
+  InterestB2C,
+  EsperienzaNm,
+  TempoSettimanale,
+  DimensioneRete,
+} from "@/lib/supabase/types";
+
+const VALID_INTEREST_B2C: InterestB2C[] = [
+  "iniziare_zero",
+  "investire_risparmi",
+  "trading_attivo",
+  "ai_pro",
+  "generico",
+];
+
+const VALID_ESPERIENZA: EsperienzaNm[] = [
+  "anni",
+  "mesi",
+  "no_pronto",
+  "no_non_interessa",
+];
+
+const VALID_TEMPO: TempoSettimanale[] = ["meno_5", "5_10", "10_20", "20_plus"];
+
+const VALID_RETE: DimensioneRete[] = ["grande", "piccola", "zero"];
+
+function asEnum<T extends string>(value: unknown, allowed: readonly T[]): T | null {
+  if (typeof value !== "string") return null;
+  return (allowed as readonly string[]).includes(value) ? (value as T) : null;
+}
+
+function asString(value: FormDataEntryValue | null): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
+function asInt(value: FormDataEntryValue | null): number | null {
+  const s = asString(value);
+  if (!s) return null;
+  const n = Number.parseInt(s, 10);
+  return Number.isFinite(n) ? n : null;
+}
+
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+interface SubmitResult {
+  ok: boolean;
+  error?: string;
+}
+
+/**
+ * Server Action condiviso per il submit di lead da entrambi i form pubblici.
+ * Inserisce un record in public.leads via service_role client (bypassa RLS).
+ * I form pubblici devono poter scrivere senza autenticazione.
+ */
+export async function submitLead(formData: FormData): Promise<SubmitResult> {
+  const source = asEnum<LeadSource>(formData.get("source"), [
+    "cliente",
+    "networker",
+  ]);
+  if (!source) {
+    return { ok: false, error: "Source non valido." };
+  }
+
+  const fullName = asString(formData.get("full_name"));
+  const email = asString(formData.get("email"));
+  const phone = asString(formData.get("phone"));
+  const privacy = formData.get("privacy") === "on";
+
+  if (!fullName || !email || !phone) {
+    return { ok: false, error: "Compila nome, email e telefono." };
+  }
+  if (!isValidEmail(email)) {
+    return { ok: false, error: "Email non valida." };
+  }
+  if (!privacy) {
+    return { ok: false, error: "Devi accettare la privacy policy." };
+  }
+
+  const refCode = asString(formData.get("ref_code"));
+  const utmSource = asString(formData.get("utm_source"));
+  const utmMedium = asString(formData.get("utm_medium"));
+  const utmCampaign = asString(formData.get("utm_campaign"));
+  const utmContent = asString(formData.get("utm_content"));
+  const pageOrigin = asString(formData.get("page_origin"));
+
+  const headersList = await headers();
+  const userAgent = headersList.get("user-agent");
+  const ip =
+    headersList.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    headersList.get("x-real-ip");
+
+  const baseInsert = {
+    source,
+    full_name: fullName.slice(0, 200),
+    email: email.toLowerCase().slice(0, 200),
+    phone: phone.slice(0, 50),
+    privacy_accepted: privacy,
+    marketing_accepted: formData.get("marketing") === "on",
+    ref_code: refCode,
+    utm_source: utmSource,
+    utm_medium: utmMedium,
+    utm_campaign: utmCampaign,
+    utm_content: utmContent,
+    page_origin: pageOrigin,
+    user_agent: userAgent,
+    ip_address: ip ?? null,
+  };
+
+  // Campi specifici per source
+  const sourceSpecific =
+    source === "cliente"
+      ? {
+          interesse_b2c:
+            asEnum<InterestB2C>(formData.get("interesse_b2c"), VALID_INTEREST_B2C) ??
+            "generico",
+        }
+      : {
+          eta: asInt(formData.get("eta")),
+          citta: asString(formData.get("citta")),
+          esperienza_nm: asEnum<EsperienzaNm>(
+            formData.get("esperienza_nm"),
+            VALID_ESPERIENZA,
+          ),
+          tempo_disponibile: asEnum<TempoSettimanale>(
+            formData.get("tempo_disponibile"),
+            VALID_TEMPO,
+          ),
+          rete: asEnum<DimensioneRete>(formData.get("rete"), VALID_RETE),
+          motivazione: asString(formData.get("motivazione"))?.slice(0, 2000) ?? null,
+        };
+
+  try {
+    const supabase = createAdminClient();
+    const payload: LeadInsert = { ...baseInsert, ...sourceSpecific };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await supabase.from("leads").insert(payload as any);
+
+    if (error) {
+      console.error("Lead insert failed:", error);
+      return {
+        ok: false,
+        error: "Errore durante l'invio. Riprova tra qualche istante.",
+      };
+    }
+  } catch (err) {
+    console.error("Lead submission error:", err);
+    return {
+      ok: false,
+      error: "Errore di connessione. Riprova tra qualche istante.",
+    };
+  }
+
+  // Redirect a /grazie con info sul source per personalizzare il messaggio
+  redirect(`/grazie?source=${source}`);
+}
