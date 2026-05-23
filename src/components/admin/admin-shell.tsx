@@ -34,7 +34,7 @@ export function AdminShell({ userEmail, isAdmin, children }: AdminShellProps) {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] flex">
-      {/* Sidebar — desktop: inline, mobile: fixed overlay */}
+      {/* Sidebar — desktop: inline, mobile: fixed overlay (rispetta safe area su iOS) */}
       <div
         className={`
           fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw]
@@ -42,6 +42,11 @@ export function AdminShell({ userEmail, isAdmin, children }: AdminShellProps) {
           md:relative md:translate-x-0 md:w-64 md:max-w-none md:z-auto
           ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
         `}
+        style={{
+          paddingTop: "env(safe-area-inset-top)",
+          paddingBottom: "env(safe-area-inset-bottom)",
+          paddingLeft: "env(safe-area-inset-left)",
+        }}
       >
         <Sidebar userEmail={userEmail} isAdmin={isAdmin} />
       </div>
@@ -57,11 +62,19 @@ export function AdminShell({ userEmail, isAdmin, children }: AdminShellProps) {
 
       {/* Main column */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Topbar mobile (visibile solo <md) */}
-        <header className="md:hidden sticky top-0 z-30 bg-[rgba(5,8,15,0.85)] backdrop-blur-xl border-b border-[var(--color-border)] flex items-center justify-between px-4 h-14">
+        {/* Topbar mobile (visibile solo <md) — gestisce notch iOS via safe-area-inset-top */}
+        <header
+          className="md:hidden sticky top-0 z-30 bg-[rgba(5,8,15,0.85)] backdrop-blur-xl border-b border-[var(--color-border)] flex items-center justify-between px-4"
+          style={{
+            paddingTop: "env(safe-area-inset-top)",
+            paddingLeft: "max(1rem, env(safe-area-inset-left))",
+            paddingRight: "max(1rem, env(safe-area-inset-right))",
+            minHeight: "calc(3.5rem + env(safe-area-inset-top))",
+          }}
+        >
           <button
             onClick={() => setMobileOpen(true)}
-            className="grid place-items-center w-10 h-10 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-border-strong)] transition"
+            className="grid place-items-center w-10 h-10 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-border-strong)] transition shrink-0"
             aria-label="Apri menù"
             aria-expanded={mobileOpen}
           >
@@ -91,8 +104,19 @@ export function AdminShell({ userEmail, isAdmin, children }: AdminShellProps) {
         </header>
 
         {/* Content area */}
-        <main className="flex-1 overflow-x-hidden">
-          <div className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto md:mx-0 pb-32 md:pb-10">
+        <main
+          className="flex-1 overflow-x-hidden"
+          style={{
+            paddingLeft: "env(safe-area-inset-left)",
+            paddingRight: "env(safe-area-inset-right)",
+          }}
+        >
+          <div
+            className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto md:mx-0"
+            style={{
+              paddingBottom: "calc(8rem + env(safe-area-inset-bottom))",
+            }}
+          >
             {children}
           </div>
         </main>

@@ -116,7 +116,14 @@ export function PwaInstallBanner() {
   return (
     <>
       {/* Banner */}
-      <div className="fixed bottom-0 inset-x-0 z-40 p-3 sm:p-4 pointer-events-none">
+      <div
+        className="fixed bottom-0 inset-x-0 z-40 p-3 sm:p-4 pointer-events-none"
+        style={{
+          paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))",
+          paddingLeft: "max(0.75rem, env(safe-area-inset-left))",
+          paddingRight: "max(0.75rem, env(safe-area-inset-right))",
+        }}
+      >
         <div className="pointer-events-auto max-w-md mx-auto bg-gradient-to-r from-[var(--color-bg-2)] to-[var(--color-bg-3)] border border-[var(--color-accent)]/40 rounded-2xl shadow-2xl p-4 flex items-center gap-3">
           <div className="grid place-items-center w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-2)] text-[var(--color-bg)] font-black text-xl shrink-0">
             A
