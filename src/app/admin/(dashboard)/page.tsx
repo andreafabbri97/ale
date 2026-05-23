@@ -30,9 +30,13 @@ interface DashboardData {
 
 async function fetchDashboardData(): Promise<DashboardData> {
   const supabase = await createClient();
+  // Select solo i campi che ci servono per stats + ultimi 10 lead
+  // (evita di trasferire campi grossi come motivazione, user_agent, ecc.)
   const { data: leads, error } = await supabase
     .from("leads")
-    .select("*")
+    .select(
+      "id, created_at, source, status, full_name, email, phone, score",
+    )
     .order("created_at", { ascending: false });
 
   if (error || !leads) {

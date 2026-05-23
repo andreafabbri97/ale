@@ -170,28 +170,30 @@ export async function submitLead(formData: FormData): Promise<SubmitResult> {
     };
   }
 
-  // Push notification agli admin (fire-and-forget, non blocca il redirect)
+  // Push notification agli admin — VERA fire-and-forget per non bloccare il redirect.
+  // Vercel Serverless mantiene la function alive finché la promise pending non risolve,
+  // ma il client riceve la response (redirect) immediatamente.
   if (insertedLeadId) {
     const sourceLabel = source === "cliente" ? "Cliente B2C" : "Networker";
+    const interestFromSource =
+      sourceSpecific && "interesse_b2c" in sourceSpecific
+        ? sourceSpecific.interesse_b2c
+        : null;
     const bodyParts = [
       fullName.slice(0, 60),
-      sourceSpecific && "interesse_b2c" in sourceSpecific && sourceSpecific.interesse_b2c
-        ? `Interesse: ${sourceSpecific.interesse_b2c.replace(/_/g, " ")}`
-        : null,
+      interestFromSource ? `Interesse: ${interestFromSource.replace(/_/g, " ")}` : null,
       refCode ? `ref: ${refCode}` : null,
     ].filter(Boolean);
 
-    try {
-      await sendPushToAdmins({
-        title: `Nuovo lead — ${sourceLabel}`,
-        body: bodyParts.join(" · "),
-        url: `/admin/leads/${insertedLeadId}`,
-        tag: `lead-${insertedLeadId}`,
-      });
-    } catch (pushErr) {
-      // Non bloccare il submit se la push fallisce
+    // Niente await: parte in parallelo al redirect
+    sendPushToAdmins({
+      title: `Nuovo lead — ${sourceLabel}`,
+      body: bodyParts.join(" · "),
+      url: `/admin/leads/${insertedLeadId}`,
+      tag: `lead-${insertedLeadId}`,
+    }).catch((pushErr) => {
       console.error("[push] notify on new lead failed:", pushErr);
-    }
+    });
   }
 
   // Redirect a /grazie con info sul source per personalizzare il messaggio

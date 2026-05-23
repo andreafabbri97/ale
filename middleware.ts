@@ -5,15 +5,14 @@ export async function middleware(request: NextRequest) {
   return await updateSession(request);
 }
 
+/**
+ * Limita il middleware (e quindi la chiamata Supabase auth.getUser su ogni request)
+ * SOLO alle route admin. Le pagine pubbliche (Home, /scopri, /collabora, /privacy,
+ * /grazie) sono completamente statiche o server-rendered senza auth — non serve
+ * refresh session.
+ *
+ * Performance impact: ~300ms tagliati da ogni page load pubblico.
+ */
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico, sitemap.xml, robots.txt
-     * - images / svg / other static asset extensions
-     */
-    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-  ],
+  matcher: ["/admin/:path*"],
 };
