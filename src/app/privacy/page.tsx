@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { BetaBanner } from "@/components/beta-banner";
 
 export const metadata: Metadata = {
   title: "Privacy, Cookie & Termini",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <>
+      <BetaBanner />
       <Nav />
 
       <section className="py-16">
@@ -165,7 +167,7 @@ export default function PrivacyPage() {
               guadagni dipendono esclusivamente da impegno e capacità individuali. Non è lavoro
               subordinato. Non sono garantiti guadagni minimi. Schemi piramidali vietati dalla
               Legge 173/2005 — NOA opera nel rispetto della normativa italiana sulla vendita
-              diretta (D.Lgs 173/2005).
+              diretta (Legge 17 agosto 2005, n. 173).
             </p>
 
             <hr className="my-10 border-[var(--color-border)]" />

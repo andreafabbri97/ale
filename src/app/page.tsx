@@ -3,10 +3,12 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Reveal } from "@/components/reveal";
 import { CountUp } from "@/components/count-up";
+import { BetaBanner } from "@/components/beta-banner";
 
 export default function HomePage() {
   return (
     <>
+      <BetaBanner />
       <Nav variant="home" />
 
       {/* ============= HERO ============= */}
@@ -15,15 +17,15 @@ export default function HomePage() {
           <p className="eyebrow mb-4 sm:mb-6 animate-fade-up delay-0">
             Educazione finanziaria · Trading · Investimenti
           </p>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05] max-w-[18ch] mb-4 sm:mb-6 animate-fade-up delay-1">
-            In Italia <span className="text-[var(--color-accent)]">l&apos;87%</span> non è educato
-            finanziariamente.
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05] max-w-[22ch] mb-4 sm:mb-6 animate-fade-up delay-1">
+            In Italia l&apos;alfabetizzazione finanziaria resta{" "}
+            <span className="text-[var(--color-accent)]">bassa</span>.
             <br />
-            Noi siamo nell&apos;altro 13%.
+            Noi partiamo da lì.
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-[var(--color-text-dim)] max-w-[60ch] mb-6 sm:mb-8 animate-fade-up delay-2">
-            NOA × One Tribe Academy è la piattaforma italiana che insegna come funziona davvero il
-            denaro. Niente &quot;soldi facili&quot;. Solo strumenti, dati e professionisti.
+            NOA × One Tribe Academy è la piattaforma italiana che ti aiuta a capire come funziona
+            davvero il denaro. Niente &quot;soldi facili&quot;: prima si studia, poi si decide.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-up delay-3">
             <Link href="/scopri" className="btn btn-primary btn-lg animate-pulse-glow">
@@ -55,26 +57,29 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Reveal stagger={1} className="card card-hover text-center">
               <div className="stat-num stat-num-danger">
-                <CountUp to={87} suffix="%" duration={1600} />
+                <CountUp to={10.7} decimals={1} duration={1600} />
+                <span className="text-2xl sm:text-3xl text-[var(--color-text-dim)] font-bold">
+                  {" "}/20
+                </span>
               </div>
               <p className="mt-2 text-sm uppercase tracking-widest text-[var(--color-text-dim)]">
-                Italiani non educati finanziariamente
+                Alfabetizzazione finanziaria adulti (IACOFI, Banca d&apos;Italia 2023)
               </p>
             </Reveal>
             <Reveal stagger={2} className="card card-hover text-center">
               <div className="stat-num">
-                <CountUp to={95} suffix="%" duration={1800} />
+                <CountUp to={89} suffix="%" duration={1800} />
               </div>
               <p className="mt-2 text-sm uppercase tracking-widest text-[var(--color-text-dim)]">
-                Vorrebbe imparare a gestire i soldi
+                Vorrebbe educazione finanziaria nelle scuole (Comitato Edufin)
               </p>
             </Reveal>
             <Reveal stagger={3} className="card card-hover text-center">
               <div className="stat-num">
-                <CountUp to={3} suffix="%" duration={1400} />
+                <CountUp to={80} suffix="%" duration={1400} />
               </div>
               <p className="mt-2 text-sm uppercase tracking-widest text-[var(--color-text-dim)]">
-                Ha accesso a formazione di qualità
+                Vorrebbe formazione finanziaria anche sul lavoro
               </p>
             </Reveal>
           </div>
@@ -83,7 +88,7 @@ export default function HomePage() {
             stagger={4}
             className="text-center text-sm text-[var(--color-text-faint)] mt-6"
           >
-            Fonte: OCSE, Banca d&apos;Italia, Openpolis
+            Fonti: indagine IACOFI Banca d&apos;Italia 2023; rapporto Doxa/Comitato Edufin.
           </Reveal>
         </div>
       </section>
@@ -93,8 +98,11 @@ export default function HomePage() {
         <div className="container-page">
           <Reveal className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-              Così vive <span className="text-[var(--color-accent)]">il 95%</span> delle persone.
+              Un ciclo <span className="text-[var(--color-accent)]">molto comune</span>.
             </h2>
+            <p className="mt-3 text-base sm:text-lg text-[var(--color-text-dim)]">
+              Senza strumenti per capire reddito, risparmio e rischio, è facile restare bloccati.
+            </p>
           </Reveal>
           <div className="max-w-md mx-auto text-center space-y-2">
             {[
@@ -116,10 +124,10 @@ export default function HomePage() {
             stagger={5}
             className="text-center text-lg md:text-xl text-[var(--color-text)] mt-10 max-w-2xl mx-auto"
           >
-            Si esce da questo ciclo solo in un modo:
+            La direzione cambia in un modo:
             <br />
             <strong className="text-[var(--color-accent)]">
-              imparando come funziona davvero il denaro.
+              costruendo le competenze per leggere il denaro.
             </strong>
           </Reveal>
         </div>
@@ -129,7 +137,7 @@ export default function HomePage() {
       <section className="py-14 sm:py-20">
         <div className="container-page">
           <Reveal className="text-center max-w-3xl mx-auto mb-12">
-            <p className="eyebrow mb-3">Il quadrante del Cashflow</p>
+            <p className="eyebrow mb-3">Concetto ispirato al Cashflow Quadrant di R. Kiyosaki</p>
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">
               Dove ti trovi <span className="text-[var(--color-accent)]">oggi</span>?
             </h2>
@@ -160,10 +168,10 @@ export default function HomePage() {
             stagger={2}
             className="text-center text-lg md:text-xl mt-12 max-w-2xl mx-auto"
           >
-            Il 95% scambia tempo per soldi.
+            Chi sviluppa competenze finanziarie impara a distinguere
             <br />
             <span className="text-[var(--color-accent)] font-bold">
-              L&apos;1% mette i soldi a lavorare.
+              reddito, risparmio, rischio e investimento.
             </span>
           </Reveal>
         </div>
@@ -187,7 +195,7 @@ export default function HomePage() {
               ["🌍", "Macroeconomia", "Capire il contesto prima di muovere soldi."],
               ["📊", "Indici Azionari", "S&P 500, NASDAQ, FTSE letti come si deve."],
               ["🌾", "Materie Prime", "Petrolio, grano, gas: gli asset che muovono i mercati."],
-              ["💱", "Forex Exchange", "Il mercato più liquido del mondo."],
+              ["💱", "Forex", "Il mercato valutario più liquido del mondo."],
               ["🥇", "Metalli Preziosi", "Oro, argento, platino: la riserva di valore."],
               ["📉", "Analisi Volumetrica", "Leggere il mercato come fanno i professionisti."],
             ].map(([icon, title, desc], i) => (
@@ -207,15 +215,22 @@ export default function HomePage() {
 
           <Reveal className="text-center mt-16 mb-8">
             <h3 className="text-2xl md:text-3xl font-extrabold">
-              Più <span className="text-[var(--color-accent)]">4 software AI proprietari</span>
+              Più <span className="text-[var(--color-accent)]">4 strumenti AI</span> inclusi nei
+              piani Pro/Elite
             </h3>
           </Reveal>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              ["Hummingbird", "Scanner armonico potenziato dall'AI."],
-              ["Lumen", "Analisi crypto con supporto AI."],
-              ["Solexx", "App con idee di trading dai professionisti."],
-              ["Maitryx", "Pattern armonici + breakout. Fino all'85% di efficacia."],
+              ["Hummingbird", "Scanner di pattern armonici di mercato con supporto AI."],
+              ["Lumen", "Strumento didattico di analisi del mercato cripto."],
+              [
+                "Solexx",
+                "Spazio di confronto dove professionisti condividono esempi didattici di analisi.",
+              ],
+              [
+                "Maitryx",
+                "Analisi di pattern armonici e breakout di trend. Strumento didattico, non garanzia di risultato.",
+              ],
             ].map(([name, desc], i) => (
               <Reveal
                 key={name}
@@ -242,11 +257,11 @@ export default function HomePage() {
           </Reveal>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {[
-              ["MP", "Dr. Michele Pellegrino", "Macroeconomia"],
+              ["MP", "Dott. Michele Pellegrino", "Macroeconomia"],
               ["CV", "Carlo Vallotto", "Metalli preziosi · Materie prime"],
               ["DR", "Donato Rossiello", "Mercato e indici azionari"],
               ["RF", "Rosita Furnari", "Analisi volumetrica"],
-              ["FR", "Fabrizio Ribbeni", "Teoria delle onde di Elliot"],
+              ["FR", "Fabrizio Ribbeni", "Teoria delle onde di Elliott"],
               ["AH", "Abdallah Harfouch", "Scalping US30 (live giornaliere)"],
             ].map(([initials, name, role], i) => (
               <Reveal
@@ -300,7 +315,7 @@ export default function HomePage() {
             {[
               {
                 q: "NOA è una promessa di guadagno?",
-                a: "No. NOA è una piattaforma di formazione finanziaria. Quanto guadagni dipende solo da te, dalla tua disciplina e dal mercato. Investire comporta sempre rischi, anche di perdita totale del capitale.",
+                a: "No. NOA è una piattaforma di formazione finanziaria. Non garantiamo né suggeriamo risultati: gli esiti dipendono da preparazione, disciplina, capitale, condizioni di mercato, rischio assunto e altri fattori personali. Investire comporta sempre rischi, anche di perdita totale del capitale.",
               },
               {
                 q: "Quanto costa?",

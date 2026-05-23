@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { NetworkerLeadForm } from "@/components/lead-form-client";
 import { Reveal } from "@/components/reveal";
 import { CountUp } from "@/components/count-up";
+import { BetaBanner } from "@/components/beta-banner";
 
 export const metadata: Metadata = {
   title: "Diventa partner NOA · Costruisci un'attività nell'educazione finanziaria",
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 export default function CollaboraPage() {
   return (
     <>
+      <BetaBanner />
       <Nav />
 
       {/* ============= HERO ============= */}
@@ -94,12 +96,12 @@ export default function CollaboraPage() {
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              ["✅", "Prodotto reale e utile", "Non vendi 'aria': vendi formazione che migliora la vita finanziaria delle persone."],
-              ["🤖", "Stack proprietario", "4 software AI esclusivi (Hummingbird, Lumen, Maitryx, Solexx) non replicabili."],
-              ["🎓", "Educatori riconosciuti", "6 professionisti con curriculum verificabili. Niente 'guru' anonimi."],
-              ["💰", "Compensi trasparenti", "Provvigione fissa per pacchetto + sistema rank. Solo numeri."],
-              ["🛠️", "Backoffice digitale", "Link tracciabili, dashboard, materiali pronti, formazione gratuita."],
-              ["🇮🇹", "Made in Italy", "Brand italiano, in linea con normativa (L. 173/2005). Niente borderline."],
+              ["✅", "Prodotto formativo reale", "Vendi un servizio di educazione finanziaria, non promesse di guadagno."],
+              ["🤖", "Strumenti AI inclusi", "4 tool dedicati (Hummingbird, Lumen, Maitryx, Solexx) compresi nei piani Pro/Elite."],
+              ["🎓", "Educatori e professionisti", "Profili consultabili, sessioni live, contenuti on-demand."],
+              ["💰", "Compensi trasparenti", "Bonus di attivazione fissi per pacchetto + compenso mensile per rank. Numeri ufficiali."],
+              ["🛠️", "Backoffice digitale", "Link tracciabili, dashboard, materiali pronti, formazione interna."],
+              ["🇮🇹", "Made in Italy", "Brand italiano, in linea con la Legge 17 agosto 2005, n. 173 sulla vendita diretta."],
             ].map(([icon, title, desc], i) => (
               <Reveal
                 key={title}
@@ -128,58 +130,75 @@ export default function CollaboraPage() {
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <Reveal stagger={1} className="card card-hover">
-              <h3 className="text-2xl font-extrabold mb-3">Provvigioni dirette</h3>
+              <h3 className="text-2xl font-extrabold mb-3">Bonus di attivazione cliente</h3>
               <p className="text-[var(--color-text-dim)] mb-4">
-                Per ogni cliente che porti a NOA ricevi una{" "}
-                <strong className="text-[var(--color-accent)]">provvigione fissa</strong> in base al
-                pacchetto venduto:
+                Per ogni cliente che attiva un piano NOA ricevi un{" "}
+                <strong className="text-[var(--color-accent)]">bonus una tantum</strong> sulla
+                vendita iniziale, in base al pacchetto:
               </p>
               <ul className="space-y-2 text-sm text-[var(--color-text-dim)]">
                 <li className="flex gap-2">
                   <span className="text-[var(--color-accent)] font-bold">→</span>
-                  Starter ($159/mese) → provvigione diretta
+                  Starter Bundle → <strong className="text-[var(--color-text)]">$30</strong>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-[var(--color-accent)] font-bold">→</span>
-                  Pro ($845/mese) → provvigione diretta più alta
+                  Pro Bundle → <strong className="text-[var(--color-text)]">$150</strong>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-[var(--color-accent)] font-bold">→</span>
-                  Elite ($1.699/mese) → provvigione diretta massima
+                  Elite Bundle → <strong className="text-[var(--color-text)]">$300</strong>
                 </li>
               </ul>
               <p className="text-sm text-[var(--color-text-faint)] mt-4">
-                Importi esatti riservati ai collaboratori. Te li mostriamo nella call conoscitiva.
+                Bonus ufficiali dal piano compensi NOA × One Tribe Global.
               </p>
             </Reveal>
 
             <Reveal stagger={2} className="card card-hover">
-              <h3 className="text-2xl font-extrabold mb-3">Sistema a Rank</h3>
+              <h3 className="text-2xl font-extrabold mb-3">Compenso mensile per rank</h3>
               <p className="text-[var(--color-text-dim)] mb-4">
-                Più cresci, più guadagni: il{" "}
-                <strong className="text-[var(--color-accent)]">sistema a rank</strong> ti premia
-                mano a mano che la tua attività si sviluppa.
+                Oltre ai bonus di attivazione, NOA prevede un{" "}
+                <strong className="text-[var(--color-accent)]">compenso mensile</strong> legato al
+                volume di vendita personale e di team, distribuito su 14 livelli di rank
+                (da $500 a $1.000.000/mese).
               </p>
               <ul className="space-y-2 text-sm text-[var(--color-text-dim)]">
                 <li className="flex gap-2">
                   <span className="text-[var(--color-accent)] font-bold">→</span>
-                  Ogni rank sblocca bonus e percentuali aggiuntive
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-[var(--color-accent)] font-bold">→</span>
-                  Si avanza in base ai risultati personali e di team
+                  Requisiti chiari su volume, bundle venduti, diretti, rinnovi
                 </li>
                 <li className="flex gap-2">
                   <span className="text-[var(--color-accent)] font-bold">→</span>
                   Trasparente: vedi sempre dove sei e cosa serve per il prossimo livello
                 </li>
+                <li className="flex gap-2">
+                  <span className="text-[var(--color-accent)] font-bold">→</span>
+                  I numeri di esempio non garantiscono il loro raggiungimento
+                </li>
               </ul>
               <p className="text-sm text-[var(--color-text-faint)] mt-4">
-                Numeri e nomi dei rank presentati nella call.
+                Tabella rank completa presentata nella call conoscitiva.
               </p>
             </Reveal>
           </div>
-          <Reveal stagger={3} className="text-center mt-10">
+
+          {/* Box trasparenza Legge 173/2005 */}
+          <Reveal stagger={3} className="max-w-4xl mx-auto mt-6">
+            <div className="p-4 sm:p-5 rounded-xl border border-amber-500/30 bg-amber-500/5 text-sm">
+              <p className="font-semibold mb-1 text-amber-200">Nota di trasparenza</p>
+              <p className="text-[var(--color-text-dim)] leading-relaxed">
+                Il programma collaboratori <strong>non remunera il semplice reclutamento</strong>{" "}
+                di persone. I compensi sono collegati esclusivamente alla{" "}
+                <strong>vendita effettiva di prodotti formativi</strong> a clienti finali e alle
+                regole del piano compensi ufficiale. Non sono garantiti guadagni minimi o
+                risultati specifici. Attività regolata dalla{" "}
+                <strong>Legge 17 agosto 2005, n. 173</strong>.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal stagger={4} className="text-center mt-8">
             <Link href="#form-collab" className="btn btn-primary btn-lg animate-pulse-glow">
               Voglio i dettagli — Prenota call
             </Link>

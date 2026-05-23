@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { ClientLeadForm } from "@/components/lead-form-client";
 import { Reveal } from "@/components/reveal";
 import { CountUp } from "@/components/count-up";
+import { BetaBanner } from "@/components/beta-banner";
 
 export const metadata: Metadata = {
   title: "Scopri NOA · Educazione finanziaria che funziona",
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 export default function ScopriPage() {
   return (
     <>
+      <BetaBanner />
       <Nav />
 
       {/* ============= HERO + FORM ============= */}
@@ -86,8 +88,11 @@ export default function ScopriPage() {
             ))}
           </div>
           <Reveal as="p" stagger={4} className="text-center text-lg md:text-xl mt-10">
-            Lasciare i soldi sul conto ={" "}
-            <span className="text-[var(--color-accent)] font-bold">perdere soldi</span>.
+            Con l&apos;inflazione, il denaro fermo{" "}
+            <span className="text-[var(--color-accent)] font-bold">
+              perde potere d&apos;acquisto nel tempo
+            </span>
+            .
           </Reveal>
         </div>
       </section>
@@ -101,28 +106,44 @@ export default function ScopriPage() {
               Cosa succede se investi <span className="text-[var(--color-accent)]">50€/mese</span>{" "}
               per 30 anni?
             </h2>
+            <p className="text-base text-[var(--color-text-dim)] mt-4">
+              Versato totale: <strong className="text-[var(--color-text)]">€18.000</strong> ·
+              Capitale finale in funzione del rendimento medio annuo composto:
+            </p>
           </Reveal>
-          <div className="text-center">
-            <Reveal stagger={1}>
-              <div className="text-7xl md:text-9xl font-black tracking-tighter bg-gradient-to-br from-[var(--color-accent)] to-white bg-clip-text text-transparent">
-                €
-                <CountUp to={247619} duration={2400} thousandsSep="." />
-              </div>
-            </Reveal>
-            <Reveal as="p" stagger={2} className="text-lg md:text-xl mt-4">
-              Versato totale: <strong>€24.000</strong> · Interessi maturati:{" "}
-              <strong className="text-[var(--color-accent)]">€223.619</strong>
-            </Reveal>
-            <Reveal
-              as="p"
-              stagger={3}
-              className="text-sm text-[var(--color-text-faint)] mt-6 max-w-2xl mx-auto"
-            >
-              Esempio educativo con rendimento ipotetico del 20%. Il rendimento medio dell&apos;S&P
-              500 negli ultimi 22 anni è ~9% annuo. Le performance passate non garantiscono
-              risultati futuri.
-            </Reveal>
+
+          {/* 3 scenari realistici invece di un singolo 20% */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {[
+              { rate: 3, value: 29137, label: "Scenario prudente" },
+              { rate: 5, value: 41612, label: "Scenario moderato" },
+              { rate: 7, value: 60900, label: "Scenario crescita" },
+            ].map((s, i) => (
+              <Reveal
+                key={s.rate}
+                stagger={(i + 1) as 1 | 2 | 3}
+                className="card card-hover text-center"
+              >
+                <p className="eyebrow mb-2">{s.rate}% annuo</p>
+                <div className="text-3xl md:text-4xl font-extrabold tracking-tight">
+                  €<CountUp to={s.value} duration={1600} thousandsSep="." />
+                </div>
+                <p className="text-xs text-[var(--color-text-dim)] mt-2">{s.label}</p>
+              </Reveal>
+            ))}
           </div>
+
+          <Reveal
+            as="p"
+            stagger={4}
+            className="text-sm text-[var(--color-text-faint)] mt-8 max-w-2xl mx-auto text-center leading-relaxed"
+          >
+            Esempi puramente didattici. Il risultato finale dipende da rendimento effettivo,
+            costi, fiscalità, inflazione e rischio di mercato. Il rendimento medio dell&apos;S&P
+            500 negli ultimi decenni è stato di circa il 7-9% lordo annuo, ma con periodi
+            anche fortemente negativi. Le performance passate non garantiscono risultati
+            futuri. Questa simulazione non è una previsione né una promessa di rendimento.
+          </Reveal>
         </div>
       </section>
 
@@ -187,8 +208,8 @@ export default function ScopriPage() {
               <ul className="space-y-2 text-sm text-[var(--color-text-dim)] mb-6">
                 {[
                   "Tutto di Starter",
-                  "Forex Exchange",
-                  "Teoria delle Onde di Elliot",
+                  "Forex (mercato valutario)",
+                  "Teoria delle Onde di Elliott",
                   "Mercato azionario",
                   "Trading Journal",
                   "Lumen AI (crypto)",

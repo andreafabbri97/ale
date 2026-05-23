@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { BetaBanner } from "@/components/beta-banner";
 import type { LeadSource } from "@/lib/supabase/types";
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default async function GraziePage({ searchParams }: PageProps) {
 
   return (
     <>
+      <BetaBanner />
       <Nav />
 
       <section className="hero-glow py-20 md:py-32">

@@ -78,8 +78,13 @@ export async function submitLead(formData: FormData): Promise<SubmitResult> {
   const phone = asString(formData.get("phone"));
   const privacy = formData.get("privacy") === "on";
 
-  if (!fullName || !email || !phone) {
-    return { ok: false, error: "Compila nome, email e telefono." };
+  if (!fullName || !email) {
+    return { ok: false, error: "Compila nome ed email." };
+  }
+  // Telefono obbligatorio solo per i lead networker (servizio recruiting via call).
+  // Per i lead cliente B2C, lo richiediamo opzionale (la guida arriva via email).
+  if (source === "networker" && !phone) {
+    return { ok: false, error: "Inserisci un telefono / WhatsApp per il ricontatto." };
   }
   if (!isValidEmail(email)) {
     return { ok: false, error: "Email non valida." };
@@ -105,7 +110,7 @@ export async function submitLead(formData: FormData): Promise<SubmitResult> {
     source,
     full_name: fullName.slice(0, 200),
     email: email.toLowerCase().slice(0, 200),
-    phone: phone.slice(0, 50),
+    phone: phone ? phone.slice(0, 50) : "",
     privacy_accepted: privacy,
     marketing_accepted: formData.get("marketing") === "on",
     ref_code: refCode,

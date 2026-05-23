@@ -91,17 +91,35 @@ export function Footer() {
 
         <div className="mt-12 pt-6 border-t border-[var(--color-border)] text-xs text-[var(--color-text-faint)] leading-relaxed space-y-3">
           <p>
-            I contenuti di questo sito hanno scopo esclusivamente <strong>formativo</strong> e{" "}
-            <strong>non costituiscono consulenza finanziaria</strong>, raccomandazione di investimento,
-            sollecitazione al pubblico risparmio né attività riservata ai sensi del TUF. Investire
-            comporta rischi, anche di perdita totale del capitale. Le performance passate non
-            garantiscono risultati futuri. Rivolgiti sempre a un consulente finanziario abilitato prima
-            di prendere decisioni di investimento.
+            <strong>Disclaimer.</strong> I contenuti di questo sito hanno scopo esclusivamente{" "}
+            <strong>formativo</strong> e{" "}
+            <strong>non costituiscono consulenza finanziaria</strong>, raccomandazione di
+            investimento, sollecitazione al pubblico risparmio né attività riservata ai sensi del
+            TUF (D.Lgs 58/1998). Investire comporta rischi, anche di perdita totale del capitale.
+            Le performance passate non garantiscono risultati futuri. Rivolgiti sempre a un
+            consulente finanziario abilitato prima di prendere decisioni di investimento.
           </p>
           <p>
-            NOA Italy e One Tribe Academy sono brand di formazione. Questo sito è gestito da un
-            collaboratore indipendente del brand, in conformità con il D.Lgs 173/2005 sulla vendita
-            diretta.
+            <strong>Marchi.</strong> &quot;NOA&quot;, &quot;One Tribe Academy&quot;,
+            &quot;One Tribe Global&quot; e i relativi loghi, nomi di prodotti (Hummingbird,
+            Lumen, Maitryx, Solexx) e materiali appartengono ai rispettivi titolari. Questo sito
+            è gestito da <strong>Alead</strong>, collaboratore indipendente autorizzato, e{" "}
+            <strong>non costituisce il sito ufficiale del brand</strong>. Sito ufficiale NOA:{" "}
+            <a
+              href="https://noaitaly.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-[var(--color-accent)]"
+            >
+              noaitaly.io
+            </a>
+            .
+          </p>
+          <p>
+            <strong>Vendita diretta.</strong> L&apos;attività di collaborazione è regolata dalla{" "}
+            Legge 17 agosto 2005, n. 173. Il programma collaboratori non remunera il semplice
+            reclutamento: i compensi derivano esclusivamente dalla vendita di prodotti
+            formativi a clienti finali. Non sono garantiti guadagni minimi.
           </p>
           <p>© {new Date().getFullYear()} · Tutti i diritti riservati.</p>
         </div>
