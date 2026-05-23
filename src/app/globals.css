@@ -39,6 +39,10 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Previene scroll orizzontale causato da elementi off-viewport
+     (glow blob, decorative pseudo, ecc.). `clip` invece di `hidden`
+     così non rompe position: sticky sui figli (nav). */
+  overflow-x: clip;
 }
 
 /* Force readable option contrast in select dropdowns su tutti i browser */
@@ -179,6 +183,8 @@ select option {
 .hero-glow {
   position: relative;
   isolation: isolate;
+  /* Contiene i blob ::before/::after che escono dal viewport */
+  overflow: hidden;
 }
 .hero-glow::before {
   content: "";
