@@ -45,13 +45,25 @@ export async function subscribeToPush(input: SubscribeInput): Promise<ActionResu
 
     if (error) {
       console.error("[push] subscribe insert failed:", error);
-      return { ok: false, error: "Errore nel salvataggio." };
+      // Messaggio specifico per i casi più comuni
+      if (error.code === "PGRST205" || error.message?.includes("push_subscriptions")) {
+        return {
+          ok: false,
+          error:
+            "Tabella push_subscriptions mancante nel DB. Esegui la migration 0003 in Supabase SQL Editor.",
+        };
+      }
+      return {
+        ok: false,
+        error: `Errore DB: ${error.message ?? error.code ?? "sconosciuto"}`,
+      };
     }
 
     return { ok: true };
   } catch (err) {
     console.error("[push] subscribe fatal:", err);
-    return { ok: false, error: "Errore di connessione." };
+    const msg = err instanceof Error ? err.message : String(err);
+    return { ok: false, error: `Errore di connessione: ${msg}` };
   }
 }
 
