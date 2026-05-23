@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { signOut } from "@/app/admin/actions";
+import { PushPrompt } from "@/components/admin/push-prompt";
 
 interface NavItem {
   href: string;
@@ -102,6 +103,11 @@ export function Sidebar({ userEmail, isAdmin }: SidebarProps) {
           <span>Sito pubblico</span>
         </Link>
       </nav>
+
+      {/* Push notifications */}
+      <div className="px-3 pb-3">
+        <PushPrompt />
+      </div>
 
       {/* User footer */}
       <div className="p-4 border-t border-[var(--color-border)]">

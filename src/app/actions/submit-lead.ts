@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { createAdminClient } from "@/lib/supabase/server";
+import { sendPushToAdmins } from "@/lib/push";
 import type {
   LeadSource,
   LeadInsert,
@@ -140,10 +141,16 @@ export async function submitLead(formData: FormData): Promise<SubmitResult> {
           motivazione: asString(formData.get("motivazione"))?.slice(0, 2000) ?? null,
         };
 
+  let insertedLeadId: string | null = null;
+
   try {
     const supabase = createAdminClient();
     const payload: LeadInsert = { ...baseInsert, ...sourceSpecific };
-    const { error } = await supabase.from("leads").insert(payload);
+    const { data, error } = await supabase
+      .from("leads")
+      .insert(payload)
+      .select("id")
+      .single();
 
     if (error) {
       console.error("Lead insert failed:", error);
@@ -152,12 +159,39 @@ export async function submitLead(formData: FormData): Promise<SubmitResult> {
         error: "Errore durante l'invio. Riprova tra qualche istante.",
       };
     }
+
+    const inserted = data as { id: string } | null;
+    insertedLeadId = inserted?.id ?? null;
   } catch (err) {
     console.error("Lead submission error:", err);
     return {
       ok: false,
       error: "Errore di connessione. Riprova tra qualche istante.",
     };
+  }
+
+  // Push notification agli admin (fire-and-forget, non blocca il redirect)
+  if (insertedLeadId) {
+    const sourceLabel = source === "cliente" ? "Cliente B2C" : "Networker";
+    const bodyParts = [
+      fullName.slice(0, 60),
+      sourceSpecific && "interesse_b2c" in sourceSpecific && sourceSpecific.interesse_b2c
+        ? `Interesse: ${sourceSpecific.interesse_b2c.replace(/_/g, " ")}`
+        : null,
+      refCode ? `ref: ${refCode}` : null,
+    ].filter(Boolean);
+
+    try {
+      await sendPushToAdmins({
+        title: `Nuovo lead — ${sourceLabel}`,
+        body: bodyParts.join(" · "),
+        url: `/admin/leads/${insertedLeadId}`,
+        tag: `lead-${insertedLeadId}`,
+      });
+    } catch (pushErr) {
+      // Non bloccare il submit se la push fallisce
+      console.error("[push] notify on new lead failed:", pushErr);
+    }
   }
 
   // Redirect a /grazie con info sul source per personalizzare il messaggio

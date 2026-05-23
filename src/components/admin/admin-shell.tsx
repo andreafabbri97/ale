@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/admin/sidebar";
+import { PwaInstallBanner } from "@/components/admin/pwa-install-banner";
 
 interface AdminShellProps {
   userEmail: string;
@@ -91,11 +92,14 @@ export function AdminShell({ userEmail, isAdmin, children }: AdminShellProps) {
 
         {/* Content area */}
         <main className="flex-1 overflow-x-hidden">
-          <div className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto md:mx-0">
+          <div className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto md:mx-0 pb-32 md:pb-10">
             {children}
           </div>
         </main>
       </div>
+
+      {/* PWA install banner — visibile finché non installata */}
+      <PwaInstallBanner />
     </div>
   );
 }
