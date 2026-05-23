@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { siteConfig } from "@/lib/site-config";
 
 export function Footer() {
   return (
@@ -71,12 +72,19 @@ export function Footer() {
             </h5>
             <ul className="flex flex-col gap-2.5 text-sm text-[var(--color-text-dim)]">
               <li>
-                <a href="mailto:contatti@example.com" className="hover:text-[var(--color-accent)]">
+                <a
+                  href={`mailto:${siteConfig.contacts.publicEmail}`}
+                  className="hover:text-[var(--color-accent)]"
+                >
                   Email
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/393000000000" rel="noopener" className="hover:text-[var(--color-accent)]">
+                <a
+                  href={`https://wa.me/${siteConfig.contacts.whatsappNumber}`}
+                  rel="noopener"
+                  className="hover:text-[var(--color-accent)]"
+                >
                   WhatsApp
                 </a>
               </li>

@@ -200,7 +200,7 @@ export default function CollaboraPage() {
 
           <Reveal stagger={4} className="text-center mt-8">
             <Link href="#form-collab" className="btn btn-primary btn-lg animate-pulse-glow">
-              Voglio i dettagli — Prenota call
+              Richiedi informazioni
             </Link>
           </Reveal>
         </div>
@@ -324,7 +324,7 @@ export default function CollaboraPage() {
           </Reveal>
           <Reveal stagger={2}>
             <Link href="#form-collab" className="btn btn-primary btn-lg animate-pulse-glow">
-              Candidati ora →
+              Richiedi informazioni →
             </Link>
           </Reveal>
         </div>

@@ -173,7 +173,7 @@ export default function ScopriPage() {
               </div>
               <p className="text-sm text-[var(--color-text-faint)] mb-6">poi $152/mese</p>
               <ul className="space-y-2 text-sm text-[var(--color-text-dim)] mb-6">
-                {["Accademia NOA", "Macroeconomia", "Basi del trading", "Materie prime", "Metalli preziosi", "3 canali idee di trading"].map((f) => (
+                {["Accademia NOA", "Macroeconomia", "Basi del trading", "Materie prime", "Metalli preziosi", "3 canali educativi di analisi"].map((f) => (
                   <li key={f} className="flex gap-2">
                     <span className="text-[var(--color-accent)] font-bold">✓</span>
                     {f}
@@ -181,7 +181,7 @@ export default function ScopriPage() {
                 ))}
               </ul>
               <Link href="#form-lead" className="btn btn-ghost btn-block">
-                Voglio iniziare
+                Scegli Starter
               </Link>
             </Reveal>
 
@@ -214,7 +214,7 @@ export default function ScopriPage() {
                   "Trading Journal",
                   "Lumen AI (crypto)",
                   "Live US30 con A. Harfouch",
-                  "6 canali idee di trading",
+                  "6 canali educativi di analisi",
                 ].map((f) => (
                   <li key={f} className="flex gap-2">
                     <span className="text-[var(--color-accent)] font-bold">✓</span>
@@ -223,13 +223,13 @@ export default function ScopriPage() {
                 ))}
               </ul>
               <Link href="#form-lead" className="btn btn-primary btn-block">
-                Voglio il Pro
+                Scegli Pro
               </Link>
             </Reveal>
 
             {/* ELITE */}
             <Reveal stagger={3} className="card card-hover">
-              <div className="text-2xl font-extrabold uppercase tracking-widest">Élite</div>
+              <div className="text-2xl font-extrabold uppercase tracking-widest">Elite</div>
               <p className="text-sm text-[var(--color-text-dim)] mt-1 mb-6">Per professionisti.</p>
               <div className="text-4xl font-extrabold">
                 $1.699
@@ -245,7 +245,7 @@ export default function ScopriPage() {
                   "Certificati azionari",
                   "Hummingbird AI (scanner armonico)",
                   "Solexx (idee trading da pro)",
-                  "9 canali idee di trading",
+                  "9 canali educativi di analisi",
                   "Accesso prioritario educatori",
                 ].map((f) => (
                   <li key={f} className="flex gap-2">
@@ -255,7 +255,7 @@ export default function ScopriPage() {
                 ))}
               </ul>
               <Link href="#form-lead" className="btn btn-ghost btn-block">
-                Voglio l&apos;Élite
+                Scegli Elite
               </Link>
             </Reveal>
           </div>

@@ -36,7 +36,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "NOA Italia | Educazione finanziaria seria",
-    description: "Niente soldi facili. Solo educazione finanziaria.",
+    description:
+      "Percorso formativo per comprendere mercati, rischio e gestione del capitale. Nessuna garanzia di risultato.",
     type: "website",
     locale: "it_IT",
   },
