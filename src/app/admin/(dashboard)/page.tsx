@@ -3,6 +3,8 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { LeadStatusBadge, LeadSourceBadge } from "@/components/admin/badges";
 import { LeadCardMobile } from "@/components/admin/lead-card-mobile";
+import { Reveal } from "@/components/reveal";
+import { CountUp } from "@/components/count-up";
 import type { Lead } from "@/lib/supabase/types";
 
 export const metadata: Metadata = {
@@ -92,13 +94,28 @@ function StatCard({
   sub?: string;
   accent?: boolean;
 }) {
+  // Se il valore è numerico, animiamo con CountUp; altrimenti rendiamo "as is"
+  const numericValue = typeof value === "number" ? value : null;
+
   return (
-    <div className={`card !p-4 sm:!p-6 ${accent ? "border-[var(--color-accent)]/40" : ""}`}>
+    <div
+      className={`card card-hover !p-4 sm:!p-6 ${
+        accent ? "border-[var(--color-accent)]/40" : ""
+      }`}
+    >
       <div className="text-[10px] sm:text-xs uppercase tracking-widest text-[var(--color-text-faint)] mb-1 sm:mb-2">
         {label}
       </div>
-      <div className="text-2xl sm:text-4xl font-extrabold tracking-tight">{value}</div>
-      {sub && <div className="text-[11px] sm:text-xs text-[var(--color-text-dim)] mt-1">{sub}</div>}
+      <div className="text-2xl sm:text-4xl font-extrabold tracking-tight">
+        {numericValue !== null ? (
+          <CountUp to={numericValue} duration={1200} />
+        ) : (
+          value
+        )}
+      </div>
+      {sub && (
+        <div className="text-[11px] sm:text-xs text-[var(--color-text-dim)] mt-1">{sub}</div>
+      )}
     </div>
   );
 }
@@ -127,7 +144,7 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <header className="mb-6 sm:mb-8">
+      <header className="mb-6 sm:mb-8 animate-fade-up">
         <p className="eyebrow mb-2">Pannello amministrazione</p>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
           Dashboard
@@ -138,7 +155,7 @@ export default async function DashboardPage() {
       </header>
 
       {/* Stats: 2 cols su mobile, 4 su lg */}
-      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10 animate-fade-up delay-1">
         <StatCard
           label="Totale lead"
           value={data.total.total}
@@ -168,32 +185,38 @@ export default async function DashboardPage() {
 
       {/* Status pipeline: 2 cols mobile, 7 desktop, con scroll orizzontale se serve */}
       <section className="mb-8 sm:mb-10">
-        <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Pipeline per stato</h2>
+        <Reveal as="h2" className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">
+          Pipeline per stato
+        </Reveal>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 sm:gap-3">
-          {statusOrder.map((status) => (
-            <div key={status} className="card text-center !py-3 sm:!py-4 !px-2">
+          {statusOrder.map((status, i) => (
+            <Reveal
+              key={status}
+              stagger={((i % 7) + 1) as 1 | 2 | 3 | 4 | 5 | 6 | 7}
+              className="card card-hover text-center !py-3 sm:!py-4 !px-2"
+            >
               <div className="text-xl sm:text-2xl font-extrabold">
-                {data.byStatus[status] ?? 0}
+                <CountUp to={data.byStatus[status] ?? 0} duration={900} />
               </div>
               <div className="mt-1.5 sm:mt-2">
                 <LeadStatusBadge status={status} />
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
       {/* Latest leads — tabella su md+, cards su mobile */}
       <section>
-        <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <Reveal className="flex items-center justify-between mb-3 sm:mb-4">
           <h2 className="text-lg sm:text-xl font-bold">Ultimi 10 lead</h2>
           <Link
             href="/admin/leads"
-            className="text-sm text-[var(--color-accent)] hover:underline"
+            className="text-sm text-[var(--color-accent)] link-underline"
           >
             Vedi tutti →
           </Link>
-        </div>
+        </Reveal>
 
         {data.latest.length === 0 ? (
           <div className="card text-center py-12 sm:py-16">
@@ -206,13 +229,18 @@ export default async function DashboardPage() {
           <>
             {/* Mobile: cards */}
             <div className="md:hidden space-y-3">
-              {data.latest.map((lead) => (
-                <LeadCardMobile key={lead.id} lead={lead} />
+              {data.latest.map((lead, i) => (
+                <Reveal
+                  key={lead.id}
+                  stagger={((i % 8) + 1) as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}
+                >
+                  <LeadCardMobile lead={lead} />
+                </Reveal>
               ))}
             </div>
 
             {/* Desktop: tabella */}
-            <div className="hidden md:block card overflow-x-auto !p-0">
+            <div className="hidden md:block card overflow-x-auto !p-0 animate-fade-up delay-2">
               <table className="w-full text-sm">
                 <thead className="bg-white/5 text-xs uppercase tracking-widest text-[var(--color-text-faint)]">
                   <tr>
@@ -226,7 +254,10 @@ export default async function DashboardPage() {
                 </thead>
                 <tbody className="divide-y divide-[var(--color-border)]">
                   {data.latest.map((lead) => (
-                    <tr key={lead.id} className="hover:bg-white/3 transition">
+                    <tr
+                      key={lead.id}
+                      className="hover:bg-[rgba(59,212,248,0.04)] transition-colors duration-200"
+                    >
                       <td className="p-3 whitespace-nowrap text-[var(--color-text-faint)]">
                         {formatDate(lead.created_at)}
                       </td>

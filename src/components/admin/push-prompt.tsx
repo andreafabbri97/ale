@@ -222,9 +222,15 @@ export function PushPrompt() {
 
   if (status === "subscribed") {
     return (
-      <div className="card !p-4">
+      <div className="card !p-4 animate-fade-in">
         <div className="flex items-center justify-between mb-2">
-          <div className="text-xs font-semibold">🔔 Notifiche attive</div>
+          <div className="text-xs font-semibold flex items-center gap-2">
+            <span
+              className="inline-block w-2 h-2 rounded-full bg-[var(--color-success)] animate-dot-pulse"
+              aria-hidden="true"
+            />
+            Notifiche attive
+          </div>
           <span className="text-[10px] uppercase tracking-widest text-[var(--color-success)]">
             ON
           </span>
