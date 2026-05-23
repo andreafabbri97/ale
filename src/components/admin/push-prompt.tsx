@@ -66,6 +66,30 @@ export function PushPrompt() {
         }
 
         const sub = await reg.pushManager.getSubscription();
+
+        if (sub) {
+          // Sub già esistente sul browser → re-sync con il DB (idempotente)
+          // Importante per: nuova sessione, cookies cancellati, nuovo collaboratore
+          // che ha ereditato sub di un altro user sullo stesso device, ecc.
+          const subJson = sub.toJSON();
+          const p256dh = subJson.keys?.p256dh ?? bufferToBase64(sub.getKey("p256dh"));
+          const auth = subJson.keys?.auth ?? bufferToBase64(sub.getKey("auth"));
+
+          const syncResult = await subscribeToPush({
+            endpoint: sub.endpoint,
+            p256dh,
+            auth,
+            userAgent: navigator.userAgent,
+          });
+
+          if (!syncResult.ok) {
+            console.warn("[push-prompt] re-sync failed:", syncResult.error);
+            if (!cancelled) {
+              setMessage(syncResult.error ?? null);
+            }
+          }
+        }
+
         if (!cancelled) {
           setStatus(sub ? "subscribed" : "prompt");
         }
