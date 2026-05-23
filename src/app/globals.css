@@ -28,6 +28,9 @@
    ===================================================================== */
 html {
   scroll-behavior: smooth;
+  /* Dice al browser di usare il tema dark per i controlli nativi
+     (dropdown <select>, scrollbar, calendari, ecc.) */
+  color-scheme: dark;
 }
 
 body {
@@ -36,6 +39,12 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Force readable option contrast in select dropdowns su tutti i browser */
+select option {
+  background-color: var(--color-bg-2);
+  color: var(--color-text);
 }
 
 ::selection {
