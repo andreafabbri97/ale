@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { signOut } from "@/app/admin/actions";
@@ -38,7 +39,22 @@ export function Sidebar({ userEmail, isAdmin }: SidebarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  // Active state ottimistico: quando l'utente clicca un link, salviamo subito
+  // l'href "pending" e lo usiamo per highlight finché la nuova pathname
+  // non corrisponde. Risultato: highlight istantaneo invece di aspettare SSR.
+  const [pendingHref, setPendingHref] = useState<string | null>(null);
+
+  // Quando la navigation completa (pathname/search cambiano), pulisci il pending
+  useEffect(() => {
+    setPendingHref(null);
+  }, [pathname, searchParams]);
+
   function isActive(item: NavItem): boolean {
+    // Override: se l'utente ha appena cliccato quel link, mostra subito attivo
+    if (pendingHref === item.href) return true;
+    // Se c'è un pending diverso, disattiva tutti gli altri (no doppi highlight)
+    if (pendingHref && pendingHref !== item.href) return false;
+
     const itemPath = item.href.split("?")[0];
 
     if (item.matchSearch) {
@@ -81,10 +97,12 @@ export function Sidebar({ userEmail, isAdmin }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition ${
+              prefetch
+              onClick={() => setPendingHref(item.href)}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
                 active
-                  ? "bg-[rgba(59,212,248,0.1)] text-[var(--color-accent)] font-semibold"
-                  : "text-[var(--color-text-dim)] hover:bg-white/5 hover:text-[var(--color-text)]"
+                  ? "bg-[rgba(59,212,248,0.12)] text-[var(--color-accent)] font-semibold translate-x-0.5"
+                  : "text-[var(--color-text-dim)] hover:bg-white/5 hover:text-[var(--color-text)] hover:translate-x-0.5"
               }`}
             >
               <span className="text-base w-5 text-center">{item.icon}</span>

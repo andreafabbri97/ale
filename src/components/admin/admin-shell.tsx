@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/admin/sidebar";
 import { PwaInstallBanner } from "@/components/admin/pwa-install-banner";
+import { NavProgress } from "@/components/admin/nav-progress";
 
 interface AdminShellProps {
   userEmail: string;
@@ -34,6 +35,11 @@ export function AdminShell({ userEmail, isAdmin, children }: AdminShellProps) {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] flex">
+      {/* Top progress bar durante navigazione (intercetta click) */}
+      <Suspense fallback={null}>
+        <NavProgress />
+      </Suspense>
+
       {/* Sidebar — desktop: inline, mobile: fixed overlay (rispetta safe area su iOS) */}
       <div
         className={`
