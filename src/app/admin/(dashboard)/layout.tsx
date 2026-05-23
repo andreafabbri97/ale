@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Sidebar } from "@/components/admin/sidebar";
+import { AdminShell } from "@/components/admin/admin-shell";
 
 export default async function AdminLayout({
   children,
@@ -33,11 +33,8 @@ export default async function AdminLayout({
   const isAdmin = collaborator?.is_admin ?? false;
 
   return (
-    <div className="min-h-screen flex bg-[var(--color-bg)]">
-      <Sidebar userEmail={userEmail} isAdmin={isAdmin} />
-      <main className="flex-1 overflow-x-auto">
-        <div className="p-6 md:p-10 max-w-7xl">{children}</div>
-      </main>
-    </div>
+    <AdminShell userEmail={userEmail} isAdmin={isAdmin}>
+      {children}
+    </AdminShell>
   );
 }

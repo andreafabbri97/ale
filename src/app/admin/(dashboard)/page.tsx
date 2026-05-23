@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { LeadStatusBadge, LeadSourceBadge } from "@/components/admin/badges";
+import { LeadCardMobile } from "@/components/admin/lead-card-mobile";
 import type { Lead } from "@/lib/supabase/types";
 
 export const metadata: Metadata = {
@@ -88,12 +89,12 @@ function StatCard({
   accent?: boolean;
 }) {
   return (
-    <div className={`card ${accent ? "border-[var(--color-accent)]/40" : ""}`}>
-      <div className="text-xs uppercase tracking-widest text-[var(--color-text-faint)] mb-2">
+    <div className={`card !p-4 sm:!p-6 ${accent ? "border-[var(--color-accent)]/40" : ""}`}>
+      <div className="text-[10px] sm:text-xs uppercase tracking-widest text-[var(--color-text-faint)] mb-1 sm:mb-2">
         {label}
       </div>
-      <div className="text-4xl font-extrabold tracking-tight">{value}</div>
-      {sub && <div className="text-xs text-[var(--color-text-dim)] mt-1">{sub}</div>}
+      <div className="text-2xl sm:text-4xl font-extrabold tracking-tight">{value}</div>
+      {sub && <div className="text-[11px] sm:text-xs text-[var(--color-text-dim)] mt-1">{sub}</div>}
     </div>
   );
 }
@@ -122,51 +123,55 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <header className="mb-8">
+      <header className="mb-6 sm:mb-8">
         <p className="eyebrow mb-2">Pannello amministrazione</p>
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">Dashboard</h1>
-        <p className="text-[var(--color-text-dim)] mt-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
+          Dashboard
+        </h1>
+        <p className="text-[var(--color-text-dim)] mt-2 text-sm sm:text-base">
           Una panoramica sui lead generati dal sito.
         </p>
       </header>
 
-      {/* Stats */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+      {/* Stats: 2 cols su mobile, 4 su lg */}
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10">
         <StatCard
           label="Totale lead"
           value={data.total.total}
-          sub={`${data.total.last7d} negli ultimi 7gg · ${data.total.last30d} ultimi 30gg`}
+          sub={`${data.total.last7d} ultimi 7gg`}
           accent
         />
         <StatCard
-          label="Lead clienti (B2C)"
+          label="Clienti (B2C)"
           value={data.cliente.total}
-          sub={`${data.cliente.last7d} negli ultimi 7gg`}
+          sub={`${data.cliente.last7d} ultimi 7gg`}
         />
         <StatCard
-          label="Lead networker"
+          label="Networker"
           value={data.networker.total}
-          sub={`${data.networker.last7d} negli ultimi 7gg`}
+          sub={`${data.networker.last7d} ultimi 7gg`}
         />
         <StatCard
-          label="Won (conversioni)"
+          label="Won"
           value={data.byStatus["won"] ?? 0}
           sub={
             data.total.total
-              ? `Conversion rate: ${(((data.byStatus["won"] ?? 0) / data.total.total) * 100).toFixed(1)}%`
+              ? `${(((data.byStatus["won"] ?? 0) / data.total.total) * 100).toFixed(1)}% conversion`
               : "—"
           }
         />
       </section>
 
-      {/* Status pipeline */}
-      <section className="mb-10">
-        <h2 className="text-xl font-bold mb-4">Pipeline per stato</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+      {/* Status pipeline: 2 cols mobile, 7 desktop, con scroll orizzontale se serve */}
+      <section className="mb-8 sm:mb-10">
+        <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Pipeline per stato</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 sm:gap-3">
           {statusOrder.map((status) => (
-            <div key={status} className="card text-center py-4">
-              <div className="text-2xl font-extrabold">{data.byStatus[status] ?? 0}</div>
-              <div className="mt-2">
+            <div key={status} className="card text-center !py-3 sm:!py-4 !px-2">
+              <div className="text-xl sm:text-2xl font-extrabold">
+                {data.byStatus[status] ?? 0}
+              </div>
+              <div className="mt-1.5 sm:mt-2">
                 <LeadStatusBadge status={status} />
               </div>
             </div>
@@ -174,10 +179,10 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      {/* Latest leads */}
+      {/* Latest leads — tabella su md+, cards su mobile */}
       <section>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold">Ultimi 10 lead</h2>
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
+          <h2 className="text-lg sm:text-xl font-bold">Ultimi 10 lead</h2>
           <Link
             href="/admin/leads"
             className="text-sm text-[var(--color-accent)] hover:underline"
@@ -187,53 +192,62 @@ export default async function DashboardPage() {
         </div>
 
         {data.latest.length === 0 ? (
-          <div className="card text-center py-16">
-            <p className="text-[var(--color-text-dim)]">
+          <div className="card text-center py-12 sm:py-16">
+            <p className="text-[var(--color-text-dim)] text-sm sm:text-base">
               Nessun lead ancora. Quando arriverà un submit dai form pubblici,
-              <br />
-              lo vedrai qui in tempo reale.
+              <br className="hidden sm:inline" /> lo vedrai qui in tempo reale.
             </p>
           </div>
         ) : (
-          <div className="card overflow-x-auto p-0">
-            <table className="w-full text-sm">
-              <thead className="bg-white/5 text-xs uppercase tracking-widest text-[var(--color-text-faint)]">
-                <tr>
-                  <th className="text-left p-3">Data</th>
-                  <th className="text-left p-3">Nome</th>
-                  <th className="text-left p-3">Email</th>
-                  <th className="text-left p-3">Source</th>
-                  <th className="text-left p-3">Stato</th>
-                  <th className="p-3" />
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[var(--color-border)]">
-                {data.latest.map((lead) => (
-                  <tr key={lead.id} className="hover:bg-white/3 transition">
-                    <td className="p-3 whitespace-nowrap text-[var(--color-text-faint)]">
-                      {formatDate(lead.created_at)}
-                    </td>
-                    <td className="p-3 font-semibold">{lead.full_name}</td>
-                    <td className="p-3 text-[var(--color-text-dim)]">{lead.email}</td>
-                    <td className="p-3">
-                      <LeadSourceBadge source={lead.source} />
-                    </td>
-                    <td className="p-3">
-                      <LeadStatusBadge status={lead.status} />
-                    </td>
-                    <td className="p-3 text-right">
-                      <Link
-                        href={`/admin/leads/${lead.id}`}
-                        className="text-[var(--color-accent)] hover:underline text-xs"
-                      >
-                        Apri →
-                      </Link>
-                    </td>
+          <>
+            {/* Mobile: cards */}
+            <div className="md:hidden space-y-3">
+              {data.latest.map((lead) => (
+                <LeadCardMobile key={lead.id} lead={lead} />
+              ))}
+            </div>
+
+            {/* Desktop: tabella */}
+            <div className="hidden md:block card overflow-x-auto !p-0">
+              <table className="w-full text-sm">
+                <thead className="bg-white/5 text-xs uppercase tracking-widest text-[var(--color-text-faint)]">
+                  <tr>
+                    <th className="text-left p-3">Data</th>
+                    <th className="text-left p-3">Nome</th>
+                    <th className="text-left p-3">Email</th>
+                    <th className="text-left p-3">Source</th>
+                    <th className="text-left p-3">Stato</th>
+                    <th className="p-3" />
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-[var(--color-border)]">
+                  {data.latest.map((lead) => (
+                    <tr key={lead.id} className="hover:bg-white/3 transition">
+                      <td className="p-3 whitespace-nowrap text-[var(--color-text-faint)]">
+                        {formatDate(lead.created_at)}
+                      </td>
+                      <td className="p-3 font-semibold">{lead.full_name}</td>
+                      <td className="p-3 text-[var(--color-text-dim)]">{lead.email}</td>
+                      <td className="p-3">
+                        <LeadSourceBadge source={lead.source} />
+                      </td>
+                      <td className="p-3">
+                        <LeadStatusBadge status={lead.status} />
+                      </td>
+                      <td className="p-3 text-right">
+                        <Link
+                          href={`/admin/leads/${lead.id}`}
+                          className="text-[var(--color-accent)] hover:underline text-xs"
+                        >
+                          Apri →
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </section>
     </>

@@ -12,7 +12,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: {
     default: "NOA Italia | Educazione finanziaria seria",
-    template: "%s · NOA × One Tribe",
+    template: "%s · Alead",
   },
   description:
     "NOA × One Tribe Academy. La piattaforma italiana di educazione finanziaria. Niente promesse, solo formazione, strumenti AI e professionisti.",

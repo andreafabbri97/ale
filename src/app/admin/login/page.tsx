@@ -23,9 +23,9 @@ export default async function LoginPage({ searchParams }: PageProps) {
             className="inline-flex items-center gap-2.5 font-extrabold text-xl tracking-tight mb-6"
           >
             <span className="grid place-items-center w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-2)] text-[var(--color-bg)] font-black text-lg">
-              N
+              A
             </span>
-            <span>NOA × One Tribe</span>
+            <span>Alead</span>
           </Link>
           <h1 className="text-3xl font-extrabold tracking-tight">
             Pannello <span className="text-[var(--color-accent)]">amministrazione</span>

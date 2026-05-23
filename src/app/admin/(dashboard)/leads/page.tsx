@@ -6,6 +6,7 @@ import {
   LeadSourceBadge,
   LeadScoreBadge,
 } from "@/components/admin/badges";
+import { LeadCardMobile } from "@/components/admin/lead-card-mobile";
 import type { Lead, LeadStatus, LeadSource } from "@/lib/supabase/types";
 
 export const metadata: Metadata = {
@@ -97,6 +98,10 @@ export default async function LeadsListPage({ searchParams }: PageProps) {
   });
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const hasFilters =
+    (statusParam && statusParam !== "all") ||
+    (sourceParam && sourceParam !== "all") ||
+    Boolean(query);
 
   // Build CSV export URL preserving filters
   const exportParams = new URLSearchParams();
@@ -107,34 +112,33 @@ export default async function LeadsListPage({ searchParams }: PageProps) {
 
   return (
     <>
-      <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
+      <header className="mb-5 sm:mb-6 flex flex-wrap items-start sm:items-end justify-between gap-3">
         <div>
-          <p className="eyebrow mb-2">Gestione</p>
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">Lead</h1>
-          <p className="text-[var(--color-text-dim)] mt-2 text-sm">
+          <p className="eyebrow mb-1.5">Gestione</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
+            Lead
+          </h1>
+          <p className="text-[var(--color-text-dim)] mt-1 sm:mt-2 text-sm">
             {total} {total === 1 ? "risultato" : "risultati"}
-            {(statusParam && statusParam !== "all") || (sourceParam && sourceParam !== "all") || query
-              ? " con i filtri applicati"
-              : " totali"}
+            {hasFilters ? " con filtri" : " totali"}
           </p>
         </div>
 
-        <a
-          href={exportHref}
-          className="btn btn-ghost"
-          download
-        >
-          ⬇ Esporta CSV
+        <a href={exportHref} className="btn btn-ghost text-sm" download>
+          ⬇ CSV
         </a>
       </header>
 
       {/* Filters */}
       <form
         method="get"
-        className="card mb-6 grid grid-cols-1 md:grid-cols-4 gap-3 items-end"
+        className="card mb-5 sm:mb-6 grid grid-cols-1 md:grid-cols-4 gap-3 items-end"
       >
         <div>
-          <label htmlFor="q" className="block text-xs uppercase tracking-widest mb-1 text-[var(--color-text-faint)]">
+          <label
+            htmlFor="q"
+            className="block text-xs uppercase tracking-widest mb-1 text-[var(--color-text-faint)]"
+          >
             Cerca
           </label>
           <input
@@ -147,7 +151,10 @@ export default async function LeadsListPage({ searchParams }: PageProps) {
           />
         </div>
         <div>
-          <label htmlFor="source" className="block text-xs uppercase tracking-widest mb-1 text-[var(--color-text-faint)]">
+          <label
+            htmlFor="source"
+            className="block text-xs uppercase tracking-widest mb-1 text-[var(--color-text-faint)]"
+          >
             Origine
           </label>
           <select
@@ -164,7 +171,10 @@ export default async function LeadsListPage({ searchParams }: PageProps) {
           </select>
         </div>
         <div>
-          <label htmlFor="status" className="block text-xs uppercase tracking-widest mb-1 text-[var(--color-text-faint)]">
+          <label
+            htmlFor="status"
+            className="block text-xs uppercase tracking-widest mb-1 text-[var(--color-text-faint)]"
+          >
             Stato
           </label>
           <select
@@ -181,21 +191,21 @@ export default async function LeadsListPage({ searchParams }: PageProps) {
           </select>
         </div>
         <div className="flex gap-2">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary flex-1 md:flex-none">
             Filtra
           </button>
-          <Link href="/admin/leads" className="btn btn-ghost">
+          <Link href="/admin/leads" className="btn btn-ghost flex-1 md:flex-none">
             Reset
           </Link>
         </div>
       </form>
 
-      {/* Table */}
+      {/* Lista */}
       {leads.length === 0 ? (
-        <div className="card text-center py-16">
-          <p className="text-[var(--color-text-dim)]">
+        <div className="card text-center py-12 sm:py-16">
+          <p className="text-[var(--color-text-dim)] text-sm sm:text-base">
             Nessun lead trovato.
-            {(statusParam && statusParam !== "all") || (sourceParam && sourceParam !== "all") || query ? (
+            {hasFilters ? (
               <>
                 <br />
                 <Link
@@ -209,76 +219,86 @@ export default async function LeadsListPage({ searchParams }: PageProps) {
           </p>
         </div>
       ) : (
-        <div className="card overflow-x-auto p-0">
-          <table className="w-full text-sm">
-            <thead className="bg-white/5 text-xs uppercase tracking-widest text-[var(--color-text-faint)]">
-              <tr>
-                <th className="text-left p-3">Data</th>
-                <th className="text-left p-3">Nome</th>
-                <th className="text-left p-3">Email</th>
-                <th className="text-left p-3">Telefono</th>
-                <th className="text-left p-3">Origine</th>
-                <th className="text-left p-3">Stato</th>
-                <th className="text-left p-3">Score</th>
-                <th className="p-3" />
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[var(--color-border)]">
-              {leads.map((lead) => (
-                <tr key={lead.id} className="hover:bg-white/3 transition">
-                  <td className="p-3 whitespace-nowrap text-[var(--color-text-faint)]">
-                    {formatDate(lead.created_at)}
-                  </td>
-                  <td className="p-3 font-semibold whitespace-nowrap">{lead.full_name}</td>
-                  <td className="p-3 text-[var(--color-text-dim)]">{lead.email}</td>
-                  <td className="p-3 text-[var(--color-text-dim)] whitespace-nowrap">
-                    {lead.phone}
-                  </td>
-                  <td className="p-3">
-                    <LeadSourceBadge source={lead.source} />
-                  </td>
-                  <td className="p-3">
-                    <LeadStatusBadge status={lead.status} />
-                  </td>
-                  <td className="p-3">
-                    <LeadScoreBadge score={lead.score} />
-                  </td>
-                  <td className="p-3 text-right">
-                    <Link
-                      href={`/admin/leads/${lead.id}`}
-                      className="text-[var(--color-accent)] hover:underline text-xs whitespace-nowrap"
-                    >
-                      Apri →
-                    </Link>
-                  </td>
+        <>
+          {/* Mobile: cards */}
+          <div className="md:hidden space-y-3">
+            {leads.map((lead) => (
+              <LeadCardMobile key={lead.id} lead={lead} />
+            ))}
+          </div>
+
+          {/* Desktop: tabella */}
+          <div className="hidden md:block card overflow-x-auto !p-0">
+            <table className="w-full text-sm">
+              <thead className="bg-white/5 text-xs uppercase tracking-widest text-[var(--color-text-faint)]">
+                <tr>
+                  <th className="text-left p-3">Data</th>
+                  <th className="text-left p-3">Nome</th>
+                  <th className="text-left p-3">Email</th>
+                  <th className="text-left p-3">Telefono</th>
+                  <th className="text-left p-3">Origine</th>
+                  <th className="text-left p-3">Stato</th>
+                  <th className="text-left p-3">Score</th>
+                  <th className="p-3" />
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-[var(--color-border)]">
+                {leads.map((lead) => (
+                  <tr key={lead.id} className="hover:bg-white/3 transition">
+                    <td className="p-3 whitespace-nowrap text-[var(--color-text-faint)]">
+                      {formatDate(lead.created_at)}
+                    </td>
+                    <td className="p-3 font-semibold whitespace-nowrap">{lead.full_name}</td>
+                    <td className="p-3 text-[var(--color-text-dim)]">{lead.email}</td>
+                    <td className="p-3 text-[var(--color-text-dim)] whitespace-nowrap">
+                      {lead.phone}
+                    </td>
+                    <td className="p-3">
+                      <LeadSourceBadge source={lead.source} />
+                    </td>
+                    <td className="p-3">
+                      <LeadStatusBadge status={lead.status} />
+                    </td>
+                    <td className="p-3">
+                      <LeadScoreBadge score={lead.score} />
+                    </td>
+                    <td className="p-3 text-right">
+                      <Link
+                        href={`/admin/leads/${lead.id}`}
+                        className="text-[var(--color-accent)] hover:underline text-xs whitespace-nowrap"
+                      >
+                        Apri →
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <nav className="mt-6 flex items-center justify-between text-sm">
-          <span className="text-[var(--color-text-faint)]">
-            Pagina {page} di {totalPages}
+        <nav className="mt-6 flex items-center justify-between text-sm gap-3">
+          <span className="text-[var(--color-text-faint)] text-xs sm:text-sm">
+            Pag. {page} di {totalPages}
           </span>
           <div className="flex gap-2">
             {page > 1 && (
               <Link
                 href={`?${new URLSearchParams({ ...params, page: String(page - 1) }).toString()}`}
-                className="btn btn-ghost"
+                className="btn btn-ghost !px-3"
               >
-                ← Precedente
+                ←
               </Link>
             )}
             {page < totalPages && (
               <Link
                 href={`?${new URLSearchParams({ ...params, page: String(page + 1) }).toString()}`}
-                className="btn btn-ghost"
+                className="btn btn-ghost !px-3"
               >
-                Successiva →
+                →
               </Link>
             )}
           </div>

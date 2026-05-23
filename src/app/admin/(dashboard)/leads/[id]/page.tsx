@@ -93,10 +93,10 @@ function timeAgo(iso: string): string {
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div>
-      <div className="text-xs uppercase tracking-widest text-[var(--color-text-faint)] mb-1">
+      <div className="text-[10px] sm:text-xs uppercase tracking-widest text-[var(--color-text-faint)] mb-1">
         {label}
       </div>
-      <div className="text-sm">{value || "—"}</div>
+      <div className="text-sm break-words">{value || "—"}</div>
     </div>
   );
 }
@@ -120,59 +120,72 @@ export default async function LeadDetailPage({ params }: PageProps) {
     .order("created_at", { ascending: false });
 
   const timeline = (interactions ?? []) as Interaction[];
+  const phoneDigits = typedLead.phone.replace(/\D/g, "");
 
   return (
     <>
-      <header className="mb-8">
+      {/* ============ HEADER ============ */}
+      <header className="mb-6">
         <Link
           href="/admin/leads"
-          className="text-sm text-[var(--color-text-faint)] hover:text-[var(--color-accent)] inline-flex items-center gap-1"
+          className="text-sm text-[var(--color-text-faint)] hover:text-[var(--color-accent)] inline-flex items-center gap-1 mb-3"
         >
-          ← Torna alla lista
+          ← Lista lead
         </Link>
-        <div className="mt-3 flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <LeadSourceBadge source={typedLead.source} />
-              <LeadStatusBadge status={typedLead.status} />
-              {typedLead.source === "networker" && <LeadScoreBadge score={typedLead.score} />}
-            </div>
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-              {typedLead.full_name}
-            </h1>
-            <p className="text-sm text-[var(--color-text-dim)] mt-1">
-              Lead ricevuto il {formatDateTime(typedLead.created_at)}
-            </p>
-          </div>
 
-          <div className="flex flex-col gap-2">
-            <a
-              href={`mailto:${typedLead.email}`}
-              className="btn btn-ghost text-sm"
-            >
-              ✉ Email
-            </a>
-            <a
-              href={`https://wa.me/${typedLead.phone.replace(/\D/g, "")}`}
-              target="_blank"
-              rel="noopener"
-              className="btn btn-ghost text-sm"
-            >
-              💬 WhatsApp
-            </a>
-            <a href={`tel:${typedLead.phone}`} className="btn btn-ghost text-sm">
-              📞 Chiama
-            </a>
-          </div>
+        <div className="flex flex-wrap items-center gap-2 mb-2">
+          <LeadSourceBadge source={typedLead.source} />
+          <LeadStatusBadge status={typedLead.status} />
+          {typedLead.source === "networker" && <LeadScoreBadge score={typedLead.score} />}
         </div>
+
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight break-words">
+          {typedLead.full_name}
+        </h1>
+        <p className="text-xs sm:text-sm text-[var(--color-text-dim)] mt-1">
+          Ricevuto il {formatDateTime(typedLead.created_at)}
+        </p>
       </header>
+
+      {/* ============ QUICK ACTIONS (visibili in alto su mobile) ============ */}
+      <div className="grid grid-cols-3 gap-2 mb-6">
+        <a
+          href={`mailto:${typedLead.email}`}
+          className="btn btn-ghost !px-2 text-xs sm:text-sm flex-col sm:flex-row !py-3"
+        >
+          <span className="text-lg sm:text-base">✉</span>
+          <span>Email</span>
+        </a>
+        <a
+          href={`https://wa.me/${phoneDigits}`}
+          target="_blank"
+          rel="noopener"
+          className="btn btn-ghost !px-2 text-xs sm:text-sm flex-col sm:flex-row !py-3"
+        >
+          <span className="text-lg sm:text-base">💬</span>
+          <span>WhatsApp</span>
+        </a>
+        <a
+          href={`tel:${typedLead.phone}`}
+          className="btn btn-ghost !px-2 text-xs sm:text-sm flex-col sm:flex-row !py-3"
+        >
+          <span className="text-lg sm:text-base">📞</span>
+          <span>Chiama</span>
+        </a>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
         {/* ============ LEFT: dati lead + timeline ============ */}
-        <div className="space-y-6">
+        <div className="space-y-6 min-w-0">
+          {/* CAMBIO STATO — sopra il fold su mobile (sotto i quick action) */}
+          <section className="card lg:hidden">
+            <h3 className="text-base font-bold mb-3">Stato</h3>
+            <LeadStatusForm leadId={typedLead.id} currentStatus={typedLead.status} />
+          </section>
+
           {/* Anagrafica */}
           <section className="card">
-            <h2 className="text-lg font-bold mb-4">Anagrafica</h2>
+            <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Anagrafica</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Field label="Nome" value={typedLead.full_name} />
               <Field label="Email" value={typedLead.email} />
@@ -185,7 +198,7 @@ export default async function LeadDetailPage({ params }: PageProps) {
           {/* Dettagli specifici */}
           {typedLead.source === "cliente" && (
             <section className="card">
-              <h2 className="text-lg font-bold mb-4">Dettagli cliente B2C</h2>
+              <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Dettagli cliente</h2>
               <Field
                 label="Interesse"
                 value={
@@ -199,7 +212,7 @@ export default async function LeadDetailPage({ params }: PageProps) {
 
           {typedLead.source === "networker" && (
             <section className="card">
-              <h2 className="text-lg font-bold mb-4">Profilo networker</h2>
+              <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Profilo networker</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Field
                   label="Esperienza NM"
@@ -228,7 +241,7 @@ export default async function LeadDetailPage({ params }: PageProps) {
               </div>
               {typedLead.motivazione && (
                 <div className="mt-4">
-                  <div className="text-xs uppercase tracking-widest text-[var(--color-text-faint)] mb-1">
+                  <div className="text-[10px] sm:text-xs uppercase tracking-widest text-[var(--color-text-faint)] mb-1">
                     Motivazione
                   </div>
                   <p className="text-sm text-[var(--color-text-dim)] whitespace-pre-line">
@@ -241,10 +254,10 @@ export default async function LeadDetailPage({ params }: PageProps) {
 
           {/* Attribution */}
           <section className="card">
-            <h2 className="text-lg font-bold mb-4">Attribution</h2>
+            <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Attribution</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field label="Pagina di origine" value={typedLead.page_origin} />
-              <Field label="Ref code (affiliate)" value={typedLead.ref_code} />
+              <Field label="Pagina origine" value={typedLead.page_origin} />
+              <Field label="Ref (affiliate)" value={typedLead.ref_code} />
               <Field label="UTM source" value={typedLead.utm_source} />
               <Field label="UTM medium" value={typedLead.utm_medium} />
               <Field label="UTM campaign" value={typedLead.utm_campaign} />
@@ -254,39 +267,43 @@ export default async function LeadDetailPage({ params }: PageProps) {
 
           {/* Aggiungi nota */}
           <section className="card">
-            <h2 className="text-lg font-bold mb-4">Aggiungi nota / attività</h2>
+            <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">
+              Aggiungi nota / attività
+            </h2>
             <LeadNoteForm leadId={typedLead.id} />
           </section>
 
           {/* Timeline */}
           <section>
-            <h2 className="text-lg font-bold mb-4">
-              Storico attività{" "}
+            <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">
+              Storico{" "}
               <span className="text-sm text-[var(--color-text-faint)] font-normal">
                 ({timeline.length})
               </span>
             </h2>
             {timeline.length === 0 ? (
               <p className="card text-sm text-[var(--color-text-dim)] text-center py-8">
-                Ancora nessuna attività registrata. Aggiungi una nota sopra.
+                Ancora nessuna attività. Aggiungi una nota sopra.
               </p>
             ) : (
               <ol className="space-y-3">
                 {timeline.map((it) => (
-                  <li key={it.id} className="card">
-                    <div className="flex items-center justify-between gap-3 mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg">{INTERACTION_ICONS[it.type]}</span>
-                        <span className="font-semibold text-sm">
+                  <li key={it.id} className="card !p-4">
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="text-lg shrink-0">
+                          {INTERACTION_ICONS[it.type]}
+                        </span>
+                        <span className="font-semibold text-sm truncate">
                           {INTERACTION_LABELS[it.type]}
                         </span>
                       </div>
-                      <span className="text-xs text-[var(--color-text-faint)]">
+                      <span className="text-xs text-[var(--color-text-faint)] whitespace-nowrap">
                         {timeAgo(it.created_at)}
                       </span>
                     </div>
                     {it.content && (
-                      <p className="text-sm text-[var(--color-text-dim)] whitespace-pre-line">
+                      <p className="text-sm text-[var(--color-text-dim)] whitespace-pre-line break-words">
                         {it.content}
                       </p>
                     )}
@@ -297,9 +314,10 @@ export default async function LeadDetailPage({ params }: PageProps) {
           </section>
         </div>
 
-        {/* ============ RIGHT: cambio stato + delete ============ */}
+        {/* ============ RIGHT: cambio stato (desktop only) + privacy + danger zone ============ */}
         <aside className="space-y-6">
-          <section className="card">
+          {/* Cambio stato — desktop only, su mobile è già in alto */}
+          <section className="card hidden lg:block">
             <h3 className="text-base font-bold mb-4">Stato corrente</h3>
             <LeadStatusForm leadId={typedLead.id} currentStatus={typedLead.status} />
           </section>

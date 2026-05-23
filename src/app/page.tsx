@@ -8,16 +8,16 @@ export default function HomePage() {
       <Nav variant="home" />
 
       {/* ============= HERO ============= */}
-      <section className="hero-glow py-20 md:py-32">
+      <section className="hero-glow py-14 sm:py-20 md:py-32">
         <div className="container-page">
-          <p className="eyebrow mb-6">Educazione finanziaria · Trading · Investimenti</p>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05] max-w-[18ch] mb-6">
+          <p className="eyebrow mb-4 sm:mb-6">Educazione finanziaria · Trading · Investimenti</p>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05] max-w-[18ch] mb-4 sm:mb-6">
             In Italia <span className="text-[var(--color-accent)]">l&apos;87%</span> non è educato
             finanziariamente.
             <br />
             Noi siamo nell&apos;altro 13%.
           </h1>
-          <p className="text-lg md:text-xl text-[var(--color-text-dim)] max-w-[60ch] mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-[var(--color-text-dim)] max-w-[60ch] mb-6 sm:mb-8">
             NOA × One Tribe Academy è la piattaforma italiana che insegna come funziona davvero il
             denaro. Niente &quot;soldi facili&quot;. Solo strumenti, dati e professionisti.
           </p>
@@ -36,7 +36,7 @@ export default function HomePage() {
       </section>
 
       {/* ============= PROBLEMA ============= */}
-      <section id="problema" className="py-20">
+      <section id="problema" className="py-14 sm:py-20">
         <div className="container-page">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <p className="eyebrow mb-3">I dati, non le opinioni</p>
@@ -75,7 +75,7 @@ export default function HomePage() {
       </section>
 
       {/* ============= CICLO ============= */}
-      <section className="py-20 bg-gradient-to-b from-transparent via-[var(--color-bg-2)] to-transparent">
+      <section className="py-14 sm:py-20 bg-gradient-to-b from-transparent via-[var(--color-bg-2)] to-transparent">
         <div className="container-page">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">
@@ -111,7 +111,7 @@ export default function HomePage() {
       </section>
 
       {/* ============= QUADRANTE ============= */}
-      <section className="py-20">
+      <section className="py-14 sm:py-20">
         <div className="container-page">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <p className="eyebrow mb-3">Il quadrante del Cashflow</p>
@@ -149,7 +149,7 @@ export default function HomePage() {
       </section>
 
       {/* ============= PRODOTTO ============= */}
-      <section id="prodotto" className="py-20 bg-[var(--color-bg-2)]">
+      <section id="prodotto" className="py-14 sm:py-20 bg-[var(--color-bg-2)]">
         <div className="container-page">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <p className="eyebrow mb-3">Cosa è incluso</p>
@@ -205,7 +205,7 @@ export default function HomePage() {
       </section>
 
       {/* ============= EDUCATORI ============= */}
-      <section id="educatori" className="py-20">
+      <section id="educatori" className="py-14 sm:py-20">
         <div className="container-page">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <p className="eyebrow mb-3">Chi insegna</p>
@@ -236,7 +236,7 @@ export default function HomePage() {
       </section>
 
       {/* ============= CTA ============= */}
-      <section className="py-20 bg-gradient-to-br from-[var(--color-bg-2)] to-[var(--color-bg-3)]">
+      <section className="py-14 sm:py-20 bg-gradient-to-br from-[var(--color-bg-2)] to-[var(--color-bg-3)]">
         <div className="container-page text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
             Pronto a fare il primo passo?
@@ -256,7 +256,7 @@ export default function HomePage() {
       </section>
 
       {/* ============= FAQ ============= */}
-      <section id="faq" className="py-20">
+      <section id="faq" className="py-14 sm:py-20">
         <div className="container-page max-w-3xl">
           <div className="text-center mb-12">
             <p className="eyebrow mb-3">Domande frequenti</p>

@@ -8,14 +8,14 @@ export function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-2.5 font-extrabold text-lg mb-4">
               <span className="grid place-items-center w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-2)] text-[var(--color-bg)] font-black">
-                N
+                A
               </span>
-              <span>NOA × One Tribe</span>
+              <span>Alead</span>
             </Link>
             <p className="text-sm text-[var(--color-text-faint)] leading-relaxed">
-              Piattaforma di educazione finanziaria.
+              Distribuiamo NOA × One Tribe Academy.
               <br />
-              Distribuita da collaboratore indipendente.
+              Collaboratori indipendenti autorizzati.
             </p>
           </div>
 

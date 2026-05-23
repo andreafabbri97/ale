@@ -18,11 +18,9 @@ export function Nav({ variant = "page" }: NavProps) {
           className="flex items-center gap-2.5 font-extrabold text-lg tracking-tight"
         >
           <span className="grid place-items-center w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-2)] text-[var(--color-bg)] font-black">
-            N
+            A
           </span>
-          <span>
-            NOA <span className="text-[var(--color-text-faint)]">×</span> One Tribe
-          </span>
+          <span>Alead</span>
         </Link>
 
         {variant === "home" ? (
