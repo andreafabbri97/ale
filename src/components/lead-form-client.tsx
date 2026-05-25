@@ -56,7 +56,7 @@ export function ClientLeadForm() {
 
       <h3 className="text-2xl font-bold mb-1">Ricevi la guida gratuita</h3>
       <p className="text-sm text-[var(--color-text-faint)] mb-6">
-        Te la mandiamo per email in 30 secondi.
+        Compila il form e scaricala subito.
       </p>
 
       {state?.error && (
