@@ -23,6 +23,7 @@ from reportlab.lib.units import cm, mm
 from reportlab.platypus import (
     BaseDocTemplate,
     Frame,
+    Image,
     PageBreak,
     PageTemplate,
     Paragraph,
@@ -31,6 +32,9 @@ from reportlab.platypus import (
     TableStyle,
 )
 from reportlab.pdfgen.canvas import Canvas
+
+# Logo Spike (riusato dalle icone PWA). Path relativo allo script.
+LOGO_PATH = Path(__file__).parent.parent / "public" / "icon-512.png"
 
 # ---------------------------------------------------------------------------
 # Palette (allineata a globals.css del sito)
@@ -180,10 +184,21 @@ def draw_background(canvas: Canvas, doc, with_footer: bool = True):
     canvas.line(0, A4[1] - 4, A4[0], A4[1] - 4)
 
     if with_footer:
+        # Mini-logo Spike (8mm) a sinistra del brand text
+        if LOGO_PATH.exists():
+            canvas.drawImage(
+                str(LOGO_PATH),
+                2 * cm,
+                1.0 * cm,
+                width=8 * mm,
+                height=8 * mm,
+                mask="auto",
+            )
+
         # Footer: brand + numero pagina
         canvas.setFont("Helvetica", 8)
         canvas.setFillColor(TEXT_FAINT)
-        canvas.drawString(2 * cm, 1.2 * cm, "Spike — Educazione finanziaria")
+        canvas.drawString(2 * cm + 10 * mm, 1.2 * cm, "Spike — Educazione finanziaria")
         canvas.drawRightString(
             A4[0] - 2 * cm, 1.2 * cm, f"Pag. {doc.page}"
         )
@@ -345,7 +360,14 @@ def build_story() -> list:
     # =========================================================
     # COVER
     # =========================================================
-    story.append(Spacer(1, 5 * cm))
+    story.append(Spacer(1, 2.5 * cm))
+    if LOGO_PATH.exists():
+        logo = Image(str(LOGO_PATH), width=4.5 * cm, height=4.5 * cm)
+        logo.hAlign = "CENTER"
+        story.append(logo)
+        story.append(Spacer(1, 1 * cm))
+    else:
+        story.append(Spacer(1, 2.5 * cm))
     story.append(Paragraph("SPIKE · GUIDA GRATUITA", EYEBROW))
     story.append(Spacer(1, 0.6 * cm))
     story.append(

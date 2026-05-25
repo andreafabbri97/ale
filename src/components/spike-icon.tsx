@@ -6,8 +6,8 @@ interface SpikeIconProps {
 
 /**
  * Spike — granchio 8-bit con occhi a dollaro.
- * Pixel-art su viewBox 512: corpo/chele/zampe in cyan accent, occhi bianchi,
- * $ disegnato pixel-per-pixel (S a 5×7 con asta verticale).
+ * Pixel-art su viewBox 512: corpo/chele/zampe in cyan accent, occhi bianchi
+ * grandi (120×96) con $ in pixel-art a cella 12 unità (S 5×7 + asta verticale).
  */
 export function SpikeIcon({ className, size = 32, title }: SpikeIconProps) {
   return (
@@ -58,43 +58,40 @@ export function SpikeIcon({ className, size = 32, title }: SpikeIconProps) {
         <rect x="320" y="416" width="32" height="32" />
       </g>
 
-      {/* === OCCHI (bianchi) === */}
-      <rect x="144" y="216" width="96" height="80" fill="#FFFFFF" />
-      <rect x="272" y="216" width="96" height="80" fill="#FFFFFF" />
+      {/* === OCCHI grandi (120×96) === */}
+      <rect x="112" y="208" width="120" height="96" fill="#FFFFFF" />
+      <rect x="280" y="208" width="120" height="96" fill="#FFFFFF" />
 
-      {/* === DOLLARI === */}
-      {/* Ogni "pixel" del $ = 8×8 unità. Forma: S a 5w×7h con asta verticale al centro. */}
+      {/* === DOLLARI grandi (5×7 cells × 12u = 60×84) === */}
       <g fill="var(--spike-eye, #05080F)">
-        {/* === $ SINISTRO (centrato a x=192) === */}
-        {/* Origine (172, 228); cells: x0=172,x1=180,x2=188,x3=196,x4=204 */}
-        {/* row 0 (y=228): asta verticale top */}
-        <rect x="188" y="228" width="8" height="8" />
-        {/* row 1 (y=236): top della S — cols 1,2,3 */}
-        <rect x="180" y="236" width="24" height="8" />
-        {/* row 2 (y=244): cols 0 (bordo sx S) + 2 (asta) */}
-        <rect x="172" y="244" width="8" height="8" />
-        <rect x="188" y="244" width="8" height="8" />
-        {/* row 3 (y=252): centro della S — cols 1,2,3 */}
-        <rect x="180" y="252" width="24" height="8" />
-        {/* row 4 (y=260): cols 2 (asta) + 4 (bordo dx S) */}
-        <rect x="188" y="260" width="8" height="8" />
-        <rect x="204" y="260" width="8" height="8" />
-        {/* row 5 (y=268): bottom della S — cols 1,2,3 */}
-        <rect x="180" y="268" width="24" height="8" />
-        {/* row 6 (y=276): asta verticale bottom */}
-        <rect x="188" y="276" width="8" height="8" />
+        {/* === $ SINISTRO (origine 142, 214) === */}
+        {/* row 0 — asta verticale top */}
+        <rect x="166" y="214" width="12" height="12" />
+        {/* row 1 — top S (cols 1,2,3) */}
+        <rect x="154" y="226" width="36" height="12" />
+        {/* row 2 — col 0 + col 2 (bordo sx + asta) */}
+        <rect x="142" y="238" width="12" height="12" />
+        <rect x="166" y="238" width="12" height="12" />
+        {/* row 3 — centro S (cols 1,2,3) */}
+        <rect x="154" y="250" width="36" height="12" />
+        {/* row 4 — col 2 + col 4 (asta + bordo dx) */}
+        <rect x="166" y="262" width="12" height="12" />
+        <rect x="190" y="262" width="12" height="12" />
+        {/* row 5 — bottom S (cols 1,2,3) */}
+        <rect x="154" y="274" width="36" height="12" />
+        {/* row 6 — asta verticale bottom */}
+        <rect x="166" y="286" width="12" height="12" />
 
-        {/* === $ DESTRO (centrato a x=320) === */}
-        {/* Cells: x0=300,x1=308,x2=316,x3=324,x4=332 */}
-        <rect x="316" y="228" width="8" height="8" />
-        <rect x="308" y="236" width="24" height="8" />
-        <rect x="300" y="244" width="8" height="8" />
-        <rect x="316" y="244" width="8" height="8" />
-        <rect x="308" y="252" width="24" height="8" />
-        <rect x="316" y="260" width="8" height="8" />
-        <rect x="332" y="260" width="8" height="8" />
-        <rect x="308" y="268" width="24" height="8" />
-        <rect x="316" y="276" width="8" height="8" />
+        {/* === $ DESTRO (origine 310, 214) === */}
+        <rect x="334" y="214" width="12" height="12" />
+        <rect x="322" y="226" width="36" height="12" />
+        <rect x="310" y="238" width="12" height="12" />
+        <rect x="334" y="238" width="12" height="12" />
+        <rect x="322" y="250" width="36" height="12" />
+        <rect x="334" y="262" width="12" height="12" />
+        <rect x="358" y="262" width="12" height="12" />
+        <rect x="322" y="274" width="36" height="12" />
+        <rect x="334" y="286" width="12" height="12" />
       </g>
     </svg>
   );

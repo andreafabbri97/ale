@@ -1,5 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" shape-rendering="crispEdges">
-  <!-- Background scuro arrotondato -->
   <rect width="512" height="512" rx="96" fill="#05080F"/>
 
   <g fill="#3BD4F8">
@@ -36,32 +35,30 @@
     <rect x="320" y="416" width="32" height="32"/>
   </g>
 
-  <!-- Occhi bianchi -->
-  <rect x="144" y="216" width="96" height="80" fill="#FFFFFF"/>
-  <rect x="272" y="216" width="96" height="80" fill="#FFFFFF"/>
+  <!-- Occhi grandi -->
+  <rect x="112" y="208" width="120" height="96" fill="#FFFFFF"/>
+  <rect x="280" y="208" width="120" height="96" fill="#FFFFFF"/>
 
-  <!-- Dollari (S a 5×7 + asta verticale, pixel da 8 unità) -->
+  <!-- Dollari grandi (cell=12) -->
   <g fill="#05080F">
-    <!-- $ sinistro -->
-    <rect x="188" y="228" width="8" height="8"/>
-    <rect x="180" y="236" width="24" height="8"/>
-    <rect x="172" y="244" width="8" height="8"/>
-    <rect x="188" y="244" width="8" height="8"/>
-    <rect x="180" y="252" width="24" height="8"/>
-    <rect x="188" y="260" width="8" height="8"/>
-    <rect x="204" y="260" width="8" height="8"/>
-    <rect x="180" y="268" width="24" height="8"/>
-    <rect x="188" y="276" width="8" height="8"/>
+    <rect x="166" y="214" width="12" height="12"/>
+    <rect x="154" y="226" width="36" height="12"/>
+    <rect x="142" y="238" width="12" height="12"/>
+    <rect x="166" y="238" width="12" height="12"/>
+    <rect x="154" y="250" width="36" height="12"/>
+    <rect x="166" y="262" width="12" height="12"/>
+    <rect x="190" y="262" width="12" height="12"/>
+    <rect x="154" y="274" width="36" height="12"/>
+    <rect x="166" y="286" width="12" height="12"/>
 
-    <!-- $ destro -->
-    <rect x="316" y="228" width="8" height="8"/>
-    <rect x="308" y="236" width="24" height="8"/>
-    <rect x="300" y="244" width="8" height="8"/>
-    <rect x="316" y="244" width="8" height="8"/>
-    <rect x="308" y="252" width="24" height="8"/>
-    <rect x="316" y="260" width="8" height="8"/>
-    <rect x="332" y="260" width="8" height="8"/>
-    <rect x="308" y="268" width="24" height="8"/>
-    <rect x="316" y="276" width="8" height="8"/>
+    <rect x="334" y="214" width="12" height="12"/>
+    <rect x="322" y="226" width="36" height="12"/>
+    <rect x="310" y="238" width="12" height="12"/>
+    <rect x="334" y="238" width="12" height="12"/>
+    <rect x="322" y="250" width="36" height="12"/>
+    <rect x="334" y="262" width="12" height="12"/>
+    <rect x="358" y="262" width="12" height="12"/>
+    <rect x="322" y="274" width="36" height="12"/>
+    <rect x="334" y="286" width="12" height="12"/>
   </g>
 </svg>

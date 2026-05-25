@@ -53,7 +53,7 @@ export function Sidebar({ userEmail, isAdmin }: SidebarProps) {
       {/* Header */}
       <div className="p-5 border-b border-[var(--color-border)]">
         <Link href="/admin" className="flex items-center gap-2.5 font-extrabold">
-          <SpikeIcon size={48} title="Spike" />
+          <SpikeIcon size={60} title="Spike" />
           <div className="leading-tight">
             <div className="text-base">Spike</div>
             <div className="text-xs text-[var(--color-text-faint)] font-normal">Admin panel</div>
