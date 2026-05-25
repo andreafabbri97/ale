@@ -5,8 +5,6 @@ import { Footer } from "@/components/footer";
 import { NetworkerLeadForm } from "@/components/lead-form-client";
 import { Reveal } from "@/components/reveal";
 import { CountUp } from "@/components/count-up";
-import { BetaBanner } from "@/components/beta-banner";
-
 export const metadata: Metadata = {
   title: "Collabora · Costruisci un'attività nell'educazione finanziaria",
   description:
@@ -16,7 +14,6 @@ export const metadata: Metadata = {
 export default function CollaboraPage() {
   return (
     <>
-      <BetaBanner />
       <Nav />
 
       {/* ============= HERO ============= */}

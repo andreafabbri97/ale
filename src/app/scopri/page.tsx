@@ -5,7 +5,6 @@ import { Footer } from "@/components/footer";
 import { ClientLeadForm } from "@/components/lead-form-client";
 import { Reveal } from "@/components/reveal";
 import { CountUp } from "@/components/count-up";
-import { BetaBanner } from "@/components/beta-banner";
 
 export const metadata: Metadata = {
   title: "Scopri il percorso · Educazione finanziaria che funziona",
@@ -16,7 +15,6 @@ export const metadata: Metadata = {
 export default function ScopriPage() {
   return (
     <>
-      <BetaBanner />
       <Nav />
 
       {/* ============= HERO + FORM ============= */}

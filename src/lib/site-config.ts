@@ -3,7 +3,7 @@
  *
  * ⚠️ TODO PRIMA DEL GO-LIVE PRODUTTIVO:
  * Tutti i campi marcati con `__TODO__` vanno sostituiti con i dati reali del
- * titolare del trattamento prima di rimuovere il <BetaBanner /> dal sito.
+ * titolare del trattamento (privacy policy / contatti / dati fiscali).
  *
  * I valori in __TODO__ sono volutamente evidenti per essere notati subito in
  * page testing — non sostituirli con placeholder neutri tipo "Mario Rossi"

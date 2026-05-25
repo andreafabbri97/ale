@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { BetaBanner } from "@/components/beta-banner";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -32,7 +31,6 @@ export default function PrivacyPage() {
 
   return (
     <>
-      <BetaBanner />
       <Nav />
 
       <section className="py-16">

@@ -3,12 +3,10 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Reveal } from "@/components/reveal";
 import { CountUp } from "@/components/count-up";
-import { BetaBanner } from "@/components/beta-banner";
 
 export default function HomePage() {
   return (
     <>
-      <BetaBanner />
       <Nav variant="home" />
 
       {/* ============= HERO ============= */}
