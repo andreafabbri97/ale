@@ -117,10 +117,23 @@ export async function getTreeState(): Promise<TreeStateResult | ErrorResult> {
       };
     }
 
-    const { data: collabsRaw } = await supabase
-      .from("collaborators")
-      .select("id, full_name, email")
-      .eq("is_admin", true);
+    // Recupera i collaboratori referenziati nei nodi admin dell'albero (per ID,
+    // non per flag is_admin — il flag potrebbe non essere settato su tutti i
+    // 3 admin seed e in quel caso la lookup del nome fallirebbe).
+    const adminCollabIds = Array.from(
+      new Set(
+        placements
+          .filter((p) => p.node_type === "admin" && p.collaborator_id)
+          .map((p) => p.collaborator_id as string),
+      ),
+    );
+
+    const { data: collabsRaw } = adminCollabIds.length
+      ? await supabase
+          .from("collaborators")
+          .select("id, full_name, email")
+          .in("id", adminCollabIds)
+      : { data: [] };
     const collabs =
       (collabsRaw ?? []) as { id: string; full_name: string; email: string }[];
     const namesMap = new Map<string, string>();
@@ -260,10 +273,19 @@ export async function suggestPlacementForNewSale(): Promise<
       .select("*");
     const placements = (placementsRaw ?? []) as Placement[];
 
-    const { data: collabsRaw } = await supabase
-      .from("collaborators")
-      .select("id, full_name")
-      .eq("is_admin", true);
+    const adminCollabIds = Array.from(
+      new Set(
+        placements
+          .filter((p) => p.node_type === "admin" && p.collaborator_id)
+          .map((p) => p.collaborator_id as string),
+      ),
+    );
+    const { data: collabsRaw } = adminCollabIds.length
+      ? await supabase
+          .from("collaborators")
+          .select("id, full_name")
+          .in("id", adminCollabIds)
+      : { data: [] };
     const namesMap = new Map<string, string>();
     for (const c of (collabsRaw ?? []) as { id: string; full_name: string }[]) {
       namesMap.set(c.id, c.full_name);
