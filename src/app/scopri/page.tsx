@@ -20,9 +20,9 @@ export default function ScopriPage() {
       <Nav />
 
       {/* ============= HERO + FORM ============= */}
-      <section className="hero-glow py-20 md:py-28">
+      <section className="hero-glow py-12 md:py-20">
         <div className="container-page">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
               <p className="eyebrow mb-6 animate-fade-up delay-0">
                 Educazione finanziaria · Trading · Investimenti
