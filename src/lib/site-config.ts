@@ -77,6 +77,27 @@ export const siteConfig = {
     tuf: "Testo Unico della Finanza (D.Lgs 24 febbraio 1998, n. 58)",
     gdpr: "Regolamento UE 2016/679 (GDPR) e D.Lgs 196/2003 e ss.mm.",
   },
+
+  // ----------------------------------------------------------------------
+  // MLM Binary Tree — configurazione (PV per pacchetto + bonus diretti)
+  // ----------------------------------------------------------------------
+  mlm: {
+    points: {
+      starter: 99,   // PV
+      pro: 450,
+      elite: 990,
+    },
+    directBonus: {
+      starter: 30,   // bonus immediato in $ per chi chiude la vendita
+      pro: 150,
+      elite: 300,
+    },
+    salePrice: {
+      starter: 159,  // primo mese in $
+      pro: 845,
+      elite: 1699,
+    },
+  },
 } as const;
 
 export type SiteConfig = typeof siteConfig;

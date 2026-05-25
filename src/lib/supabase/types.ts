@@ -57,6 +57,45 @@ export type InteractionType =
   | "meeting"
   | "status_change";
 
+export type PlacementLeg = "LEFT" | "RIGHT";
+export type PlacementNodeType = "admin" | "customer";
+
+export interface Placement {
+  id: string;
+  parent_id: string | null;
+  leg: PlacementLeg | null;
+  node_type: PlacementNodeType;
+  collaborator_id: string | null;
+  lead_id: string | null;
+  customer_name: string | null;
+  customer_email: string | null;
+  package: PackageType | null;
+  points: number;
+  sale_amount: number | null;
+  commission_immediate: number | null;
+  closed_by_collaborator_id: string | null;
+  placed_at: string;
+  placed_by_collaborator_id: string | null;
+  notes: string | null;
+}
+
+export interface BinaryRank {
+  level: number;
+  bonus_amount: number;
+  volume_required: number;
+  bundle3_left: number;
+  bundle3_right: number;
+  bundle2_left: number;
+  bundle2_right: number;
+  bundle1_left: number;
+  bundle1_right: number;
+  rinnovo_left: number;
+  rinnovo_right: number;
+  direct_sponsorships: number;
+  absorption_pct: number;
+  display_name: string | null;
+}
+
 export interface Lead {
   id: string;
   created_at: string;

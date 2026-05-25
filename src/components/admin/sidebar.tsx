@@ -15,6 +15,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { href: "/admin", label: "Dashboard", icon: "▦" },
+  { href: "/admin/leads-management", label: "Gestione lead", icon: "🌳" },
   { href: "/admin/leads", label: "Tutti i lead", icon: "✉" },
   {
     href: "/admin/leads?source=cliente",
