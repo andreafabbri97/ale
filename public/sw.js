@@ -1,9 +1,9 @@
 // =====================================================================
-// Alead — Service Worker
+// Spike — Service Worker
 // Gestisce: Web Push notifications + click handler
 // =====================================================================
 
-const CACHE_NAME = "alead-v1";
+const CACHE_NAME = "spike-v1";
 
 self.addEventListener("install", (event) => {
   // Attiva immediatamente il nuovo SW senza aspettare il refresh
@@ -28,7 +28,7 @@ self.addEventListener("activate", (event) => {
 // =====================================================================
 self.addEventListener("push", (event) => {
   let payload = {
-    title: "Alead",
+    title: "Spike",
     body: "Nuovo evento",
     url: "/admin",
   };
@@ -48,7 +48,7 @@ self.addEventListener("push", (event) => {
     body: payload.body,
     icon: "/icon-192.png",
     badge: "/icon-192.png",
-    tag: payload.tag || "alead-notification",
+    tag: payload.tag || "spike-notification",
     data: { url: payload.url || "/admin" },
     requireInteraction: false,
     vibrate: [200, 100, 200],

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/admin/sidebar";
 import { PwaInstallBanner } from "@/components/admin/pwa-install-banner";
 import { NavProgress } from "@/components/admin/nav-progress";
+import { SpikeIcon } from "@/components/spike-icon";
 
 interface AdminShellProps {
   userEmail: string;
@@ -106,10 +107,8 @@ export function AdminShell({ userEmail, isAdmin, children }: AdminShellProps) {
           </button>
 
           <div className="flex items-center gap-2 font-extrabold">
-            <span className="grid place-items-center w-7 h-7 rounded-md bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-2)] text-[var(--color-bg)] font-black text-sm">
-              A
-            </span>
-            <span>Alead</span>
+            <SpikeIcon size={28} title="Spike" />
+            <span>Spike</span>
           </div>
 
           {/* Spacer per bilanciare il burger */}

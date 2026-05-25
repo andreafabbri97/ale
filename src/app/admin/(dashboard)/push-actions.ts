@@ -111,10 +111,10 @@ export async function sendTestPush(): Promise<ActionResult & { sent?: number }> 
     if (!user) return { ok: false, error: "Sessione scaduta." };
 
     const result = await sendPushToAdmins({
-      title: "Test notifica Alead",
+      title: "Test notifica Spike",
       body: "Se vedi questo messaggio, le notifiche push funzionano correttamente.",
       url: "/admin",
-      tag: "alead-test",
+      tag: "spike-test",
     });
 
     return { ok: true, sent: result.sent };

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { SpikeIcon } from "@/components/spike-icon";
 
 interface NavProps {
   variant?: "home" | "page";
@@ -17,10 +18,8 @@ export function Nav({ variant = "page" }: NavProps) {
           href="/"
           className="flex items-center gap-2.5 font-extrabold text-lg tracking-tight"
         >
-          <span className="grid place-items-center w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-2)] text-[var(--color-bg)] font-black">
-            A
-          </span>
-          <span>Alead</span>
+          <SpikeIcon size={32} title="Spike" />
+          <span>Spike</span>
         </Link>
 
         {variant === "home" ? (

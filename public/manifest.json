@@ -1,7 +1,7 @@
 {
-  "name": "Alead — Admin",
-  "short_name": "Alead",
-  "description": "Pannello admin per la gestione lead di Alead.",
+  "name": "Spike — Admin",
+  "short_name": "Spike",
+  "description": "Pannello admin per la gestione lead di Spike.",
   "start_url": "/admin",
   "scope": "/",
   "display": "standalone",

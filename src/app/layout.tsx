@@ -11,18 +11,18 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: {
-    default: "Alead | Educazione finanziaria seria",
-    template: "%s · Alead",
+    default: "Spike | Educazione finanziaria seria",
+    template: "%s · Spike",
   },
   description:
-    "Alead. Un percorso formativo strutturato per comprendere mercati, rischio e gestione del capitale. Niente promesse, solo formazione, strumenti didattici e professionisti.",
+    "Spike. Un percorso formativo strutturato per comprendere mercati, rischio e gestione del capitale. Niente promesse, solo formazione, strumenti didattici e professionisti.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ),
-  applicationName: "Alead",
+  applicationName: "Spike",
   appleWebApp: {
     capable: true,
-    title: "Alead",
+    title: "Spike",
     statusBarStyle: "black-translucent",
   },
   manifest: "/manifest.json",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
-    title: "Alead | Educazione finanziaria seria",
+    title: "Spike | Educazione finanziaria seria",
     description:
       "Percorso formativo per comprendere mercati, rischio e gestione del capitale. Nessuna garanzia di risultato.",
     type: "website",

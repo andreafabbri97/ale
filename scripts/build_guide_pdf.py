@@ -5,7 +5,7 @@ Output: public/guida-7-errori-finanziari.pdf
 
 Run: python scripts/build_guide_pdf.py
 
-Design: dark theme allineato alla palette Alead (bg #05080F, accent #3BD4F8).
+Design: dark theme allineato alla palette Spike (bg #05080F, accent #3BD4F8).
 Stile sobrio, didattico, anti-promesse di guadagno.
 """
 
@@ -183,7 +183,7 @@ def draw_background(canvas: Canvas, doc, with_footer: bool = True):
         # Footer: brand + numero pagina
         canvas.setFont("Helvetica", 8)
         canvas.setFillColor(TEXT_FAINT)
-        canvas.drawString(2 * cm, 1.2 * cm, "Alead — Educazione finanziaria")
+        canvas.drawString(2 * cm, 1.2 * cm, "Spike — Educazione finanziaria")
         canvas.drawRightString(
             A4[0] - 2 * cm, 1.2 * cm, f"Pag. {doc.page}"
         )
@@ -346,7 +346,7 @@ def build_story() -> list:
     # COVER
     # =========================================================
     story.append(Spacer(1, 5 * cm))
-    story.append(Paragraph("ALEAD · GUIDA GRATUITA", EYEBROW))
+    story.append(Paragraph("SPIKE · GUIDA GRATUITA", EYEBROW))
     story.append(Spacer(1, 0.6 * cm))
     story.append(
         Paragraph(
@@ -366,7 +366,7 @@ def build_story() -> list:
     story.append(Spacer(1, 3 * cm))
     story.append(
         Paragraph(
-            '<font color="#5C6789">A cura di Alead — Educazione finanziaria, '
+            '<font color="#5C6789">A cura di Spike — Educazione finanziaria, '
             "trading, investimenti</font>",
             ParagraphStyle(
                 "CoverFooter",
@@ -934,7 +934,7 @@ def build_story() -> list:
     story.append(Paragraph("Chi siamo", H2))
     story.append(
         Paragraph(
-            "<b>Alead</b> è il sito di collaboratori indipendenti autorizzati che "
+            "<b>Spike</b> è il sito di collaboratori indipendenti autorizzati che "
             "distribuiscono un percorso formativo strutturato in educazione finanziaria, "
             "trading e investimenti. Operiamo in conformità con la Legge 17 agosto 2005, "
             "n. 173 sulla vendita diretta. Il nostro programma collaboratori non "
@@ -948,7 +948,7 @@ def build_story() -> list:
     story.append(Paragraph("Per saperne di più", H2))
     story.append(
         Paragraph(
-            "Sito: <b>alead</b> (link condiviso nel form di contatto)<br/>"
+            "Sito: <b>spike</b> (link condiviso nel form di contatto)<br/>"
             "Prenota una call gratuita di 30 minuti dal sito.",
             BODY,
         )
@@ -970,10 +970,10 @@ def build(output_path: Path) -> None:
         rightMargin=2 * cm,
         topMargin=2 * cm,
         bottomMargin=2.5 * cm,
-        title="I 7 errori finanziari che fanno gli italiani — Alead",
-        author="Alead",
+        title="I 7 errori finanziari che fanno gli italiani — Spike",
+        author="Spike",
         subject="Guida gratuita di educazione finanziaria",
-        creator="Alead",
+        creator="Spike",
     )
 
     # Frame standard per pagine interne (con footer)

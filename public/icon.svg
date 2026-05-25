@@ -1,12 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3BD4F8"/>
-      <stop offset="100%" stop-color="#2C7BE5"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
-  <text x="256" y="370" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif"
-        font-weight="900" font-size="320" text-anchor="middle" fill="#05080F"
-        letter-spacing="-12">A</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" shape-rendering="crispEdges">
+  <!-- Background scuro arrotondato -->
+  <rect width="512" height="512" rx="96" fill="#05080F"/>
+
+  <g fill="#3BD4F8">
+    <!-- Chele sx -->
+    <rect x="32" y="64" width="64" height="32"/>
+    <rect x="32" y="96" width="32" height="32"/>
+    <rect x="96" y="96" width="32" height="32"/>
+    <rect x="64" y="128" width="64" height="32"/>
+    <!-- Chele dx -->
+    <rect x="416" y="64" width="64" height="32"/>
+    <rect x="448" y="96" width="32" height="32"/>
+    <rect x="384" y="96" width="32" height="32"/>
+    <rect x="384" y="128" width="64" height="32"/>
+
+    <!-- Carapace -->
+    <rect x="128" y="160" width="256" height="32"/>
+    <rect x="64" y="192" width="384" height="128"/>
+    <rect x="96" y="320" width="320" height="32"/>
+    <rect x="160" y="352" width="192" height="32"/>
+
+    <!-- Zampe sx -->
+    <rect x="64" y="352" width="32" height="32"/>
+    <rect x="32" y="384" width="32" height="32"/>
+    <rect x="128" y="384" width="32" height="32"/>
+    <rect x="96" y="416" width="32" height="32"/>
+    <rect x="192" y="384" width="32" height="32"/>
+    <rect x="160" y="416" width="32" height="32"/>
+    <!-- Zampe dx -->
+    <rect x="416" y="352" width="32" height="32"/>
+    <rect x="448" y="384" width="32" height="32"/>
+    <rect x="352" y="384" width="32" height="32"/>
+    <rect x="384" y="416" width="32" height="32"/>
+    <rect x="288" y="384" width="32" height="32"/>
+    <rect x="320" y="416" width="32" height="32"/>
+  </g>
+
+  <!-- Occhi bianchi -->
+  <rect x="144" y="216" width="96" height="80" fill="#FFFFFF"/>
+  <rect x="272" y="216" width="96" height="80" fill="#FFFFFF"/>
+
+  <!-- Dollari (S a 5×7 + asta verticale, pixel da 8 unità) -->
+  <g fill="#05080F">
+    <!-- $ sinistro -->
+    <rect x="188" y="228" width="8" height="8"/>
+    <rect x="180" y="236" width="24" height="8"/>
+    <rect x="172" y="244" width="8" height="8"/>
+    <rect x="188" y="244" width="8" height="8"/>
+    <rect x="180" y="252" width="24" height="8"/>
+    <rect x="188" y="260" width="8" height="8"/>
+    <rect x="204" y="260" width="8" height="8"/>
+    <rect x="180" y="268" width="24" height="8"/>
+    <rect x="188" y="276" width="8" height="8"/>
+
+    <!-- $ destro -->
+    <rect x="316" y="228" width="8" height="8"/>
+    <rect x="308" y="236" width="24" height="8"/>
+    <rect x="300" y="244" width="8" height="8"/>
+    <rect x="316" y="244" width="8" height="8"/>
+    <rect x="308" y="252" width="24" height="8"/>
+    <rect x="316" y="260" width="8" height="8"/>
+    <rect x="332" y="260" width="8" height="8"/>
+    <rect x="308" y="268" width="24" height="8"/>
+    <rect x="316" y="276" width="8" height="8"/>
+  </g>
 </svg>

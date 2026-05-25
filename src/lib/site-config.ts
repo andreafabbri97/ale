@@ -1,5 +1,5 @@
 /**
- * Configurazione centralizzata del sito Alead.
+ * Configurazione centralizzata del sito Spike.
  *
  * ⚠️ TODO PRIMA DEL GO-LIVE PRODUTTIVO:
  * Tutti i campi marcati con `__TODO__` vanno sostituiti con i dati reali del
@@ -15,7 +15,7 @@ export const siteConfig = {
   // Identità sito
   // ----------------------------------------------------------------------
   brand: {
-    name: "Alead",
+    name: "Spike",
     tagline: "Educazione finanziaria · trading · investimenti",
     siteUrl: "https://ale-two-alpha.vercel.app",
     // URL del provider partner (la piattaforma formativa che distribuiamo).

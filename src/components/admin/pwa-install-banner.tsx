@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const DISMISS_KEY = "alead_pwa_install_dismissed_at";
+const DISMISS_KEY = "spike_pwa_install_dismissed_at";
 const DISMISS_DAYS = 7;
 
 interface BeforeInstallPromptEvent extends Event {
@@ -129,7 +129,7 @@ export function PwaInstallBanner() {
             A
           </div>
           <div className="flex-1 min-w-0">
-            <div className="font-semibold text-sm">Installa Alead sul telefono</div>
+            <div className="font-semibold text-sm">Installa Spike sul telefono</div>
             <div className="text-xs text-[var(--color-text-dim)] mt-0.5">
               Ricevi notifiche push quando arriva un nuovo lead.
             </div>
@@ -164,7 +164,7 @@ export function PwaInstallBanner() {
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-lg font-bold mb-2">
-              Installa Alead {platform === "ios" ? "su iPhone" : "manualmente"}
+              Installa Spike {platform === "ios" ? "su iPhone" : "manualmente"}
             </h3>
             <ol className="text-sm text-[var(--color-text-dim)] space-y-2 list-decimal list-inside mb-4">
               {platform === "ios" ? (
@@ -178,7 +178,7 @@ export function PwaInstallBanner() {
                   <li>
                     Conferma con <strong>&quot;Aggiungi&quot;</strong>
                   </li>
-                  <li>L&apos;icona Alead apparirà sulla home — apri da lì</li>
+                  <li>L&apos;icona Spike apparirà sulla home — apri da lì</li>
                   <li>Dentro l&apos;app, attiva le notifiche dal banner</li>
                 </>
               ) : (

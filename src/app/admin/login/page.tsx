@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LoginForm } from "@/components/admin/login-form";
+import { SpikeIcon } from "@/components/spike-icon";
 
 export const metadata: Metadata = {
   title: "Accedi al pannello",
@@ -22,10 +23,8 @@ export default async function LoginPage({ searchParams }: PageProps) {
             href="/"
             className="inline-flex items-center gap-2.5 font-extrabold text-xl tracking-tight mb-6"
           >
-            <span className="grid place-items-center w-10 h-10 rounded-lg bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-2)] text-[var(--color-bg)] font-black text-lg">
-              A
-            </span>
-            <span>Alead</span>
+            <SpikeIcon size={40} title="Spike" />
+            <span>Spike</span>
           </Link>
           <h1 className="text-3xl font-extrabold tracking-tight">
             Pannello <span className="text-[var(--color-accent)]">amministrazione</span>

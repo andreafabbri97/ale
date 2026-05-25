@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { signOut } from "@/app/admin/actions";
 import { PushPrompt } from "@/components/admin/push-prompt";
+import { SpikeIcon } from "@/components/spike-icon";
 
 interface NavItem {
   href: string;
@@ -52,11 +53,9 @@ export function Sidebar({ userEmail, isAdmin }: SidebarProps) {
       {/* Header */}
       <div className="p-5 border-b border-[var(--color-border)]">
         <Link href="/admin" className="flex items-center gap-2.5 font-extrabold">
-          <span className="grid place-items-center w-9 h-9 rounded-lg bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-2)] text-[var(--color-bg)] font-black">
-            A
-          </span>
+          <SpikeIcon size={36} title="Spike" />
           <div className="leading-tight">
-            <div className="text-base">Alead</div>
+            <div className="text-base">Spike</div>
             <div className="text-xs text-[var(--color-text-faint)] font-normal">Admin panel</div>
           </div>
         </Link>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
+import { SpikeIcon } from "@/components/spike-icon";
 
 export function Footer() {
   return (
@@ -8,10 +9,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12">
           <div>
             <Link href="/" className="flex items-center gap-2.5 font-extrabold text-lg mb-4">
-              <span className="grid place-items-center w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-2)] text-[var(--color-bg)] font-black">
-                A
-              </span>
-              <span>Alead</span>
+              <SpikeIcon size={32} title="Spike" />
+              <span>Spike</span>
             </Link>
             <p className="text-sm text-[var(--color-text-faint)] leading-relaxed">
               Educazione finanziaria, trading e investimenti.
@@ -106,7 +105,7 @@ export function Footer() {
             <strong>Marchi.</strong> I nomi dei software didattici menzionati
             (Hummingbird, Lumen, Maitryx, Solexx), i nomi degli educatori e dei rispettivi
             servizi appartengono ai loro legittimi titolari. Questo sito è gestito da{" "}
-            <strong>Alead</strong> in qualità di collaboratore indipendente autorizzato e non
+            <strong>Spike</strong> in qualità di collaboratore indipendente autorizzato e non
             costituisce il sito ufficiale del provider della piattaforma formativa proposta.
           </p>
           <p>

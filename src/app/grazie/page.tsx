@@ -101,8 +101,8 @@ export default async function GraziePage({ searchParams }: PageProps) {
             <a
               href={`https://wa.me/393000000000?text=${encodeURIComponent(
                 source === "networker"
-                  ? "Ciao, mi sono appena candidato/a come collaboratore tramite Alead"
-                  : "Ciao, mi sono appena iscritto/a tramite Alead",
+                  ? "Ciao, mi sono appena candidato/a come collaboratore tramite Spike"
+                  : "Ciao, mi sono appena iscritto/a tramite Spike",
               )}`}
               rel="noopener"
               className="btn btn-primary"

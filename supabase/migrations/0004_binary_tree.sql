@@ -1,5 +1,5 @@
 -- =====================================================================
--- Alead — Binary tree placements + monthly rank table
+-- Spike — Binary tree placements + monthly rank table
 -- =====================================================================
 
 -- ENUMS
