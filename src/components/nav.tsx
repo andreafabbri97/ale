@@ -51,7 +51,10 @@ export function Nav({ variant = "page" }: NavProps) {
           </nav>
         )}
 
-        <Link href="/scopri" className="hidden md:inline-flex btn btn-primary">
+        <Link
+          href="/scopri"
+          className="hidden md:inline-flex btn btn-primary !py-2 !px-4 !text-sm"
+        >
           Inizia ora →
         </Link>
 
