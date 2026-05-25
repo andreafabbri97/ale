@@ -34,20 +34,27 @@ export function AdminShell({ userEmail, isAdmin, children }: AdminShellProps) {
   }, [mobileOpen]);
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg)] flex">
+    <div className="min-h-screen bg-[var(--color-bg)] md:flex">
       {/* Top progress bar durante navigazione (intercetta click) */}
       <Suspense fallback={null}>
         <NavProgress />
       </Suspense>
 
-      {/* Sidebar — desktop: inline, mobile: fixed overlay (rispetta safe area su iOS) */}
+      {/* === Sidebar DESKTOP (md+) — sticky inline a sinistra === */}
       <div
-        className={`
-          fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw]
-          transform transition-transform duration-200 ease-out
-          md:relative md:translate-x-0 md:w-64 md:max-w-none md:z-auto
-          ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
-        `}
+        className="hidden md:flex md:flex-col md:sticky md:top-0 md:h-screen md:w-64 md:shrink-0"
+        style={{
+          paddingLeft: "env(safe-area-inset-left)",
+        }}
+      >
+        <Sidebar userEmail={userEmail} isAdmin={isAdmin} />
+      </div>
+
+      {/* === Sidebar MOBILE (<md) — drawer overlay === */}
+      <div
+        className={`md:hidden fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] transform transition-transform duration-200 ease-out ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
         style={{
           paddingTop: "env(safe-area-inset-top)",
           paddingBottom: "env(safe-area-inset-bottom)",
