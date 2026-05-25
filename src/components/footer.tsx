@@ -9,7 +9,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12">
           <div>
             <Link href="/" className="flex items-center gap-2.5 font-extrabold text-lg mb-4">
-              <SpikeIcon size={32} title="Spike" />
+              <SpikeIcon size={44} title="Spike" />
               <span>Spike</span>
             </Link>
             <p className="text-sm text-[var(--color-text-faint)] leading-relaxed">

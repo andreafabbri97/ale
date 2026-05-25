@@ -107,7 +107,7 @@ export function AdminShell({ userEmail, isAdmin, children }: AdminShellProps) {
           </button>
 
           <div className="flex items-center gap-2 font-extrabold">
-            <SpikeIcon size={28} title="Spike" />
+            <SpikeIcon size={40} title="Spike" />
             <span>Spike</span>
           </div>
 

@@ -23,7 +23,7 @@ export default async function LoginPage({ searchParams }: PageProps) {
             href="/"
             className="inline-flex items-center gap-2.5 font-extrabold text-xl tracking-tight mb-6"
           >
-            <SpikeIcon size={40} title="Spike" />
+            <SpikeIcon size={56} title="Spike" />
             <span>Spike</span>
           </Link>
           <h1 className="text-3xl font-extrabold tracking-tight">

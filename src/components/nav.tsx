@@ -18,7 +18,7 @@ export function Nav({ variant = "page" }: NavProps) {
           href="/"
           className="flex items-center gap-2.5 font-extrabold text-lg tracking-tight"
         >
-          <SpikeIcon size={32} title="Spike" />
+          <SpikeIcon size={44} title="Spike" />
           <span>Spike</span>
         </Link>
 
