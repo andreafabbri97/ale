@@ -45,9 +45,6 @@ export function Nav({ variant = "page" }: NavProps) {
             <Link href="/scopri" className="hover:text-[var(--color-accent)] transition">
               Scopri
             </Link>
-            <Link href="/collabora" className="hover:text-[var(--color-accent)] transition">
-              Collabora
-            </Link>
           </nav>
         )}
 
@@ -59,61 +56,75 @@ export function Nav({ variant = "page" }: NavProps) {
         </Link>
 
         <button
-          className="md:hidden grid place-items-center w-10 h-10 rounded-lg border border-[var(--color-border)]"
-          aria-label="Apri menù"
+          className="md:hidden relative grid place-items-center w-10 h-10 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-colors active:scale-95 transition-transform"
+          aria-label={open ? "Chiudi menù" : "Apri menù"}
           aria-expanded={open}
           onClick={() => setOpen(!open)}
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            {open ? (
-              <>
-                <line x1="6" y1="6" x2="18" y2="18" />
-                <line x1="6" y1="18" x2="18" y2="6" />
-              </>
-            ) : (
-              <>
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </>
-            )}
-          </svg>
+          {/* 3 barre animate: top ruota +45°, middle fade, bottom ruota -45° */}
+          <span
+            aria-hidden
+            className={`absolute w-5 h-[2px] bg-current rounded-full transition-all duration-300 ease-out ${
+              open ? "rotate-45" : "-translate-y-[6px]"
+            }`}
+          />
+          <span
+            aria-hidden
+            className={`absolute w-5 h-[2px] bg-current rounded-full transition-all duration-200 ease-out ${
+              open ? "opacity-0 scale-x-0" : "opacity-100"
+            }`}
+          />
+          <span
+            aria-hidden
+            className={`absolute w-5 h-[2px] bg-current rounded-full transition-all duration-300 ease-out ${
+              open ? "-rotate-45" : "translate-y-[6px]"
+            }`}
+          />
         </button>
       </div>
 
-      {open && (
-        <nav className="md:hidden border-t border-[var(--color-border)] bg-[var(--color-bg)] px-5 py-6 flex flex-col gap-1">
-          {(variant === "home"
-            ? [
-                { href: "#problema", label: "Il problema" },
-                { href: "#prodotto", label: "Cosa offre" },
-                { href: "#educatori", label: "Educatori" },
-                { href: "#faq", label: "FAQ" },
-              ]
-            : [
-                { href: "/", label: "Home" },
-                { href: "/scopri", label: "Scopri" },
-                { href: "/collabora", label: "Collabora" },
-              ]
-          ).map((item) => (
+      {/* Drawer mobile: slide-down via grid-template-rows (gestisce qualsiasi altezza) */}
+      <div
+        className={`md:hidden grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+        aria-hidden={!open}
+      >
+        <div className="overflow-hidden">
+          <nav className="border-t border-[var(--color-border)] bg-[var(--color-bg)] px-5 py-6 flex flex-col gap-1">
+            {(variant === "home"
+              ? [
+                  { href: "#problema", label: "Il problema" },
+                  { href: "#prodotto", label: "Cosa offre" },
+                  { href: "#educatori", label: "Educatori" },
+                  { href: "#faq", label: "FAQ" },
+                ]
+              : [
+                  { href: "/", label: "Home" },
+                  { href: "/scopri", label: "Scopri" },
+                ]
+            ).map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                tabIndex={open ? 0 : -1}
+                className="py-3 border-b border-[var(--color-border)] text-[var(--color-text-dim)] hover:text-[var(--color-accent)] transition-colors"
+              >
+                {item.label}
+              </Link>
+            ))}
             <Link
-              key={item.href}
-              href={item.href}
+              href="/scopri"
               onClick={() => setOpen(false)}
-              className="py-3 border-b border-[var(--color-border)] text-[var(--color-text-dim)] hover:text-[var(--color-accent)] transition"
+              tabIndex={open ? 0 : -1}
+              className="btn btn-primary mt-4"
             >
-              {item.label}
+              Inizia ora →
             </Link>
-          ))}
-          <Link
-            href="/scopri"
-            onClick={() => setOpen(false)}
-            className="btn btn-primary mt-4"
-          >
-            Inizia ora →
-          </Link>
-        </nav>
-      )}
+          </nav>
+        </div>
+      </div>
     </header>
   );
 }
