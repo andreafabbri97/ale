@@ -45,7 +45,9 @@ export function Sidebar({ userEmail, isAdmin }: SidebarProps) {
     if (pendingHref && pendingHref !== item.href) return false;
 
     if (item.href === "/admin") return pathname === "/admin";
-    return pathname.startsWith(item.href);
+    // Match esatto OPPURE prefisso seguito da "/" (es. /admin/leads/123).
+    // Senza il "/" finale, /admin/leads matcherebbe anche /admin/leads-management.
+    return pathname === item.href || pathname.startsWith(item.href + "/");
   }
 
   return (
