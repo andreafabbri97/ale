@@ -25,7 +25,7 @@ export default async function GraziePage({ searchParams }: PageProps) {
   const sub =
     source === "networker"
       ? "Ti contattiamo entro 48h per fissare la call conoscitiva."
-      : "Tra pochi minuti riceverai la prima email — controlla anche lo spam.";
+      : "La tua guida è pronta qui sotto. Tra poco ti scriviamo anche su WhatsApp.";
 
   return (
     <>
@@ -41,13 +41,40 @@ export default async function GraziePage({ searchParams }: PageProps) {
           </h1>
           <p className="text-lg md:text-xl text-[var(--color-text-dim)]">{sub}</p>
 
-          <div className="card text-left max-w-xl mx-auto mt-12">
+          {/* DOWNLOAD GUIDA — visibile solo per source=cliente */}
+          {source === "cliente" && (
+            <div className="card mt-10 max-w-xl mx-auto border-[var(--color-accent)]/40">
+              <div className="flex items-start gap-4">
+                <div className="text-4xl">📘</div>
+                <div className="flex-1 text-left">
+                  <p className="eyebrow mb-2">Download immediato</p>
+                  <h3 className="text-xl font-bold mb-1">
+                    I 7 errori finanziari che fanno gli italiani
+                  </h3>
+                  <p className="text-sm text-[var(--color-text-dim)] mb-4">
+                    Guida PDF gratuita — 10 pagine · ~6 minuti di lettura
+                  </p>
+                  <a
+                    href="/guida-7-errori-finanziari.pdf"
+                    download
+                    target="_blank"
+                    rel="noopener"
+                    className="btn btn-primary"
+                  >
+                    ⬇ Scarica la guida (PDF)
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="card text-left max-w-xl mx-auto mt-8">
             <h3 className="text-xl font-bold mb-4">Cosa succede ora</h3>
             <ul className="space-y-3 text-[var(--color-text-dim)]">
               <li className="flex gap-3">
                 <span className="text-[var(--color-accent)] font-bold">1.</span>
                 <span>
-                  <strong>Subito</strong>: ti arriva una email di conferma
+                  <strong>Subito</strong>: {source === "cliente" ? "scarichi la guida qui sopra" : "ti arriva una email di conferma"}
                 </span>
               </li>
               <li className="flex gap-3">
