@@ -24,8 +24,8 @@ export default function HomePage() {
             Noi partiamo da lì.
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-[var(--color-text-dim)] max-w-[60ch] mb-6 sm:mb-8 animate-fade-up delay-2">
-            NOA × One Tribe Academy è la piattaforma italiana che ti aiuta a capire come funziona
-            davvero il denaro. Niente &quot;soldi facili&quot;: prima si studia, poi si decide.
+            Un percorso formativo strutturato per capire come funziona davvero il denaro.
+            Niente &quot;soldi facili&quot;: prima si studia, poi si decide.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-up delay-3">
             <Link href="/scopri" className="btn btn-primary btn-lg animate-pulse-glow">
@@ -314,8 +314,8 @@ export default function HomePage() {
           <div className="space-y-1">
             {[
               {
-                q: "NOA è una promessa di guadagno?",
-                a: "No. NOA è una piattaforma di formazione finanziaria. Non garantiamo né suggeriamo risultati: gli esiti dipendono da preparazione, disciplina, capitale, condizioni di mercato, rischio assunto e altri fattori personali. Investire comporta sempre rischi, anche di perdita totale del capitale.",
+                q: "È una promessa di guadagno?",
+                a: "No. Si tratta di una piattaforma di formazione finanziaria. Non garantiamo né suggeriamo risultati: gli esiti dipendono da preparazione, disciplina, capitale, condizioni di mercato, rischio assunto e altri fattori personali. Investire comporta sempre rischi, anche di perdita totale del capitale.",
               },
               {
                 q: "Quanto costa?",
@@ -331,11 +331,11 @@ export default function HomePage() {
               },
               {
                 q: "Cosa significa \"collaborare\"?",
-                a: "NOA ha un programma per chi vuole distribuire il prodotto e crearsi un reddito. Se ti interessa, clicca \"Voglio collaborare\" e raccontaci di te.",
+                a: "Esiste un programma per chi vuole distribuire il percorso formativo e crearsi un'attività di vendita diretta. Se ti interessa, clicca \"Voglio collaborare\" e raccontaci di te.",
               },
               {
                 q: "È uno schema piramidale?",
-                a: "No. Gli schemi piramidali sono vietati dalla legge italiana (L. 173/2005). In NOA si guadagna solo dalla vendita di formazione reale ai clienti finali. Non si guadagna \"reclutando\" senza vendere prodotto.",
+                a: "No. Gli schemi piramidali sono vietati dalla legge italiana (L. 17 agosto 2005, n. 173). Si guadagna solo dalla vendita di formazione reale a clienti finali. Non si guadagna \"reclutando\" senza vendere prodotto.",
               },
             ].map((f, i) => (
               <Reveal

@@ -94,8 +94,8 @@ export default function PrivacyPage() {
                 presentazione opportunità) — base giuridica: consenso (art. 6.1.a GDPR)
               </li>
               <li>
-                <strong>Ricontatto commerciale</strong> per presentare i prodotti formativi NOA —
-                base giuridica: consenso esplicito al ricontatto
+                <strong>Ricontatto commerciale</strong> per presentare i prodotti formativi
+                proposti — base giuridica: consenso esplicito al ricontatto
               </li>
               <li>
                 <strong>Adempimento contratto</strong> per i collaboratori — base giuridica: art.
@@ -225,29 +225,21 @@ export default function PrivacyPage() {
               3.3 Programma collaboratori
             </h3>
             <p>
-              L&apos;adesione al programma collaboratori NOA è regolata da contratto separato. I
-              compensi derivano <strong>esclusivamente dalla vendita di prodotti formativi</strong>{" "}
-              a clienti finali, in conformità con la {siteConfig.norms.venditaDiretta}. Il
-              programma <strong>non remunera il mero reclutamento</strong>. Non sono garantiti
-              guadagni minimi né risultati specifici. Non si tratta di lavoro subordinato.
+              L&apos;adesione al programma collaboratori è regolata da contratto separato con il
+              provider della piattaforma formativa. I compensi derivano{" "}
+              <strong>esclusivamente dalla vendita di prodotti formativi</strong> a clienti
+              finali, in conformità con la {siteConfig.norms.venditaDiretta}. Il programma{" "}
+              <strong>non remunera il mero reclutamento</strong>. Non sono garantiti guadagni
+              minimi né risultati specifici. Non si tratta di lavoro subordinato.
             </p>
 
             <h3 className="text-xl font-bold text-[var(--color-text)] mt-6 mb-2">3.4 Marchi</h3>
             <p>
-              &quot;NOA&quot;, &quot;One Tribe Academy&quot;, &quot;One Tribe Global&quot; e i
-              relativi marchi, loghi e nomi di prodotti (Hummingbird, Lumen, Maitryx, Solexx)
-              appartengono ai rispettivi titolari. Il sito è gestito da {siteConfig.brand.name}{" "}
-              in qualità di <strong>collaboratore indipendente autorizzato</strong> e non è il
-              sito ufficiale del brand. Sito ufficiale NOA:{" "}
-              <a
-                href={siteConfig.brand.officialBrandUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--color-accent)] underline"
-              >
-                {siteConfig.brand.officialBrandUrl.replace("https://", "")}
-              </a>
-              .
+              I nomi dei software didattici menzionati (Hummingbird, Lumen, Maitryx, Solexx),
+              i nomi degli educatori e dei rispettivi servizi appartengono ai loro legittimi
+              titolari. Il sito è gestito da {siteConfig.brand.name} in qualità di{" "}
+              <strong>collaboratore indipendente autorizzato</strong> e non costituisce il sito
+              ufficiale del provider della piattaforma formativa proposta.
             </p>
 
             <h3 className="text-xl font-bold text-[var(--color-text)] mt-6 mb-2">

@@ -16,9 +16,11 @@ export const siteConfig = {
   // ----------------------------------------------------------------------
   brand: {
     name: "Alead",
-    tagline: "Distribuiamo NOA × One Tribe Academy",
+    tagline: "Educazione finanziaria · trading · investimenti",
     siteUrl: "https://ale-two-alpha.vercel.app",
-    officialBrandUrl: "https://noaitaly.io",
+    // URL del provider partner (la piattaforma formativa che distribuiamo).
+    // Lasciato vuoto: comunichiamo il partner solo direttamente, non a livello pubblico.
+    officialBrandUrl: "",
   },
 
   // ----------------------------------------------------------------------

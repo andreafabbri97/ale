@@ -1,7 +1,7 @@
 {
   "name": "Alead — Admin",
   "short_name": "Alead",
-  "description": "Pannello admin per la gestione lead di Alead (collaboratori NOA × One Tribe Academy).",
+  "description": "Pannello admin per la gestione lead di Alead.",
   "start_url": "/admin",
   "scope": "/",
   "display": "standalone",

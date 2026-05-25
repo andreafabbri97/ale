@@ -8,9 +8,9 @@ import { CountUp } from "@/components/count-up";
 import { BetaBanner } from "@/components/beta-banner";
 
 export const metadata: Metadata = {
-  title: "Diventa partner NOA · Costruisci un'attività nell'educazione finanziaria",
+  title: "Collabora · Costruisci un'attività nell'educazione finanziaria",
   description:
-    "Distribuisci NOA × One Tribe Academy: un prodotto reale, con clienti reali, in un mercato dove l'87% degli italiani ha bisogno di formazione.",
+    "Distribuisci un percorso formativo strutturato in un mercato dove l'alfabetizzazione finanziaria resta una sfida concreta.",
 };
 
 export default function CollaboraPage() {
@@ -30,9 +30,9 @@ export default function CollaboraPage() {
             <span className="text-[var(--color-accent)]">educazione finanziaria</span>.
           </h1>
           <p className="text-lg md:text-xl text-[var(--color-text-dim)] max-w-[65ch] mb-8 animate-fade-up delay-2">
-            Distribuisci NOA × One Tribe Academy: un prodotto reale, con clienti reali, in un
-            mercato dove <strong>l&apos;87% degli italiani</strong> ha bisogno di formazione e{" "}
-            <strong>solo il 3%</strong> ha accesso.
+            Distribuisci un percorso formativo strutturato in un mercato dove
+            l&apos;alfabetizzazione finanziaria resta una sfida concreta e la richiesta di
+            formazione continua a crescere.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-up delay-3">
             <Link href="#form-collab" className="btn btn-primary btn-lg animate-pulse-glow">
@@ -86,12 +86,13 @@ export default function CollaboraPage() {
         </div>
       </section>
 
-      {/* ============= PERCHÉ NOA ============= */}
+      {/* ============= PERCHÉ QUESTA PIATTAFORMA ============= */}
       <section className="py-20 bg-[var(--color-bg-2)]">
         <div className="container-page">
           <Reveal className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-              Cosa rende NOA <span className="text-[var(--color-accent)]">diversa</span>.
+              Cosa rende questa piattaforma{" "}
+              <span className="text-[var(--color-accent)]">diversa</span>.
             </h2>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -132,7 +133,7 @@ export default function CollaboraPage() {
             <Reveal stagger={1} className="card card-hover">
               <h3 className="text-2xl font-extrabold mb-3">Bonus di attivazione cliente</h3>
               <p className="text-[var(--color-text-dim)] mb-4">
-                Per ogni cliente che attiva un piano NOA ricevi un{" "}
+                Per ogni cliente che attiva un piano ricevi un{" "}
                 <strong className="text-[var(--color-accent)]">bonus una tantum</strong> sulla
                 vendita iniziale, in base al pacchetto:
               </p>
@@ -151,14 +152,14 @@ export default function CollaboraPage() {
                 </li>
               </ul>
               <p className="text-sm text-[var(--color-text-faint)] mt-4">
-                Bonus ufficiali dal piano compensi NOA × One Tribe Global.
+                Bonus ufficiali dal piano compensi del provider della piattaforma.
               </p>
             </Reveal>
 
             <Reveal stagger={2} className="card card-hover">
               <h3 className="text-2xl font-extrabold mb-3">Compenso mensile per rank</h3>
               <p className="text-[var(--color-text-dim)] mb-4">
-                Oltre ai bonus di attivazione, NOA prevede un{" "}
+                Oltre ai bonus di attivazione, è previsto un{" "}
                 <strong className="text-[var(--color-accent)]">compenso mensile</strong> legato al
                 volume di vendita personale e di team, distribuito su 14 livelli di rank
                 (da $500 a $1.000.000/mese).
@@ -292,7 +293,7 @@ export default function CollaboraPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
             {[
               ["5 min", "Conoscenza", "Ci raccontiamo, capiamo da dove arrivi."],
-              ["10 min", "Mercato e prodotto", "Ti mostriamo NOA dal vivo, i dati di mercato."],
+              ["10 min", "Mercato e prodotto", "Ti mostriamo la piattaforma dal vivo, i dati di mercato."],
               ["10 min", "Piano compensi", "Numeri trasparenti, rank, esempi reali."],
               ["5 min", "Tue domande", "Tutto quello che vuoi sapere. Poi decidi tu."],
             ].map(([time, title, desc], i) => (

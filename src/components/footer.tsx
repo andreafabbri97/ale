@@ -14,7 +14,7 @@ export function Footer() {
               <span>Alead</span>
             </Link>
             <p className="text-sm text-[var(--color-text-faint)] leading-relaxed">
-              Distribuiamo NOA × One Tribe Academy.
+              Educazione finanziaria, trading e investimenti.
               <br />
               Collaboratori indipendenti autorizzati.
             </p>
@@ -32,7 +32,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/scopri" className="hover:text-[var(--color-accent)]">
-                  Scopri NOA
+                  Scopri il percorso
                 </Link>
               </li>
               <li>
@@ -108,20 +108,11 @@ export function Footer() {
             consulente finanziario abilitato prima di prendere decisioni di investimento.
           </p>
           <p>
-            <strong>Marchi.</strong> &quot;NOA&quot;, &quot;One Tribe Academy&quot;,
-            &quot;One Tribe Global&quot; e i relativi loghi, nomi di prodotti (Hummingbird,
-            Lumen, Maitryx, Solexx) e materiali appartengono ai rispettivi titolari. Questo sito
-            è gestito da <strong>Alead</strong>, collaboratore indipendente autorizzato, e{" "}
-            <strong>non costituisce il sito ufficiale del brand</strong>. Sito ufficiale NOA:{" "}
-            <a
-              href="https://noaitaly.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-[var(--color-accent)]"
-            >
-              noaitaly.io
-            </a>
-            .
+            <strong>Marchi.</strong> I nomi dei software didattici menzionati
+            (Hummingbird, Lumen, Maitryx, Solexx), i nomi degli educatori e dei rispettivi
+            servizi appartengono ai loro legittimi titolari. Questo sito è gestito da{" "}
+            <strong>Alead</strong> in qualità di collaboratore indipendente autorizzato e non
+            costituisce il sito ufficiale del provider della piattaforma formativa proposta.
           </p>
           <p>
             <strong>Vendita diretta.</strong> L&apos;attività di collaborazione è regolata dalla{" "}

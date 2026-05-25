@@ -11,11 +11,11 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: {
-    default: "NOA Italia | Educazione finanziaria seria",
+    default: "Alead | Educazione finanziaria seria",
     template: "%s · Alead",
   },
   description:
-    "NOA × One Tribe Academy. La piattaforma italiana di educazione finanziaria. Niente promesse, solo formazione, strumenti AI e professionisti.",
+    "Alead. Un percorso formativo strutturato per comprendere mercati, rischio e gestione del capitale. Niente promesse, solo formazione, strumenti didattici e professionisti.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ),
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
-    title: "NOA Italia | Educazione finanziaria seria",
+    title: "Alead | Educazione finanziaria seria",
     description:
       "Percorso formativo per comprendere mercati, rischio e gestione del capitale. Nessuna garanzia di risultato.",
     type: "website",

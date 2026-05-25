@@ -8,9 +8,9 @@ import { CountUp } from "@/components/count-up";
 import { BetaBanner } from "@/components/beta-banner";
 
 export const metadata: Metadata = {
-  title: "Scopri NOA · Educazione finanziaria che funziona",
+  title: "Scopri il percorso · Educazione finanziaria che funziona",
   description:
-    "Ricevi la guida gratuita 'I 7 errori finanziari che fanno gli italiani' e scopri come iniziare a costruire la tua libertà finanziaria con NOA.",
+    "Ricevi la guida gratuita 'I 7 errori finanziari che fanno gli italiani' e scopri come iniziare a costruire la tua libertà finanziaria.",
 };
 
 export default function ScopriPage() {
@@ -33,7 +33,7 @@ export default function ScopriPage() {
               <p className="text-lg md:text-xl text-[var(--color-text-dim)] mb-8 animate-fade-up delay-2">
                 Scarica subito la guida gratuita{" "}
                 <strong>&quot;I 7 errori finanziari che fanno gli italiani&quot;</strong> e scopri
-                come iniziare a costruire la tua libertà finanziaria con NOA.
+                come iniziare a costruire la tua libertà finanziaria.
               </p>
               <ul className="space-y-3 text-[var(--color-text-dim)] animate-fade-up delay-3">
                 {[
@@ -173,7 +173,7 @@ export default function ScopriPage() {
               </div>
               <p className="text-sm text-[var(--color-text-faint)] mb-6">poi $152/mese</p>
               <ul className="space-y-2 text-sm text-[var(--color-text-dim)] mb-6">
-                {["Accademia NOA", "Macroeconomia", "Basi del trading", "Materie prime", "Metalli preziosi", "3 canali educativi di analisi"].map((f) => (
+                {["Accademia formativa", "Macroeconomia", "Basi del trading", "Materie prime", "Metalli preziosi", "3 canali educativi di analisi"].map((f) => (
                   <li key={f} className="flex gap-2">
                     <span className="text-[var(--color-accent)] font-bold">✓</span>
                     {f}
@@ -264,7 +264,8 @@ export default function ScopriPage() {
             stagger={4}
             className="text-center text-sm text-[var(--color-text-faint)] mt-8"
           >
-            Prezzi in USD. Pagamenti gestiti direttamente da NOA. Disdetta possibile mese per mese.
+            Prezzi in USD. Pagamenti gestiti direttamente dal provider della piattaforma.
+            Disdetta possibile mese per mese.
           </Reveal>
         </div>
       </section>
