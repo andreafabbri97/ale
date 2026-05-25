@@ -251,29 +251,72 @@ export default function HomePage() {
               Imparerai da chi <span className="text-[var(--color-accent)]">vive di questo</span>{" "}
               da decenni.
             </h2>
+            <p className="mt-4 text-base sm:text-lg text-[var(--color-text-dim)]">
+              Un team di professionisti dei mercati con esperienza pluridecennale.
+              Sessioni live, materiali strutturati, didattica continua.
+            </p>
           </Reveal>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {[
-              ["MP", "Dott. Michele Pellegrino", "Macroeconomia"],
-              ["CV", "Carlo Vallotto", "Metalli preziosi · Materie prime"],
-              ["DR", "Donato Rossiello", "Mercato e indici azionari"],
-              ["RF", "Rosita Furnari", "Analisi volumetrica"],
-              ["FR", "Fabrizio Ribbeni", "Teoria delle onde di Elliott"],
-              ["AH", "Abdallah Harfouch", "Scalping US30 (live giornaliere)"],
-            ].map(([initials, name, role], i) => (
+              {
+                icon: "🌍",
+                area: "Macroeconomia",
+                title: "Economista indipendente",
+                desc: "Chief Economist e fondatore di una realtà italiana di ricerca sui mercati. Formazione keynesiana, già consulente finanziario e gestore di patrimoni presso primarie banche. Esperto riconosciuto a livello internazionale di analisi tecnica avanzata.",
+              },
+              {
+                icon: "🥇",
+                area: "Metalli Preziosi · Materie Prime",
+                title: "Trader indipendente dal 1998",
+                desc: "Consulente e analista tecnico con esperienza pluridecennale su oro, argento, metalli preziosi e materie prime. Senior Advisor per istituti bancari, associazioni industriali e aziende. Fondatore di un portale italiano di riferimento sui metalli preziosi.",
+              },
+              {
+                icon: "📈",
+                area: "Mercato e Indici Azionari",
+                title: "Analista e consulente finanziario",
+                desc: "Trader professionista dal 2015, Master in finanza alla SDA Bocconi di Milano. Manager nella divisione gestione del risparmio e investimenti di una compagnia assicurativa. Insegna a leggere indici, ETF e mercato azionario con metodo semplice e operativo.",
+              },
+              {
+                icon: "📊",
+                area: "Analisi Volumetrica",
+                title: "Trader e formatrice dal 2013",
+                desc: "Oltre 10 anni di esperienza nell'analisi dei volumi. Formata nelle principali scuole internazionali di volumetria, ha rappresentato in Italia una delle piattaforme di riferimento del settore. Apprezzata per chiarezza didattica e sessioni live di trading intraday.",
+              },
+              {
+                icon: "🌊",
+                area: "Teoria delle Onde di Elliott",
+                title: "Technical Analyst",
+                desc: "Co-fondatore di una società italiana specializzata in Elliott Wave Theory. Lettura avanzata della price action e applicazione della Modern Elliott Wave Theory (MEWT) su indici, forex, materie prime e crypto. Metodo, disciplina e attenzione ai dettagli.",
+              },
+              {
+                icon: "⚡",
+                area: "Scalping US30 — Live giornaliere",
+                title: "Trader internazionale, base Dubai",
+                desc: "Quasi 20 anni di esperienza sui mercati. Fondatore di un gruppo di formazione finanziaria internazionale, specialista in scalping sull'indice US30. Conduce sessioni live giornaliere. Filosofia: prima impari a tenere il denaro, poi a farlo.",
+              },
+            ].map((edu, i) => (
               <Reveal
-                key={name}
+                key={edu.area}
                 stagger={((i % 6) + 1) as 1 | 2 | 3 | 4 | 5 | 6}
-                className="text-center p-4 group"
+                className="card card-hover flex gap-4 group"
               >
-                <div className="w-24 h-24 mx-auto mb-3 rounded-full grid place-items-center bg-gradient-to-br from-[var(--color-bg-3)] to-[var(--color-bg-2)] border-2 border-[var(--color-border-strong)] text-[var(--color-accent)] text-2xl font-extrabold transition-all duration-300 group-hover:scale-110 group-hover:border-[var(--color-accent)] group-hover:shadow-[0_0_30px_rgba(59,212,248,0.4)]">
-                  {initials}
+                <div className="shrink-0 grid place-items-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[rgba(59,212,248,0.15)] to-[rgba(44,123,229,0.15)] text-2xl sm:text-3xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  {edu.icon}
                 </div>
-                <h4 className="font-bold">{name}</h4>
-                <p className="text-sm text-[var(--color-text-dim)]">{role}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="eyebrow !text-[10px] mb-1">{edu.area}</p>
+                  <h4 className="font-bold text-base sm:text-lg mb-2">{edu.title}</h4>
+                  <p className="text-sm text-[var(--color-text-dim)] leading-relaxed">
+                    {edu.desc}
+                  </p>
+                </div>
               </Reveal>
             ))}
           </div>
+          <Reveal as="p" stagger={4} className="text-center text-xs text-[var(--color-text-faint)] mt-8 max-w-2xl mx-auto">
+            I nominativi dei singoli educatori vengono presentati durante la call gratuita
+            riservata, una volta verificato l&apos;interesse formativo del candidato.
+          </Reveal>
         </div>
       </section>
 
