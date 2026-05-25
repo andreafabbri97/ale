@@ -10,25 +10,12 @@ interface NavItem {
   href: string;
   label: string;
   icon: string;
-  matchSearch?: { key: string; value: string };
 }
 
 const NAV_ITEMS: NavItem[] = [
   { href: "/admin", label: "Dashboard", icon: "▦" },
   { href: "/admin/leads-management", label: "Gestione lead", icon: "🌳" },
   { href: "/admin/leads", label: "Tutti i lead", icon: "✉" },
-  {
-    href: "/admin/leads?source=cliente",
-    label: "Solo clienti",
-    icon: "👤",
-    matchSearch: { key: "source", value: "cliente" },
-  },
-  {
-    href: "/admin/leads?source=networker",
-    label: "Solo networker",
-    icon: "🤝",
-    matchSearch: { key: "source", value: "networker" },
-  },
 ];
 
 interface SidebarProps {
@@ -56,23 +43,8 @@ export function Sidebar({ userEmail, isAdmin }: SidebarProps) {
     // Se c'è un pending diverso, disattiva tutti gli altri (no doppi highlight)
     if (pendingHref && pendingHref !== item.href) return false;
 
-    const itemPath = item.href.split("?")[0];
-
-    if (item.matchSearch) {
-      return (
-        pathname.startsWith(itemPath) &&
-        searchParams.get(item.matchSearch.key) === item.matchSearch.value
-      );
-    }
-
-    if (itemPath === "/admin") return pathname === "/admin";
-
-    // /admin/leads attivo solo se non ci sono filtri source (perché quelli hanno una voce dedicata)
-    if (itemPath === "/admin/leads") {
-      return pathname.startsWith("/admin/leads") && !searchParams.get("source");
-    }
-
-    return pathname.startsWith(itemPath);
+    if (item.href === "/admin") return pathname === "/admin";
+    return pathname.startsWith(item.href);
   }
 
   return (
