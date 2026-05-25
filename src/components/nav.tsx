@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { SpikeIcon } from "@/components/spike-icon";
 
 interface NavProps {
@@ -10,9 +11,45 @@ interface NavProps {
 
 export function Nav({ variant = "page" }: NavProps) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Chiudi il drawer quando si naviga via route change (link ancora a parte —
+  // quelli chiamano già setOpen(false) onClick).
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  // Chiudi con tasto Esc + blocca scroll del body quando il drawer è aperto.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] backdrop-blur-xl bg-[rgba(5,8,15,0.7)]">
+    <>
+      {/* Backdrop mobile — sibling dell'header per stare sotto al drawer (z-50)
+          ma sopra al contenuto della pagina. Click ovunque = chiude. */}
+      <button
+        type="button"
+        aria-label="Chiudi menù"
+        aria-hidden={!open}
+        onClick={() => setOpen(false)}
+        tabIndex={-1}
+        className={`md:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+          open
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+      />
+      <header className="sticky top-0 z-50 border-b border-[var(--color-border)] backdrop-blur-xl bg-[rgba(5,8,15,0.7)]">
       <div className="container-page flex items-center justify-between py-4">
         <Link
           href="/"
@@ -91,7 +128,7 @@ export function Nav({ variant = "page" }: NavProps) {
         aria-hidden={!open}
       >
         <div className="overflow-hidden">
-          <nav className="border-t border-[var(--color-border)] bg-[var(--color-bg)] px-5 py-6 flex flex-col gap-1">
+          <nav className="relative z-10 border-t border-[var(--color-border)] bg-[var(--color-bg)] px-5 py-6 flex flex-col gap-1">
             {(variant === "home"
               ? [
                   { href: "#problema", label: "Il problema" },
@@ -126,5 +163,6 @@ export function Nav({ variant = "page" }: NavProps) {
         </div>
       </div>
     </header>
+    </>
   );
 }
