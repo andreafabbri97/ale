@@ -82,14 +82,34 @@ export function Nav({ variant = "page" }: NavProps) {
       </div>
 
       {open && (
-        <nav className="md:hidden border-t border-[var(--color-border)] bg-[var(--color-bg)] px-5 py-6 flex flex-col gap-4">
-          <Link href="/" onClick={() => setOpen(false)} className="py-2 border-b border-[var(--color-border)]">
-            Home
-          </Link>
-          <Link href="/scopri" onClick={() => setOpen(false)} className="py-2 border-b border-[var(--color-border)]">
-            Scopri il percorso
-          </Link>
-          <Link href="/scopri" onClick={() => setOpen(false)} className="btn btn-primary mt-2">
+        <nav className="md:hidden border-t border-[var(--color-border)] bg-[var(--color-bg)] px-5 py-6 flex flex-col gap-1">
+          {(variant === "home"
+            ? [
+                { href: "#problema", label: "Il problema" },
+                { href: "#prodotto", label: "Cosa offre" },
+                { href: "#educatori", label: "Educatori" },
+                { href: "#faq", label: "FAQ" },
+              ]
+            : [
+                { href: "/", label: "Home" },
+                { href: "/scopri", label: "Scopri" },
+                { href: "/collabora", label: "Collabora" },
+              ]
+          ).map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              className="py-3 border-b border-[var(--color-border)] text-[var(--color-text-dim)] hover:text-[var(--color-accent)] transition"
+            >
+              {item.label}
+            </Link>
+          ))}
+          <Link
+            href="/scopri"
+            onClick={() => setOpen(false)}
+            className="btn btn-primary mt-4"
+          >
             Inizia ora →
           </Link>
         </nav>
