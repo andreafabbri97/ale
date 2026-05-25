@@ -2,7 +2,6 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import Link from "next/link";
 import { submitLead } from "@/app/actions/submit-lead";
 
 interface FormState {
@@ -132,23 +131,18 @@ export function ClientLeadForm() {
       </fieldset>
 
       <div className="mb-6">
-        <label className="flex items-start gap-2 text-sm text-[var(--color-text-dim)] cursor-pointer">
-          <input type="checkbox" name="privacy" required className="mt-1 accent-[var(--color-accent)]" />
-          <span>
-            Accetto la{" "}
-            <Link href="/privacy" target="_blank" className="text-[var(--color-accent)] underline">
-              privacy policy
-            </Link>{" "}
-            <span className="text-[var(--color-accent)]">*</span>
-          </span>
+        <label className="flex items-center gap-3 text-sm cursor-pointer p-3 rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-2)] hover:border-[var(--color-accent)] transition">
+          <input
+            type="checkbox"
+            name="not_robot"
+            required
+            className="w-5 h-5 accent-[var(--color-accent)] shrink-0"
+          />
+          <span className="font-medium">Non sono un robot</span>
         </label>
       </div>
 
       <SubmitButton label="Ricevi la guida gratis →" />
-
-      <p className="mt-4 text-xs text-center text-[var(--color-text-faint)]">
-        🔒 I tuoi dati sono al sicuro. Niente spam, mai.
-      </p>
     </form>
   );
 }
@@ -287,15 +281,14 @@ export function NetworkerLeadForm() {
       </div>
 
       <div className="mb-3">
-        <label className="flex items-start gap-2 text-sm text-[var(--color-text-dim)] cursor-pointer">
-          <input type="checkbox" name="privacy" required className="mt-1 accent-[var(--color-accent)]" />
-          <span>
-            Accetto la{" "}
-            <Link href="/privacy" target="_blank" className="text-[var(--color-accent)] underline">
-              privacy policy
-            </Link>{" "}
-            <span className="text-[var(--color-accent)]">*</span>
-          </span>
+        <label className="flex items-center gap-3 text-sm cursor-pointer p-3 rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-2)] hover:border-[var(--color-accent)] transition">
+          <input
+            type="checkbox"
+            name="not_robot"
+            required
+            className="w-5 h-5 accent-[var(--color-accent)] shrink-0"
+          />
+          <span className="font-medium">Non sono un robot</span>
         </label>
       </div>
 

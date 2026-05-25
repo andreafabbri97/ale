@@ -76,7 +76,7 @@ export async function submitLead(formData: FormData): Promise<SubmitResult> {
   const fullName = asString(formData.get("full_name"));
   const email = asString(formData.get("email"));
   const phone = asString(formData.get("phone"));
-  const privacy = formData.get("privacy") === "on";
+  const notRobot = formData.get("not_robot") === "on";
 
   if (!fullName || !email) {
     return { ok: false, error: "Compila nome ed email." };
@@ -89,8 +89,8 @@ export async function submitLead(formData: FormData): Promise<SubmitResult> {
   if (!isValidEmail(email)) {
     return { ok: false, error: "Email non valida." };
   }
-  if (!privacy) {
-    return { ok: false, error: "Devi accettare la privacy policy." };
+  if (!notRobot) {
+    return { ok: false, error: "Conferma di non essere un robot." };
   }
 
   const refCode = asString(formData.get("ref_code"));
@@ -111,7 +111,7 @@ export async function submitLead(formData: FormData): Promise<SubmitResult> {
     full_name: fullName.slice(0, 200),
     email: email.toLowerCase().slice(0, 200),
     phone: phone ? phone.slice(0, 50) : "",
-    privacy_accepted: privacy,
+    privacy_accepted: true,
     marketing_accepted: formData.get("marketing") === "on",
     ref_code: refCode,
     utm_source: utmSource,
