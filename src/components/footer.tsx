@@ -35,11 +35,6 @@ export function Footer() {
                   Scopri il percorso
                 </Link>
               </li>
-              <li>
-                <Link href="/collabora" className="hover:text-[var(--color-accent)]">
-                  Collabora
-                </Link>
-              </li>
             </ul>
           </div>
 

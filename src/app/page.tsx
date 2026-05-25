@@ -29,10 +29,7 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-up delay-3">
             <Link href="/scopri" className="btn btn-primary btn-lg animate-pulse-glow">
-              Voglio imparare →
-            </Link>
-            <Link href="/collabora" className="btn btn-ghost btn-lg">
-              Voglio collaborare →
+              Inizia ora →
             </Link>
           </div>
           <p className="mt-6 text-xs text-[var(--color-text-faint)] animate-fade-up delay-4">
@@ -289,14 +286,11 @@ export default function HomePage() {
             </h2>
           </Reveal>
           <Reveal stagger={1} as="p" className="text-lg md:text-xl text-[var(--color-text-dim)] mb-10">
-            Scegli da dove vuoi iniziare.
+            Richiedi la guida gratuita e inizia il percorso.
           </Reveal>
-          <Reveal stagger={2} className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Reveal stagger={2} className="flex justify-center">
             <Link href="/scopri" className="btn btn-primary btn-lg animate-pulse-glow">
-              Voglio imparare →
-            </Link>
-            <Link href="/collabora" className="btn btn-ghost btn-lg">
-              Voglio collaborare →
+              Inizia ora →
             </Link>
           </Reveal>
         </div>

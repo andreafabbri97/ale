@@ -87,9 +87,6 @@ export function Nav({ variant = "page" }: NavProps) {
           <Link href="/scopri" onClick={() => setOpen(false)} className="py-2 border-b border-[var(--color-border)]">
             Scopri il percorso
           </Link>
-          <Link href="/collabora" onClick={() => setOpen(false)} className="py-2 border-b border-[var(--color-border)]">
-            Collabora
-          </Link>
           <Link href="/scopri" onClick={() => setOpen(false)} className="btn btn-primary mt-2">
             Inizia ora →
           </Link>
