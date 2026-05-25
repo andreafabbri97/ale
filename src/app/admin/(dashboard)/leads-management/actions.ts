@@ -89,13 +89,32 @@ export async function getTreeState(): Promise<TreeStateResult | ErrorResult> {
     } = await supabase.auth.getUser();
     if (!user) return { ok: false, error: "Sessione scaduta." };
 
-    const { data: placementsRaw } = await supabase
+    const { data: placementsRaw, error: placementsErr } = await supabase
       .from("placements")
       .select("*");
+
+    if (placementsErr) {
+      // Rileva esplicitamente "table not found" → la migration 0004 non è stata eseguita
+      const msg = placementsErr.message ?? "";
+      const code = (placementsErr as { code?: string }).code ?? "";
+      if (code === "PGRST205" || msg.toLowerCase().includes("placements")) {
+        return {
+          ok: false,
+          error:
+            "Tabella `placements` mancante nel DB. Esegui la migration 0004_binary_tree.sql in Supabase SQL Editor.",
+        };
+      }
+      return { ok: false, error: `Errore DB: ${msg || code}` };
+    }
+
     const placements = (placementsRaw ?? []) as Placement[];
 
     if (placements.length === 0) {
-      return { ok: true, root: null, admins: [] };
+      return {
+        ok: false,
+        error:
+          "Albero vuoto. Esegui la migration 0004_binary_tree.sql in Supabase SQL Editor: il seed inserisce automaticamente i 3 admin nelle posizioni corrette.",
+      };
     }
 
     const { data: collabsRaw } = await supabase
