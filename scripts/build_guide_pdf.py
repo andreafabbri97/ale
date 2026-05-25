@@ -26,6 +26,7 @@ from reportlab.platypus import (
     BaseDocTemplate,
     Frame,
     Image,
+    KeepTogether,
     NextPageTemplate,
     PageBreak,
     PageTemplate,
@@ -129,6 +130,7 @@ def make_styles(t: Theme) -> Styles:
             textColor=t.text,
             spaceAfter=14,
             spaceBefore=0,
+            keepWithNext=1,
         ),
         h2=ParagraphStyle(
             "H2",
@@ -139,6 +141,7 @@ def make_styles(t: Theme) -> Styles:
             textColor=t.text,
             spaceAfter=10,
             spaceBefore=14,
+            keepWithNext=1,
         ),
         h3=ParagraphStyle(
             "H3",
@@ -149,6 +152,7 @@ def make_styles(t: Theme) -> Styles:
             textColor=t.accent,
             spaceAfter=6,
             spaceBefore=12,
+            keepWithNext=1,
         ),
         eyebrow=ParagraphStyle(
             "Eyebrow",
@@ -158,6 +162,7 @@ def make_styles(t: Theme) -> Styles:
             leading=12,
             textColor=t.accent,
             spaceAfter=6,
+            keepWithNext=1,
         ),
         body=body,
         lead=ParagraphStyle(
@@ -279,7 +284,7 @@ def callout(
     t: Theme,
     color: HexColor | None = None,
     bg_alpha: float | None = None,
-) -> Table:
+) -> KeepTogether:
     color = color or t.accent
     bg_alpha = bg_alpha if bg_alpha is not None else (0.10 if t.name == "light" else 0.08)
     p = Paragraph(text_html, s.body)
@@ -297,34 +302,47 @@ def callout(
             ]
         )
     )
-    return tbl
+    return KeepTogether([tbl])
 
 
-def action_box(title: str, items: list[str], s: Styles, t: Theme) -> Table:
+def action_box(title: str, items: list[str], s: Styles, t: Theme) -> KeepTogether:
     """Box 'Cosa fare questa settimana' — sfondo success leggero."""
-    title_p = Paragraph(
-        f'<font color="{t.success.hexval()}"><b>{title}</b></font>', s.body
+    item_style = ParagraphStyle(
+        "ActionItem",
+        parent=s.body,
+        fontSize=10,
+        leading=14,
+        spaceAfter=3,
+        alignment=TA_LEFT,
+        leftIndent=10,
+        bulletIndent=0,
     )
-    bullets_html = "<br/>".join(f"&#9745; {item}" for item in items)
-    bullets_p = Paragraph(bullets_html, s.body)
+    body_flowables: list = [
+        Paragraph(
+            f'<font color="{t.success.hexval()}"><b>{title}</b></font>', s.body
+        )
+    ]
+    for it in items:
+        body_flowables.append(Paragraph(f"&bull; {it}", item_style))
+
     bg = Color(t.success.red, t.success.green, t.success.blue, alpha=0.08)
-    tbl = Table([[title_p], [bullets_p]], colWidths=[16 * cm])
+    tbl = Table([[body_flowables]], colWidths=[16 * cm])
     tbl.setStyle(
         TableStyle(
             [
                 ("BACKGROUND", (0, 0), (-1, -1), bg),
                 ("BOX", (0, 0), (-1, -1), 1, t.success),
-                ("LEFTPADDING", (0, 0), (-1, -1), 14),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 14),
-                ("TOPPADDING", (0, 0), (-1, 0), 12),
-                ("BOTTOMPADDING", (0, -1), (-1, -1), 12),
+                ("LEFTPADDING", (0, 0), (-1, -1), 12),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 12),
+                ("TOPPADDING", (0, 0), (-1, -1), 10),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 10),
             ]
         )
     )
-    return tbl
+    return KeepTogether([tbl])
 
 
-def example_box(text_html: str, s: Styles, t: Theme) -> Table:
+def example_box(text_html: str, s: Styles, t: Theme) -> KeepTogether:
     """Box 'Esempio numerico' — sfondo accent_2 leggero."""
     bg = Color(t.accent_2.red, t.accent_2.green, t.accent_2.blue, alpha=0.08)
     p = Paragraph(
@@ -345,10 +363,10 @@ def example_box(text_html: str, s: Styles, t: Theme) -> Table:
             ]
         )
     )
-    return tbl
+    return KeepTogether([tbl])
 
 
-def scenarios_table(rows: list[tuple[str, str, str]], s: Styles, t: Theme) -> Table:
+def scenarios_table(rows: list[tuple[str, str, str]], s: Styles, t: Theme) -> KeepTogether:
     th = ParagraphStyle(
         "TH",
         parent=s.body,
@@ -398,7 +416,7 @@ def scenarios_table(rows: list[tuple[str, str, str]], s: Styles, t: Theme) -> Ta
             ]
         )
     )
-    return tbl
+    return KeepTogether([tbl])
 
 
 # ---------------------------------------------------------------------------
@@ -793,7 +811,7 @@ def build_story(t: Theme, s: Styles) -> list:
             ]
         )
     )
-    story.append(quad)
+    story.append(KeepTogether([quad]))
     story.append(Spacer(1, 0.5 * cm))
     story.append(
         Paragraph(
@@ -1187,15 +1205,20 @@ def build_story(t: Theme, s: Styles) -> list:
         alignment=TA_LEFT,
     )
 
-    current_cat = None
-    for cat, item in checklist_items:
-        if cat != current_cat:
-            if current_cat is not None:
-                story.append(Spacer(1, 0.2 * cm))
-            story.append(Paragraph(cat, cat_style))
-            story.append(Spacer(1, 0.1 * cm))
-            current_cat = cat
-        story.append(Paragraph(f"&#9744;  {item}", chk_style))
+    # Raggruppa per categoria così header + voci stanno insieme
+    from itertools import groupby
+    for cat, group in groupby(checklist_items, key=lambda x: x[0]):
+        items_in_cat = list(group)
+        block: list = [Paragraph(cat, cat_style), Spacer(1, 0.1 * cm)]
+        for _, item in items_in_cat:
+            # Uso [ ] ASCII per garantire rendering anche senza font Unicode
+            block.append(
+                Paragraph(
+                    f'<font face="Helvetica-Bold">[  ]</font>  {item}', chk_style
+                )
+            )
+        block.append(Spacer(1, 0.2 * cm))
+        story.append(KeepTogether(block))
     story.append(PageBreak())
 
     # ===========================================================

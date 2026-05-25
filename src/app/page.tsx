@@ -354,19 +354,15 @@ export default function HomePage() {
               },
               {
                 q: "Quanto costa?",
-                a: "3 piani: Starter (~$159 primo mese, poi $152/mese), Pro (~$845 primo mese, $152/mese), Elite (~$1.699 primo mese, $152/mese). Tutti i dettagli nella call gratuita.",
+                a: "Il percorso è in abbonamento mensile con disdetta libera. I dettagli economici li approfondiamo nella call gratuita di 30 minuti, dove valutiamo insieme quale livello fa per te.",
               },
               {
                 q: "Sono un principiante totale, posso iniziare?",
-                a: "Sì. Il piano Starter è pensato proprio per chi non sa nulla. Si parte dalle basi assolute con video, sessioni live e supporto.",
+                a: "Sì. Il percorso parte dalle basi assolute con video, sessioni live e supporto. Non serve alcuna conoscenza pregressa di mercati o investimenti.",
               },
               {
                 q: "Posso provare prima di pagare?",
                 a: "Sì, prenotiamo una call gratuita di 30 minuti dove ti mostriamo dal vivo la piattaforma e capiamo insieme se fa per te.",
-              },
-              {
-                q: "Cosa significa \"collaborare\"?",
-                a: "Esiste un programma per chi vuole distribuire il percorso formativo e crearsi un'attività di vendita diretta. Se ti interessa, clicca \"Voglio collaborare\" e raccontaci di te.",
               },
               {
                 q: "È uno schema piramidale?",
