@@ -98,15 +98,13 @@ export function ClientLeadForm() {
 
       <div className="mb-5">
         <label htmlFor="phone" className="block text-sm font-semibold mb-2">
-          Telefono / WhatsApp{" "}
-          <span className="text-[var(--color-text-faint)] font-normal text-xs">
-            (opzionale, per ricontatto)
-          </span>
+          Telefono / WhatsApp <span className="text-[var(--color-accent)]">*</span>
         </label>
         <input
           id="phone"
           name="phone"
           type="tel"
+          required
           autoComplete="tel"
           placeholder="+39 ..."
           className="input"

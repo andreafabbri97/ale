@@ -81,9 +81,9 @@ export async function submitLead(formData: FormData): Promise<SubmitResult> {
   if (!fullName || !email) {
     return { ok: false, error: "Compila nome ed email." };
   }
-  // Telefono obbligatorio solo per i lead networker (servizio recruiting via call).
-  // Per i lead cliente B2C, lo richiediamo opzionale (la guida arriva via email).
-  if (source === "networker" && !phone) {
+  // Telefono obbligatorio su entrambi i form: ci serve per il ricontatto
+  // WhatsApp (B2C) e per la call conoscitiva (B2B networker).
+  if (!phone) {
     return { ok: false, error: "Inserisci un telefono / WhatsApp per il ricontatto." };
   }
   if (!isValidEmail(email)) {
